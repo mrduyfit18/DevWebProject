@@ -9,7 +9,7 @@ exports.index = (req, res, next) => {
 
 exports.show = (req, res, next) => {
     // Get product from model
-    const product = productsModel.getProduct();
+    const product = productsModel.getProduct(req.params.id);
     // Pass data to view to display list of books
     res.render('store/productDetail', {product});
 };

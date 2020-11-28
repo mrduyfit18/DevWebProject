@@ -78,6 +78,6 @@ exports.list = () => {
     return listProducts;
 }
 
-exports.getProduct = () => {
-    return listProducts[0];
+exports.getProduct = (id) => {
+    return listProducts[id];
 }
