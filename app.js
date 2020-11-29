@@ -9,6 +9,8 @@ const usersRouter = require('./routes/users');
 // const signinRouter = require('./routes/signin');
 // const signupRouter  = require('./routes/signup');
 const productsRouter = require('./routes/store/products');
+//const b = require('./DAL/loadDatabase');
+//b.Connect().then();
 
 
 const app = express();
