@@ -9,7 +9,7 @@ const usersRouter = require('./routes/users');
 // const signinRouter = require('./routes/signin');
 // const signupRouter  = require('./routes/signup');
 const productsRouter = require('./routes/store/products');
-//const productDetailRouter = require('./routes/store/productDetail');
+
 
 const app = express();
 

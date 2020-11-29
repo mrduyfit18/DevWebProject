@@ -1,15 +1,19 @@
 const productsModel = require('../models/productsModel');
 
-exports.index = (req, res, next) => {
+exports.index = async (req, res, next) => {
     // Get products from model
-    const products = productsModel.list();
-    // Pass data to view to display list of books
+    const products = await productsModel.list();
+    //console.log(products);
+    // Pass data to view to display list of products
     res.render('store/products', { products, onStore: 'active'});
 };
 
-exports.show = (req, res, next) => {
+exports.Show = async (req, res, next) => {
     // Get product from model
-    const product = productsModel.getProduct(req.params.id);
-    // Pass data to view to display list of books
-    res.render('store/productDetail', {product});
+    //await console.log(req.params._id);
+    const product = await productsModel.getProduct(await req.params._id);
+    if(typeof(product) !== 'undefined') {
+        res.render('store/productDetail', {product: product[0]});
+    }
+
 };
