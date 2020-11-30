@@ -4,7 +4,7 @@ const ObjectId = require('mongodb').ObjectId;
 const uri ='mongodb+srv://mrduyfit:Ptudw1831@web.znmrk.mongodb.net/data?retryWrites=true&w=majority';
 
 // Create a new MongoClient
-const client = new MongoClient(uri);
+const client = new MongoClient(uri, {useUnifiedTopology: true});
 let db;
 async function run() {
     try {

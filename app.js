@@ -9,8 +9,9 @@ const usersRouter = require('./routes/users');
 // const signinRouter = require('./routes/signin');
 // const signupRouter  = require('./routes/signup');
 const productsRouter = require('./routes/store/products');
-//const b = require('./DAL/loadDatabase');
-//b.Connect().then();
+const aboutRouter = require('./routes/about');
+const FAQRouter = require('./routes/faq');
+const galleryRouter = require('./routes/gallery');
 
 
 const app = express();
@@ -28,6 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/store', productsRouter);
+app.use('/about', aboutRouter);
+app.use('/faq', FAQRouter);
+app.use('/gallery', galleryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

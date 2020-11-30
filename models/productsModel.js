@@ -20,7 +20,13 @@ exports.getProduct = async (id) => {
     }
 }
 
-exports.getProductByType = async (type, number) =>{
+exports.getProductByType = async (type) =>{
+    const collection = database().collection('Products');
+    let result =  await collection.find({'type': type});
+    return await result.toArray().then();
+}
+
+exports.getProductByTypeAndNumber = async (type, number) =>{
     const collection = database().collection('Products');
     let result =  await collection.find({'type': type}).limit(number);
     return await result.toArray().then();
