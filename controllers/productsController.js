@@ -12,8 +12,5 @@ exports.Show = async (req, res, next) => {
     // Get product from model
     //await console.log(req.params._id);
     const product = await productsModel.getProduct(await req.params._id);
-    if(typeof(product) !== 'undefined') {
-        res.render('store/productDetail', {product: product[0]});
-    }
-
+    res.render('store/productDetail', {product});
 };

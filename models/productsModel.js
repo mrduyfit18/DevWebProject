@@ -1,16 +1,27 @@
-const db = require('../DAL/loadDatabase');
+const {database} = require('../DAL/loadDatabase');
+const ObjectId = require('mongodb').ObjectId;
 //let listProducts;
 
 // exports.Init = async () => {
 //     listProducts = await db.Connect();
 // }
 
+
 exports.list = async () => {
-    return await db.GetAll().then();
+    const collection = await database().collection('Products');
+    let result =  await collection.find({});
+    return await result.toArray().then();
 }
 
 exports.getProduct = async (id) => {
-    //console.log(id);
-    return await db.getFromDB(id).then();
+    const collection = database().collection('Products');
+    if(id.length > 11){
+        return  await collection.findOne({'_id': ObjectId(id)});
+    }
 }
 
+exports.getProductByType = async (type, number) =>{
+    const collection = database().collection('Products');
+    let result =  await collection.find({'type': type}).limit(number);
+    return await result.toArray().then();
+}

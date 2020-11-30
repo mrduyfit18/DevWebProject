@@ -104,7 +104,7 @@
                     <div class="wrapper">
                         <div class="content">
                             <hr class="offset-sm">
-                            <a href="./store/" rel="nofollow" class="btn btn-default black"> Buy now </a>
+                            <a href="./store" rel="nofollow" class="btn btn-default black"> Buy now </a>
                         </div>
                     </div>
                 </div>
@@ -160,15 +160,15 @@
         <hr class="offset-lg">
 
         <div class="row">
-
+            {{#each Desktops}}
             <div class="col-sm-6 col-md-3 product">
                 <div class="body">
                     <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/apple-imac-27-retina.jpg" alt="Apple iMac 27 Retina"/></a>
+                    <a href="/store/{{_id}}"><img src="{{cover}}" alt="{{manufacturer}} {{name}}"/></a>
 
                     <div class="content align-center">
-                        <p class="price">$2099.99</p>
-                        <h2 class="h3">iMac 27 Retina</h2>
+                        <p class="price">${{basePrice}}</p>
+                        <h2 class="h3">{{name}}</h2>
                         <hr class="offset-sm">
 
                         <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
@@ -176,62 +176,12 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-6 col-md-3 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/microsoft-surface-studio.jpg" alt="Microsoft Surface Studio"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$3749.99</p>
-                        <h2 class="h3">Surface Studio</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-3 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/dell-inspiron-23.jpg" alt="Dell Inspion 23"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$1987.99</p>
-                        <h2 class="h3">Dell Inspion 23</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-sm-6 col-md-3 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/lenovo-ideacenter.jpg" alt="Lenovo IdeaCenter"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$2487.99</p>
-                        <h2 class="h3">Lenovo IdeaCenter</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-
+            {{/each}}
         </div>
 
         <div class="align-right align-center-xs">
             <hr class="offset-sm">
-            <a href="./store/"> <h5 class="upp">View all desktops </h5> </a>
+            <a href="/store"> <h5 class="upp">View all desktops </h5> </a>
         </div>
     </div>
 </section>
@@ -242,15 +192,15 @@
         <hr class="offset-lg">
 
         <div class="row">
-
-            <div class="col-sm-6 col-md-4 product">
+            {{#each Hybrids}}
+            <div class="col-sm-6 col-md-3 product">
                 <div class="body">
                     <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/lenovo-yoga.jpg" alt="Lenovo Yoga 900"/></a>
+                    <a href="/store/{{_id}}"><img src="{{cover}}" alt="{{name}}"/></a>
 
                     <div class="content align-center">
-                        <p class="price">$1899.99</p>
-                        <h2 class="h3">Lenovo Yoga 900</h2>
+                        <p class="price">${{basePrice}}</p>
+                        <h2 class="h3">{{name}}</h2>
                         <hr class="offset-sm">
 
                         <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
@@ -258,61 +208,11 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-6 col-md-4 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/surface-pro.jpg" alt="Surface Pro"/></a>
-
-                    <div class="content align-center">
-                        <p class="sale">$2099.99</p>
-                        <p class="price through">$2499.99</p>
-                        <h2 class="h3">Microsoft Surface Pro</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/hp-spectre-x360.jpg" alt="HP Spectre x360"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$2994.99</p>
-                        <h2 class="h3">HP Spectre x360</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product visible-sm">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/dell-inspiron-2in1.jpg" alt="Dell Inspiron 7000 2-in-1s"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$1994.99</p>
-                        <h2 class="h3">Dell Inspiron 7000</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-
+            {{/each}}
         </div>
         <div class="align-right align-center-xs">
             <hr class="offset-sm">
-            <a href="./store/"> <h5 class="upp">View all devices </h5> </a>
+            <a href="./store"> <h5 class="upp">View all devices </h5> </a>
         </div>
     </div>
 </section>
@@ -324,15 +224,15 @@
         <hr class="offset-lg">
 
         <div class="row">
-
+            {{#each Tablets}}
             <div class="col-sm-6 col-md-4 product">
                 <div class="body">
                     <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/mi-pad-2.jpg" alt="Xiamomi Mi Pad 2"/></a>
+                    <a href="/store/{{_id}}"><img src="{{cover}}" alt="{{name}}"/></a>
 
                     <div class="content align-center">
-                        <p class="price">$899.99</p>
-                        <h2 class="h3">Mi Pad 2</h2>
+                        <p class="price">${{basePrice}}</p>
+                        <h2 class="h3">{{name}}</h2>
                         <hr class="offset-sm">
 
                         <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
@@ -340,60 +240,11 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-6 col-md-4 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/ipad-air.jpg" alt="Apple iPad Air"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$1099.99</p>
-                        <h2 class="h3">Apple iPad Air</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/asus-transformer.jpg" alt="Asus Transformer"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$987.99</p>
-                        <h2 class="h3">Asus Transformer</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product visible-sm">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="./"><img src="img/products/ipad-mini.jpg" alt="iPad Mini"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$399.99</p>
-                        <h2 class="h3">iPad Mini</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-
+            {{/each}}
         </div>
         <div class="align-right align-center-xs">
             <hr class="offset-sm">
-            <a href="./store/"> <h5 class="upp">View all tablets </h5> </a>
+            <a href="./store"> <h5 class="upp">View all tablets </h5> </a>
         </div>
     </div>
 </section>
@@ -456,7 +307,7 @@
 
         <div class="align-right align-center-xs">
             <hr class="offset-sm">
-            <a href="./blog/"> <h5 class="upp">View all articels </h5> </a>
+            <a href="./blog/"> <h5 class="upp">View all articles </h5> </a>
         </div>
     </div>
 </section>

@@ -211,9 +211,9 @@
 
             <div class="products">
                 <div class="row">
-                    <ul>
+
                         {{#each products}}
-                        <li class="col-sm-6 col-md-4 product">
+                        <div class="col-sm-6 col-md-4 product">
                             <div class="body">
                             <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
                             <a href="./store/{{_id}}"><img src="{{cover}}" alt="Apple iMac 27 Retina"/></a>
@@ -227,9 +227,9 @@
                                 <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
                             </div>
                         </div>
-                        </li>
+                        </div>
                         {{/each}}
-                    </ul>
+
                 </div>
             </div>
 
