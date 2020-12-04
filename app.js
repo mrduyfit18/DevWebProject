@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -12,6 +14,7 @@ const productsRouter = require('./routes/store/products');
 const aboutRouter = require('./routes/about');
 const FAQRouter = require('./routes/faq');
 const galleryRouter = require('./routes/gallery');
+const blogRouter = require('./routes/blog/blog');
 
 
 const app = express();
@@ -32,6 +35,7 @@ app.use('/store', productsRouter);
 app.use('/about', aboutRouter);
 app.use('/faq', FAQRouter);
 app.use('/gallery', galleryRouter);
+app.use('/blog', blogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,5 +55,6 @@ app.use(function(err, req, res, next) {
 
 const hbs = require('hbs');
 hbs.registerPartials(path.join(__dirname,'views','partials'));
+
 
 module.exports = app;

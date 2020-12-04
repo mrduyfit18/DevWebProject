@@ -12,5 +12,6 @@ exports.Show = async (req, res, next) => {
     // Get product from model
     //await console.log(req.params._id);
     const product = await productsModel.getProduct(await req.params._id);
-    res.render('store/productDetail', {product});
+    const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type, 4);
+    res.render('store/productDetail', {product, Products: relatedProducts});
 };

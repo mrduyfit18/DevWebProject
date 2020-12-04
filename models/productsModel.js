@@ -14,10 +14,11 @@ exports.list = async () => {
 }
 
 exports.getProduct = async (id) => {
-    const collection = database().collection('Products');
-    if(id.length > 11){
-        return  await collection.findOne({'_id': ObjectId(id)});
-    }
+    const productsCollection = database().collection('Products');
+    const detailsCollection = database().collection('Detail');
+    const product = await productsCollection.findOne({'_id': ObjectId(id)});
+    const productDetail = await detailsCollection.findOne({'_id': ObjectId(id)});
+    return await Object.assign(product,productDetail);
 }
 
 exports.getProductByType = async (type) =>{

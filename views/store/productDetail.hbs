@@ -39,7 +39,7 @@
                                         <div class="content-outside">
                                             <div class="content-inside">
                                                 <i class="ion-ios-play"></i>
-                                                <h2 class="white hidden-xs">Introducing {{manufacturer}} <br> {{name}}</h2>
+                                                <h2 class="white hidden-xs">Introducing<br> {{name}}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -62,10 +62,11 @@
                     <img src="../img/brands/microsoft.png" alt="Microsoft" class="brand hidden-xs hidden-sm" />
 
                     <h1>{{name}}</h1>
-
-                    <p> &middot; OS Windows™ 10</p>
-                    <p> &middot; 28 Inch PixelSense™ Display</p>
-                    <p> &middot; Intel Core i5/i7</p>
+                    {{#with shortSpecs}}
+                    <p> &middot; {{shortOS}}</p>
+                    <p> &middot; {{shortDisplay}}</p>
+                    <p> &middot; {{shortCPU}}</p>
+                    {{/with}}
                     <hr class="offset-md hidden-sm">
                     <hr class="offset-sm visible-sm">
                     <hr class="offset-xs visible-sm">
@@ -85,12 +86,11 @@
             <div class="col-sm-7 white sm-padding">
                 <hr class="offset-sm visible-xs">
 
-                <h2 class="h1">{{manufacturer}} {{name}}</h2>
+                <h2 class="h1">{{name}}</h2>
                 <br>
 
-                <p>
-                    Visualize ideas as you paint, edit, and design. Let the 10-bit color depth and strikingly large 28” display pull you in from across the room. Or, lose yourself in the creative details of your work.
-                    Surface Studio is designed with a Zero Gravity Hinge that moves the display weightlessly from an upright angle, down into Studio Mode with one hand.
+                <p class="text-justify">
+                    {{slogan}}
                 </p>
                 <br>
 
@@ -99,66 +99,65 @@
 
                 <div class="row specification">
                     <div class="col-sm-4"> <label>Operating system</label> </div>
-                    <div class="col-sm-8"> <p>Windows 10™</p> </div>
+                    <div class="col-sm-8"> <p>{{{OS}}}</p> </div>
                 </div>
 
                 <div class="row specification">
                     <div class="col-sm-4"> <label>Display</label> </div>
                     <div class="col-sm-8">
                         <p>
-                            Screen: 28" PixelSense Display<br>
-                            Resolution: 4500 x 3000 (192 DPI)<br>
-                            Color settings: sRGB, DCI-P3, and Vivid color profiles, individually color calibrated<br>
-                            Touch: 10-point multi-touch
+                            {{{display}}}
                         </p>
                     </div>
                 </div>
 
                 <div class="row specification">
                     <div class="col-sm-4"> <label>Processor</label> </div>
-                    <div class="col-sm-8"> <p>Quad-core 6th Gen Intel Core i5 or i7</p> </div>
+                    <div class="col-sm-8">
+                        <p>{{{processor}}}</p>
+                    </div>
                 </div>
 
-                <div class="row specification">
-                    <div class="col-sm-4"> <label>Processor technology</label> </div>
-                    <div class="col-sm-8"> <p>Intel Turbo Boost Technology</p> </div>
-                </div>
 
                 <div class="row specification">
                     <div class="col-sm-4"> <label>Graphics</label> </div>
-                    <div class="col-sm-8"> <p>NVIDIA GeForce GTX 965M 2GB GPU GDDR5 memory or NVIDIA GeForce GTX 980M 4GB GPU GDDR5 memory</p> </div>
+                    <div class="col-sm-8"> <p>{{{graphics}}}</p> </div>
                 </div>
 
                 <div class="row specification">
                     <div class="col-sm-4"> <label>Memory</label> </div>
-                    <div class="col-sm-8"> <p>8GB, 16GB, or 32GB RAM</p> </div>
+                    <div class="col-sm-8"> <p>{{{memory}}}</p> </div>
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Hard drive</label> </div>
-                    <div class="col-sm-8"> <p>Rapid hybrid drive options: 64GB SSD with 1TB HDD, 128GB SSD with 1TB HDD, 128GB SSD with 2TB HDD</p> </div>
+                    <div class="col-sm-4"> <label>Storage</label> </div>
+                    <div class="col-sm-8"> <p>{{{storage}}}</p> </div>
+                </div>
+
+                <div class="row specification">
+                    <div class="col-sm-4"> <label>Ethernet</label> </div>
+                    <div class="col-sm-8"> <p>{{{ethernet}}}</p> </div>
                 </div>
 
                 <div class="row specification">
                     <div class="col-sm-4"> <label>Wireless</label> </div>
                     <div class="col-sm-8">
                         <p>
-                            Wi-Fi: 802.11ac Wi-Fi wireless networking, IEEE 802.11 a/b/g/n compatible<br>
-                            Bluetooth: Bluetooth 4.0 wireless technology<br>
-                            Xbox Wireless built-in
+                            {{{wireless}}}
                         </p>
                     </div>
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Power supply</label> </div>
-                    <div class="col-sm-8"> <p>45 W AC power adapter</p> </div>
+                    <div class="col-sm-4"> <label>Audio</label> </div>
+                    <div class="col-sm-8"> <p>{{{audio}}}</p> </div>
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Battery</label> </div>
-                    <div class="col-sm-8"> <p>3-cell, 36 Wh Li-ion</p> </div>
+                    <div class="col-sm-4"> <label>Power supply</label> </div>
+                    <div class="col-sm-8"> <p>{{{power}}}</p> </div>
                 </div>
+
 
                 <hr class="offset-lg">
             </div>
@@ -216,76 +215,26 @@
 
 <section class="products">
     <div class="container">
-        <h2 class="upp align-center-xs"> Related products </h2>
+        <h2 class="h2 upp align-center"> Related Products </h2>
         <hr class="offset-lg">
 
         <div class="row">
+            {{#each Products}}
+                <div class="col-sm-6 col-md-3 product">
+                    <div class="body">
+                        <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
+                        <a href="/store/{{_id}}"><img src="{{cover}}" alt="{{manufacturer}} {{name}}"/></a>
+                        <div class="content align-center">
+                            <p class="price">${{basePrice}}</p>
+                            <h2 class="h3">{{name}}</h2>
+                            <hr class="offset-sm">
 
-            <div class="col-sm-4 col-md-3 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="../product"><img src="../img/products/apple-imac-27-retina.jpg" alt="Apple iMac 27 Retina"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$2099.99</p>
-                        <h2 class="h3">iMac 27 Retina</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
+                            <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
+                            <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-sm-4 col-md-3 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="../product"><img src="../img/products/dell-inspiron-23.jpg" alt="Dell Inspion 23"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$1987.99</p>
-                        <h2 class="h3">Dell Inspion 23</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4 col-md-3 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="../product"><img src="../img/products/lenovo-yoga.jpg" alt="Lenovo Yoga 900"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$1899.99</p>
-                        <h2 class="h3">Lenovo Yoga 900</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-3 product hidden-sm">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="../product"><img src="../img/products/hp-spectre-x360.jpg" alt="HP Spectre x360"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">$2994.99</p>
-                        <h2 class="h3">HP Spectre x360</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
+            {{/each}}
         </div>
-
     </div>
 </section>
