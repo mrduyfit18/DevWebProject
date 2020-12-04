@@ -6,6 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const db = require('./DAL/loadDatabase');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 // const signinRouter = require('./routes/signin');
@@ -16,7 +17,7 @@ const FAQRouter = require('./routes/faq');
 const galleryRouter = require('./routes/gallery');
 const blogRouter = require('./routes/blog/blog');
 
-
+db.Connect();
 const app = express();
 
 // view engine setup

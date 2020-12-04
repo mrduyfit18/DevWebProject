@@ -1,34 +1,22 @@
 const {database} = require('../DAL/loadDatabase');
-const ObjectId = require('mongodb').ObjectId;
-//let listProducts;
+const mongoose=require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
-// exports.Init = async () => {
-//     listProducts = await db.Connect();
-// }
-
+const Products = require('./mongooseModels/products');
 
 exports.list = async () => {
-    const collection = await database().collection('Products');
-    let result =  await collection.find({});
-    return await result.toArray().then();
+    return Products.find({});
 }
 
 exports.getProduct = async (id) => {
-    const productsCollection = database().collection('Products');
-    const detailsCollection = database().collection('Detail');
-    const product = await productsCollection.findOne({'_id': ObjectId(id)});
-    const productDetail = await detailsCollection.findOne({'_id': ObjectId(id)});
-    return await Object.assign(product,productDetail);
+    return Products.findOne({'_id': ObjectId(id)});
 }
 
 exports.getProductByType = async (type) =>{
-    const collection = database().collection('Products');
-    let result =  await collection.find({'type': type});
-    return await result.toArray().then();
+    return Products.find({'type': type});
 }
 
 exports.getProductByTypeAndNumber = async (type, number) =>{
-    const collection = database().collection('Products');
-    let result =  await collection.find({'type': type}).limit(number);
-    return await result.toArray().then();
+    //const collection = database().collection('Products');
+    return Products.find({'type': type}).limit(number);
 }
