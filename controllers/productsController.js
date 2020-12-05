@@ -44,7 +44,12 @@ function createPagination(pagination){
         pagingButtons[2].value = 3;
         pagingButtons[3].value = 4;
         pagingButtons[4].value = 5;
-        pagingButtons[5].value = pagination.totalPages;
+        if(pagination.totalPages > 5) {
+            pagingButtons[5].value = pagination.totalPages;
+        }
+        else {
+            pagingButtons[5].value = 0;
+        }
         pagingButtons[6].value = 0;
         pagingButtons[pagination.page - 1].active = true;
     }
