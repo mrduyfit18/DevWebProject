@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const db = require('./DAL/loadDatabase');
+const hbshelpers = require('handlebars-helpers');
+const helpers = hbshelpers();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 // const signinRouter = require('./routes/signin');
@@ -23,6 +25,9 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -56,6 +61,7 @@ app.use(function(err, req, res, next) {
 
 const hbs = require('hbs');
 hbs.registerPartials(path.join(__dirname,'views','partials'));
+hbs.registerHelper(helpers);
 
 
 module.exports = app;

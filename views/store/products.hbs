@@ -234,23 +234,27 @@
             </div>
 
             <nav>
+            {{#with pagination}}
                 <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
+                    <li {{#eq page 1}}class="disabled"{{/eq}}>
+                        <a href="/store?page={{prevPage}}" aria-label="Previous">
                             <span aria-hidden="true"><i class="ion-ios-arrow-left"></i></span>
                         </a>
                     </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li class="disabled"><a href="#">..</a></li>
-                    <li><a href="#">10</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
+                    {{#each ../pagingButtons}}
+                        {{#gt value 0}}
+                        {{#lte value ../totalPages}}
+                            <li {{#if active}} class="active" {{/if}}> <a href="/store?page={{value}}">{{value}}</a> </li>
+                        {{/lte}}
+                        {{/gt}}
+                    {{/each}}
+                    <li {{#eq page totalPages}}class="disabled"{{/eq}}>
+                        <a href="/store?page={{nextPage}}" aria-label="Next">
                             <span aria-hidden="true"><i class="ion-ios-arrow-right"></i></span>
                         </a>
                     </li>
                 </ul>
+            {{/with}}
             </nav>
         </div>
         <!-- /// -->
