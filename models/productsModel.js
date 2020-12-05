@@ -9,16 +9,16 @@ exports.list = async (currentPage) => {
     const res = await Products.paginate({}, {page: currPage, limit: 2});
 
     if(res.hasNextPage){
-        const secondPaging = await Products.paginate({}, {page:  res.nextPage, limit: 2});
-        if(secondPaging.hasNextPage){
-            res.secondNextPage = secondPaging.nextPage;
+        const secondPaging = parseInt(res.nextPage) + 1;
+        if(secondPaging <= res.totalPages){
+            res.secondNextPage = secondPaging;
         }
     }
 
     if(res.hasPrevPage){
-        const secondPaging = await Products.paginate({}, {page: res.prevPage, limit: 2});
-        if(secondPaging.hasPrevPage){
-            res.secondPrevPage = secondPaging.prevPage;
+        const secondPaging = parseInt(res.prevPage) - 1;
+        if(secondPaging >= 1){
+            res.secondPrevPage = secondPaging;
         }
     }
     return res;
