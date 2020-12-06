@@ -4,9 +4,10 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const Products = require('./mongooseModels/products');
 
-exports.list = async (currentPage) => {
+exports.list = async (filter, currentPage) => {
     const currPage = currentPage || 1;
-    const res = await Products.paginate({}, {page: currPage, limit: 5});
+    
+    const res = await Products.paginate(filter, {page: currPage, limit: 6});//fix here
 
     if(res.hasNextPage){
         const secondPaging = parseInt(res.nextPage) + 1;
