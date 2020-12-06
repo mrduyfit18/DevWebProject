@@ -79,7 +79,7 @@ function createPagination(pagination){
 exports.index = async (req, res, next) => {
     // Get products from model
     const catId = req.query.catId;//add here
-    const pagination = await productsModel.list(catId ? {cateloryId: mongoose.Types.ObjectId(catId)}:{}, req.query.page);//fix here
+    const pagination = await productsModel.list(catId ? {'cateloryId': mongoose.Types.ObjectId(catId)}:{}, req.query.page);//fix here
     const products = pagination.docs;
     //Create Paging Information
     createPagination(pagination);
