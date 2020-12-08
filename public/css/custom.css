@@ -3064,4 +3064,8 @@
 		.padding-xs { padding: 0px 15px 0px 15px; }
 		.no-padding-xs { padding: 0; }
 	}
+	.avatar {
+		width: 100px;
+		height: 100px;
+	}
 /* Helper classes */

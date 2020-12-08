@@ -27,8 +27,7 @@ const Product = new Schema({
     wireless: String,
     audio: String,
     power: String,
-    slogan: String,
-    categoryId : ObjectId
+    slogan: String
 })
 
 Product.plugin(mongoosePaginate);

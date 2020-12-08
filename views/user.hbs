@@ -1,0 +1,60 @@
+{{#with account}}
+<form action="/users/{{_id}}/save" method="post" enctype="multipart/form-data">
+<div class="container">
+    <h1 style="margin-top: 100px">Edit Profile</h1>
+    <hr>
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-3">
+            <div class="text-center">
+                <img src="{{avatar}}" class="avatar img-circle" alt="avatar" id="blah">
+                <h6>Change Avatar</h6>
+
+                <input type="file" class="form-control" name="avatar" id="imgInp">
+            </div>
+        </div>
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-coffee"></i>
+                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+            </div>
+            <h3>Personal info</h3>
+
+            <div class="row form-group">
+                <div class="col col-md-1 "><label for="name">Name:</label></div>
+                <div class="col-12 col-md-11">
+                    <input type="text" name="name" class="form-control" value="{{name}}">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-1"><label for="email">Email:</label></div>
+                <div class="col-12 col-md-11">
+                    <input type="text" name="email" class="form-control" value="{{email}}" disabled>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-1"><label for="password">Password:</label></div>
+                <div class="col-12 col-md-11">
+                    <input type="password" name="password" class="form-control" value="{{password}}">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-1"><label for="rePassword">Confirm Password</label></div>
+                <div class="col-12 col-md-11">
+                    <input type="password" name="rePassword" class="form-control" value="{{password}}">
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-around">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-dot-circle-o"></i> Save
+                </button>
+                <a href="/"><button type="button" class="btn btn-danger btn-sm">Do not save</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+</form>
+{{/with}}

@@ -11,17 +11,16 @@
                             <h2 class="modal-title text-center">Sign In</h2>
                             <br>
 
-                            <form class="signin" action="index.php" method="post">
+                            <form class="signin" action="/signin" method="post">
                                 <input type="email" name="email" value="" placeholder="E-mail" required="" class="form-control" />
                                 <br>
                                 <input type="password" name="password" value="" placeholder="Password" required="" class="form-control" />
                                 <br>
-
-                                <button type="submit" class="btn btn-primary">Ok</button>
+                                <p>{{notification}}</p>
+                                <button type="submit" class="btn btn-primary">Sign In</button>
                                 <a href="#forgin-password" data-action="Forgot-Password">Password recovery ></a>
                             </form>
                             <br>
-
                             <div class="social-login">
                                 <div class="or"><p>OR</p></div>
                                 <a href="#"><i class="icon" data-src="../img/icons/facebook.svg"></i></a>
@@ -51,7 +50,7 @@
                             <h2 class="modal-title text-center">Registration</h2>
                             <br>
 
-                            <form class="join" action="index.php" method="post">
+                            <form class="join" action="/signup" method="post">
                                 <input type="text" name="name" value="" placeholder="Name" required="" class="form-control" />
 
                                 <br>

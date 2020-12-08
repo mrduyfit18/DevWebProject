@@ -6,8 +6,7 @@ const Products = require('./mongooseModels/products');
 
 exports.list = async (filter, currentPage) => {
     const currPage = currentPage || 1;
-    
-    const res = await Products.paginate(filter, {page: currPage, limit: 6});//fix here
+    const res = await Products.paginate(filter, {page: currPage, limit: 2});
 
     if(res.hasNextPage){
         const secondPaging = parseInt(res.nextPage) + 1;
@@ -36,4 +35,10 @@ exports.getProductByType = async (type) =>{
 exports.getProductByTypeAndNumber = async (type, number) =>{
     //const collection = database().collection('Products');
     return Products.find({'type': type}).limit(number);
+}
+
+exports.Search = async (text) => {
+    return Products.find(
+        { 'name': { "$regex": text, "$options": "i" } }
+    );
 }

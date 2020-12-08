@@ -1,34 +1,45 @@
 const productsModel = require('../models/productsModel');
-const mongoose = require('mongoose');//add this
+const querystring = require('querystring');
+const mongoose = require('mongoose');
+
+
+
 /* Paginate buttons to render*/
 const pagingButtons = [
     {
         value: 0,
         active: false,
+        link:''
     },
     {
         value: 0,
-        active: false
+        active: false,
+        link:''
     },
     {
         value: 0,
-        active: false
+        active: false,
+        link:''
     },
     {
         value: 0,
-        active: false
+        active: false,
+        link:''
     },
     {
         value: 0,
-        active: false
+        active: false,
+        link:''
     },
     {
         value: 0,
-        active: false
+        active: false,
+        link:''
     },
     {
         value: 0,
-        active: false
+        active: false,
+        link:''
     }
 ]
 
@@ -53,7 +64,7 @@ function createPagination(pagination){
         pagingButtons[6].value = 0;
         pagingButtons[pagination.page - 1].active = true;
     }
-    else if (pagination.page >= pagination.totalPages - 2){
+    else if (pagination.page >= pagination.totalPages - 2 && pagination.totalPages >= 6){
         pagingButtons[0].value = 1;
         pagingButtons[1].value = pagination.totalPages - 4;
         pagingButtons[2].value = pagination.totalPages - 3;
@@ -70,44 +81,30 @@ function createPagination(pagination){
         pagingButtons[3].value = pagination.page;
         pagingButtons[4].value = pagination.nextPage;
         pagingButtons[5].value = pagination.secondNextPage;
-        pagingButtons[6].value = pagination.totalPages;
-        pagingButtons[pagination.page - 1].active = true;
+        if(pagination.totalPages >=6) {
+            pagingButtons[6].value = pagination.totalPages;
+        }
+        else{
+            pagingButtons[6].value = 0;
+        }
+        pagingButtons[3].active = true;
     }
+
+    //Tạo link cho từng nút
+
 }
 
-function catchTypeFilter(require){
-    let type = require.body.options;
-    //const typeId = mongoose.Collection.find(type ? {'type':mongoose.Types.string(type)}:{});
-    console.log(type);
-    //return typeId;
-}
-
-exports.index = async (req, res)=>{
-    catchTypeFilter(req);
-    console.log(req.body.options);
-    const catId = req.query.catId;
-    const pagination = await productsModel.list(catId ? {'categoryId': mongoose.Types.ObjectId(catId)}:{}, req.query.page);//fix here
-    const products = pagination.docs;
-    //Create Paging Information
-    createPagination(pagination);
-    const totalPages = pagination.totalPages;
-    console.log(pagingButtons[0].active);
-    // Pass data to view to display list of products
-    res.render('store/products', { products, pagingButtons , pagination, onStore: 'active'});
-}
 
 exports.index = async (req, res, next) => {
     // Get products from model
-    //const catId = catchTypeFilter(req);
-    catchTypeFilter(req);
-    console.log(req.body.options);
+    const textSearch =  req.query.name || '';
+    console.log(req.query);
     const catId = req.query.catId;
-    const pagination = await productsModel.list(catId ? {'categoryId': mongoose.Types.ObjectId(catId)}:{}, req.query.page);//fix here
+    const pagination = await productsModel.list( req.query ? {'name': { "$regex": textSearch, "$options": "i" }}:{},req.query.page);
     const products = pagination.docs;
     //Create Paging Information
     createPagination(pagination);
     const totalPages = pagination.totalPages;
-    console.log(pagingButtons[0].active);
     // Pass data to view to display list of products
     res.render('store/products', { products, pagingButtons , pagination, onStore: 'active'});
 };

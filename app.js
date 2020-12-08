@@ -1,10 +1,11 @@
-require('dotenv').config();
+
 
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+require('dotenv').config({ path: '.env' });
 
 const db = require('./DAL/loadDatabase');
 const hbshelpers = require('handlebars-helpers');
@@ -18,6 +19,8 @@ const aboutRouter = require('./routes/about');
 const FAQRouter = require('./routes/faq');
 const galleryRouter = require('./routes/gallery');
 const blogRouter = require('./routes/blog/blog');
+const signinRouter = require('./routes/signin');
+const signupRouter = require('./routes/signup');
 
 db.Connect();
 const app = express();
@@ -35,13 +38,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+
 app.use('/users', usersRouter);
 app.use('/store', productsRouter);
 app.use('/about', aboutRouter);
 app.use('/faq', FAQRouter);
 app.use('/gallery', galleryRouter);
 app.use('/blog', blogRouter);
+app.use('/signin', signinRouter);
+app.use('/signup', signupRouter);
+app.use('/', indexRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

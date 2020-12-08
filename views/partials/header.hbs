@@ -34,14 +34,31 @@
                 </li>
             </ul>
         </div><!--/.nav-collapse -->
-
-
+        <form method="post" onsubmit="get_action(this);" id="search">
         <div class="search hidden-xs" data-style="hidden">
             <div class="input">
                 <button type="button"><i class="ion-ios-search"></i></button>
 
-                <input type="text" name="search" value="" placeholder="Type here..." />
+                <input type="text" name="search" value="" placeholder="Type here..." id="textSearch" />
+                <input type="submit" id="myBtn"/>
             </div>
         </div>
+        </form>
     </div><!--/.container-fluid -->
 </nav>
+<script>
+    const input = document.getElementById("textSearch");
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("myBtn").click();
+        }
+    });
+
+
+</script>
+<script type="text/javascript">
+    function get_action(form) {
+        form.action = '/store?name=' + document.getElementById('textSearch').value;
+    }
+</script>
