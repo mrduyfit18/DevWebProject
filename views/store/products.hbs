@@ -16,27 +16,37 @@
         </div>
 
         <p>Search by tags</p>
-        <form method="post" id="typeform" action="/">
+        <form method="post" id="typeform">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default btn-sm active">
-                    <input type="radio" name="options" id="option1" onclick="this.form.submit()" value="All products" checked> All products
+                    <input type="radio" name="options" id="option1" onchange="TypeFormSubmit();" value="" checked> All products
                 </label>
                 <label class="btn btn-default btn-sm">
-                    <input type="radio" name="options" id="option2" onclick="this.form.submit()" value="Desktops"> Desktops
+                    <input type="radio" name="options" id="option2" onchange="TypeFormSubmit();" value="Desktops" {{#if Desktopcheck}}checked{{/if}}> Desktops
                 </label>
                 <label class="btn btn-default btn-sm">
-                    <input type="radio" name="options" id="option3" onclick="this.form.submit()" value="Laptops"> Laptops
+                    <input type="radio" name="options" id="option3" onchange="TypeFormSubmit();" value="Laptops" {{#if Laptopscheck}}checked{{/if}}> Laptops
                 </label>
                 <label class="btn btn-default btn-sm">
-                    <input type="radio" name="options" id="option4" onclick="this.form.submit()" value="Tablets"> Tablets
+                    <input type="radio" name="options" id="option4" onchange="TypeFormSubmit();" value="Tablets" {{#if Tabletscheck}}checked{{/if}}> Tablets
                 </label>
                 <label class="btn btn-default btn-sm">
-                    <input type="radio" name="options" id="option5" onclick="this.form.submit()" value="Hybrids"> Hybrids
+                    <input type="radio" name="options" id="option5" onchange="TypeFormSubmit();" value="Hybrids" {{#if Hybridscheck}}checked{{/if}}> Hybrids
                 </label>
             </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    function TypeFormSubmit(){
+        document.getElementById("typeform").action = '/store?type=' + document.getElementById('typeform').options.value;
+        document.getElementById("typeform").submit();
+
+    }
+</script>
+
+
+
 
 <div class="container">
     <div class="row">

@@ -1,6 +1,7 @@
 const productsModel = require('../models/productsModel');
 const querystring = require('querystring');
 const mongoose = require('mongoose');
+const buildUrl = require('build-url');
 
 
 
@@ -98,9 +99,11 @@ function createPagination(pagination){
 exports.index = async (req, res, next) => {
     // Get products from model
     const textSearch =  req.query.name || '';
-    console.log(req.query);
-    const catId = req.query.catId;
-    const pagination = await productsModel.list( req.query ? {'name': { "$regex": textSearch, "$options": "i" }}:{},req.query.page);
+    const type = req.body.options || '';
+
+
+    const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" }, 'type': { "$regex": type, "$options": "i" } },
+        req.query.page);
     const products = pagination.docs;
     //Create Paging Information
     createPagination(pagination);
