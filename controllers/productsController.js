@@ -75,11 +75,34 @@ function createPagination(pagination){
     }
 }
 
+function catchTypeFilter(require){
+    let type = require.body.options;
+    //const typeId = mongoose.Collection.find(type ? {'type':mongoose.Types.string(type)}:{});
+    console.log(type);
+    //return typeId;
+}
+
+exports.index = async (req, res)=>{
+    catchTypeFilter(req);
+    console.log(req.body.options);
+    const catId = req.query.catId;
+    const pagination = await productsModel.list(catId ? {'categoryId': mongoose.Types.ObjectId(catId)}:{}, req.query.page);//fix here
+    const products = pagination.docs;
+    //Create Paging Information
+    createPagination(pagination);
+    const totalPages = pagination.totalPages;
+    console.log(pagingButtons[0].active);
+    // Pass data to view to display list of products
+    res.render('store/products', { products, pagingButtons , pagination, onStore: 'active'});
+}
 
 exports.index = async (req, res, next) => {
     // Get products from model
-    const catId = req.query.catId;//add here
-    const pagination = await productsModel.list(catId ? {'cateloryId': mongoose.Types.ObjectId(catId)}:{}, req.query.page);//fix here
+    //const catId = catchTypeFilter(req);
+    catchTypeFilter(req);
+    console.log(req.body.options);
+    const catId = req.query.catId;
+    const pagination = await productsModel.list(catId ? {'categoryId': mongoose.Types.ObjectId(catId)}:{}, req.query.page);//fix here
     const products = pagination.docs;
     //Create Paging Information
     createPagination(pagination);

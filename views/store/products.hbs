@@ -1,5 +1,5 @@
 <hr class="offset-top">
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <div class="tags">
     <div class="container">
         <div class="btn-group pull-right sorting">
@@ -16,23 +16,25 @@
         </div>
 
         <p>Search by tags</p>
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default btn-sm active">
-                <input type="radio" name="options" id="option1" checked> All products
-            </label>
-            <label class="btn btn-default btn-sm">
-                <input type="radio" name="options" id="option2"> Desktops
-            </label>
-            <label class="btn btn-default btn-sm">
-                <input type="radio" name="options" id="option3"> Laptops
-            </label>
-            <label class="btn btn-default btn-sm">
-                <input type="radio" name="options" id="option4"> Tablets
-            </label>
-            <label class="btn btn-default btn-sm">
-                <input type="radio" name="options" id="option5"> Hybrids
-            </label>
-        </div>
+        <form method="post" id="typeform" action="/">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                    <input type="radio" name="options" id="option1" onclick="this.form.submit()" value="All products" checked> All products
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option2" onclick="this.form.submit()" value="Desktops"> Desktops
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option3" onclick="this.form.submit()" value="Laptops"> Laptops
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option4" onclick="this.form.submit()" value="Tablets"> Tablets
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option5" onclick="this.form.submit()" value="Hybrids"> Hybrids
+                </label>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -42,165 +44,165 @@
         <div class="col-sm-4 col-md-3">
             <hr class="offset-lg">
 
-            <div class="filter">
-                <div class="item">
-                    <div class="title">
-                        <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i> Open</a>
-                        <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Clear</a>
-                        <h1 class="h4">Type</h1>
+            <form name="typeForm" id="typeForm" method="POST">
+                <div class="filter">
+                    <div class="item">
+                        <div class="title">
+                            <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
+                                Open</a>
+                            <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Clear</a>
+                            <h1 class="h4">Type</h1>
+                        </div>
+
+                        <div>
+                            <div class="form-check">
+                        	<input class="form-check-input" type="radio" name="type" value="Laptops" {{Laptopchecked}}>
+                            <label class="form-check-label" for="Op1">Laptops</label>
+                        </div>
+                        <div class="form-check">
+                        	<input class="form-check-input" type="radio" name="type" value="Desktops" {{Desktopchecked}}>
+                            <label class="form-check-label" for="Op2">Desktops</label>
+                        </div>
+                        <div class="form-check">
+                        	<input class="form-check-input" type="radio" name="type" value="Tablets" {{Tabletchecked}}>
+                            <label class="form-check-label" for="Op3">Tablets</label>
+                        </div>
+                        <div class="form-check">
+                        	<input class="form-check-input" type="radio" name="type" value="Hybrids" {{Hybridchecked}}>
+                            <label class="form-check-label" for="Op4">Hybrids</label>
+                        </div>
+                                
+                        </div>
                     </div>
 
-                    <div class="controls">
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Desktops">Desktops</div>
-                            <input type="checkbox" name="checkbox" value="">
+                    <br>
+
+                    <div class="item">
+                        <div class="title">
+                            <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
+                                Open</a>
+                            <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Clear</a>
+                            <h1 class="h4">Screen</h1>
                         </div>
 
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Laptops">Laptops</div>
-                            <input type="checkbox" name="checkbox" value="">
+                        <div class="controls grid">
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="7 in">7 in</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="10 in">10 in</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="11 in">11 in</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="14 in">14 in</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="15 in">15 in</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="17 in">17 in</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="item">
+                        <div class="title">
+                            <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
+                                Open</a>
+                            <a href="#clear" data-action="clear-price"> <i class="ion-ios-trash-outline"></i> Clear</a>
+                            <h1 class="h4">Price</h1>
                         </div>
 
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Tablets">Tablets</div>
-                            <input type="checkbox" name="checkbox" value="">
+                        <div class="controls">
+                            <br>
+                            <div id="slider-price"></div>
+                            <br>
+                            <p id="amount"></p>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="item lite">
+                        <div class="title">
+                            <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
+                                Open</a>
+                            <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Clear</a>
+                            <h1 class="h4">Manufacturer</h1>
                         </div>
 
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Hybrid">Hybrids</div>
-                            <input type="checkbox" name="checkbox" value="">
+                        <div class="controls">
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="Hp">Hp</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="ASUS">ASUS</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="Acer">Acer</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="Dell">Dell</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="Sony">Sony</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="Apple">Apple</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="Lenovo">Lenovo</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
+
+                            <div class="checkbox-group" data-status="inactive">
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="Microsoft">Microsoft</div>
+                                <input type="checkbox" name="checkbox" value="">
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <br>
-
-                <div class="item">
-                    <div class="title">
-                        <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i> Open</a>
-                        <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Clear</a>
-                        <h1 class="h4">Screen</h1>
-                    </div>
-
-                    <div class="controls grid">
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="7 in">7 in</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="10 in">10 in</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="11 in">11 in</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="14 in">14 in</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="15 in">15 in</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="17 in">17 in</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="item">
-                    <div class="title">
-                        <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i> Open</a>
-                        <a href="#clear" data-action="clear-price"> <i class="ion-ios-trash-outline"></i> Clear</a>
-                        <h1 class="h4">Price</h1>
-                    </div>
-
-                    <div class="controls">
-                        <br>
-                        <div id="slider-price"></div>
-                        <br>
-                        <p id="amount"></p>
-                    </div>
-                </div>
-                <br>
-
-                <div class="item lite">
-                    <div class="title">
-                        <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i> Open</a>
-                        <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Clear</a>
-                        <h1 class="h4">Manufacturer</h1>
-                    </div>
-
-                    <div class="controls">
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Hp">Hp</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="ASUS">ASUS</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Acer">Acer</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Dell">Dell</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Sony">Sony</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Apple">Apple</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Lenovo">Lenovo</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-
-                        <div class="checkbox-group" data-status="inactive">
-                            <div class="checkbox"><i class="ion-android-done"></i></div>
-                            <div class="label" data-value="Microsoft">Microsoft</div>
-                            <input type="checkbox" name="checkbox" value="">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
         <!-- /// -->
 
@@ -212,11 +214,12 @@
             <div class="products">
                 <div class="row">
 
-                        {{#each products}}
-                        <div class="col-sm-6 col-md-4 product">
-                            <div class="body">
-                            <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                            <a href="./store/{{_id}}"><img src="{{cover}}" alt="Apple iMac 27 Retina"/></a>
+                    {{#each products}}
+                    <div class="col-sm-6 col-md-4 product">
+                        <div class="body">
+                            <a href="#favorites" class="favorites" data-favorite="inactive"><i
+                                    class="ion-ios-heart-outline"></i></a>
+                            <a href="./store/{{_id}}"><img src="{{cover}}" alt="Apple iMac 27 Retina" /></a>
 
                             <div class="content">
                                 <h1 class="h3">{{name}}</h1>
@@ -224,39 +227,42 @@
                                 <label>{{type}}</label>
 
                                 <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                                <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
+                                <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to
+                                    cart</button>
                             </div>
                         </div>
-                        </div>
-                        {{/each}}
+                    </div>
+                    {{/each}}
 
                 </div>
             </div>
 
             <nav>
-            {{#with pagination}}
+                {{#with pagination}}
                 <ul class="pagination">
-                    <li {{#eq page 1}}class="disabled"{{/eq}}>
+                    <li {{#eq page 1}}class="disabled" {{/eq}}>
                         <a href="/store?page={{prevPage}}" aria-label="Previous">
                             <span aria-hidden="true"><i class="ion-ios-arrow-left"></i></span>
                         </a>
                     </li>
                     {{#each ../pagingButtons}}
-                        {{#gt value 0}}
-                        {{#lte value ../totalPages}}
-                            <li {{#if active}} class="active" {{/if}}> <a href="/store?page={{value}}">{{value}}</a> </li>
-                        {{/lte}}
-                        {{/gt}}
+                    {{#gt value 0}}
+                    {{#lte value ../totalPages}}
+                    <li {{#if active}} class="active" {{/if}}> <a href="/store?page={{value}}">{{value}}</a> </li>
+                    {{/lte}}
+                    {{/gt}}
                     {{/each}}
-                    <li {{#eq page totalPages}}class="disabled"{{/eq}}>
+                    <li {{#eq page totalPages}}class="disabled" {{/eq}}>
                         <a href="/store?page={{nextPage}}" aria-label="Next">
                             <span aria-hidden="true"><i class="ion-ios-arrow-right"></i></span>
                         </a>
                     </li>
                 </ul>
-            {{/with}}
+                {{/with}}
             </nav>
         </div>
         <!-- /// -->
     </div>
 </div>
+<script>
+</script>
