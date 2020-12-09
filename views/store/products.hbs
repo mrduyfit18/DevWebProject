@@ -18,20 +18,20 @@
         <p>Search by tags</p>
         <form method="post" id="typeform">
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                    <input type="radio" name="options" id="option1" onchange="TypeFormSubmit();" value="" checked> All products
+                <label class="btn btn-default btn-sm {{#if Allcheck}} active{{/if}}">
+                    <input type="radio" name="options" id="option1" onchange="TypeFormSubmit();" value="" > All products
                 </label>
-                <label class="btn btn-default btn-sm">
-                    <input type="radio" name="options" id="option2" onchange="TypeFormSubmit();" value="Desktops" {{#if Desktopcheck}}checked{{/if}}> Desktops
+                <label class="btn btn-default btn-sm {{#if Desktopscheck}}active{{/if}}">
+                    <input type="radio" name="options" id="option2" onchange="TypeFormSubmit();" value="Desktops"> Desktops
                 </label>
-                <label class="btn btn-default btn-sm">
-                    <input type="radio" name="options" id="option3" onchange="TypeFormSubmit();" value="Laptops" {{#if Laptopscheck}}checked{{/if}}> Laptops
+                <label class="btn btn-default btn-sm {{#if Laptopscheck}}active{{/if}}">
+                    <input type="radio" name="options" id="option3" onchange="TypeFormSubmit();" value="Laptops"> Laptops
                 </label>
-                <label class="btn btn-default btn-sm">
-                    <input type="radio" name="options" id="option4" onchange="TypeFormSubmit();" value="Tablets" {{#if Tabletscheck}}checked{{/if}}> Tablets
+                <label class="btn btn-default btn-sm {{#if Tabletscheck}}active{{/if}}">
+                    <input type="radio" name="options" id="option4" onchange="TypeFormSubmit();" value="Tablets"> Tablets
                 </label>
-                <label class="btn btn-default btn-sm">
-                    <input type="radio" name="options" id="option5" onchange="TypeFormSubmit();" value="Hybrids" {{#if Hybridscheck}}checked{{/if}}> Hybrids
+                <label class="btn btn-default btn-sm {{#if Hybridscheck}}active{{/if}}">
+                    <input type="radio" name="options" id="option5" onchange="TypeFormSubmit();" value="Hybrids"> Hybrids
                 </label>
             </div>
         </form>
@@ -39,7 +39,15 @@
 </div>
 <script type="text/javascript">
     function TypeFormSubmit(){
-        document.getElementById("typeform").action = '/store?type=' + document.getElementById('typeform').options.value;
+        let link = '/store?';
+        const params = new URLSearchParams(document.location.search)
+        for (const param of params) {
+            if(param[0]!=='page' && param[0] !== 'type'){
+                link = link + param[0] + '=' + param[1] + '&';
+            }
+        }
+        document.getElementById("typeform").action = link + 'type=' + document.getElementById('typeform').options.value + '&';
+        document.getElementById("typeform").action = document.getElementById("typeform").action + 'page=' + 1;
         document.getElementById("typeform").submit();
 
     }
@@ -66,21 +74,21 @@
 
                         <div>
                             <div class="form-check">
-                        	<input class="form-check-input" type="radio" name="type" value="Laptops" {{Laptopchecked}}>
-                            <label class="form-check-label" for="Op1">Laptops</label>
-                        </div>
-                        <div class="form-check">
-                        	<input class="form-check-input" type="radio" name="type" value="Desktops" {{Desktopchecked}}>
-                            <label class="form-check-label" for="Op2">Desktops</label>
-                        </div>
-                        <div class="form-check">
-                        	<input class="form-check-input" type="radio" name="type" value="Tablets" {{Tabletchecked}}>
-                            <label class="form-check-label" for="Op3">Tablets</label>
-                        </div>
-                        <div class="form-check">
-                        	<input class="form-check-input" type="radio" name="type" value="Hybrids" {{Hybridchecked}}>
-                            <label class="form-check-label" for="Op4">Hybrids</label>
-                        </div>
+                        	    <input class="form-check-input" type="radio" name="options" value="Desktops" {{#if Desktopscheck}}checked{{/if}}>
+                                <label class="form-check-label" for="Op2">Desktops</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="options" value="Laptops" {{#if Laptopscheck}}checked{{/if}}>
+                                <label class="form-check-label" for="Op1">Laptops</label>
+                            </div>
+                            <div class="form-check">
+                        	    <input class="form-check-input" type="radio" name="options" value="Tablets" {{#if Tabletscheck}}checked{{/if}}>
+                                <label class="form-check-label" for="Op3">Tablets</label>
+                            </div>
+                            <div class="form-check">
+                        	    <input class="form-check-input" type="radio" name="options" value="Hybrids" {{#if Hybridscheck}}checked{{/if}}>
+                                <label class="form-check-label" for="Op4">Hybrids</label>
+                            </div>
                                 
                         </div>
                     </div>
@@ -259,7 +267,7 @@
                     {{#each ../pagingButtons}}
                     {{#gt value 0}}
                     {{#lte value ../totalPages}}
-                    <li {{#if active}} class="active" {{/if}}> <a href="/store?page={{value}}">{{value}}</a> </li>
+                    <li {{#if active}} class="active" {{/if}}> <a href="{{link}}">{{value}}</a> </li>
                     {{/lte}}
                     {{/gt}}
                     {{/each}}

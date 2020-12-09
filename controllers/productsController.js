@@ -44,11 +44,12 @@ const pagingButtons = [
     }
 ]
 
-function createPagination(pagination){
+function createPagination(pagination, req){
     let i  = 0;
     //Reset last selected button
     for (i = 0; i < 7; i++) {
         pagingButtons[i].active = false;
+        pagingButtons[i].link = '';
     }
     if(pagination.page < 4) {
         pagingButtons[0].value = 1;
@@ -92,6 +93,16 @@ function createPagination(pagination){
     }
 
     //Tạo link cho từng nút
+    for(i = 0; i < 7; i++){
+        let x;
+        pagingButtons[i].link +='/store?'
+        for(x in req.query){
+            if(x !== 'page'){
+                pagingButtons[i].link = pagingButtons[i].link + x + '=' + req.query[x]+'&';
+            }
+        }
+        pagingButtons[i].link = pagingButtons[i].link + 'page='+ pagingButtons[i].value;
+    }
 
 }
 
@@ -99,17 +110,38 @@ function createPagination(pagination){
 exports.index = async (req, res, next) => {
     // Get products from model
     const textSearch =  req.query.name || '';
-    const type = req.body.options || '';
+    const type = req.query.type || '';
+    let Desktopscheck, Allcheck, Laptopscheck, Tabletscheck, Hybridscheck;
 
-
+    switch(type){
+        case "":
+            Allcheck = 1;
+            break;
+        case 'Desktops':
+            Desktopscheck = 1;
+            break;
+        case 'Laptops':
+            Laptopscheck = 1;
+            break;
+        case 'Tablets':
+            Tabletscheck = 1;
+            break;
+        case 'Hybrids':
+            Hybridscheck = 1;
+            break;
+        default:
+            Allcheck = 1;
+            break;
+    }
     const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" }, 'type': { "$regex": type, "$options": "i" } },
         req.query.page);
     const products = pagination.docs;
     //Create Paging Information
-    createPagination(pagination);
-    const totalPages = pagination.totalPages;
+    createPagination(pagination, req);
+    const totalPage = pagination.totalPages;
     // Pass data to view to display list of products
-    res.render('store/products', { products, pagingButtons , pagination, onStore: 'active'});
+    res.render('store/products', { products, pagingButtons , pagination,
+        totalPage ,onStore: 'active', Allcheck, Desktopscheck, Laptopscheck, Tabletscheck, Hybridscheck});
 };
 
 exports.Show = async (req, res, next) => {

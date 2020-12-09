@@ -6,7 +6,7 @@ const Products = require('./mongooseModels/products');
 
 exports.list = async (filter, currentPage) => {
     const currPage = currentPage || 1;
-    const res = await Products.paginate(filter, {page: currPage, limit: 9});
+    const res = await Products.paginate(filter, {page: currPage, limit: 2});
 
     if(res.hasNextPage){
         const secondPaging = parseInt(res.nextPage) + 1;
