@@ -7,10 +7,10 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const Product = new Schema({
     _id: ObjectId,
     name: String,
-    manufacturer: String,
+    manufacturer_id: {type: Schema.Types.ObjectId, ref: 'Manufacturer'},
     cover: String,
     basePrice: Number,
-    type: String,
+    type_id: {type: Schema.Types.ObjectId, ref: 'Catalog'},
     shortSpecs: {type:  new Schema({
             shortCPU: String,
             shortDisplay: String,

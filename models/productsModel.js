@@ -3,6 +3,7 @@ const mongoose=require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 const Products = require('./mongooseModels/products');
+const Catalogs = require('./mongooseModels/catalogs');
 
 exports.list = async (filter, currentPage) => {
     const currPage = currentPage || 1;
@@ -25,16 +26,16 @@ exports.list = async (filter, currentPage) => {
 }
 
 exports.getProduct = async (id) => {
-    return Products.findOne({'_id': ObjectId(id)});
+    return Products.findOne({'_id': ObjectId(id)}).populate('type_id');
 }
 
 exports.getProductByType = async (type) =>{
-    return Products.find({'type': type});
+    //return Products.populate().find({type: type});
 }
 
 exports.getProductByTypeAndNumber = async (type, number) =>{
     //const collection = database().collection('Products');
-    return Products.find({'type': type}).limit(number);
+    return  Products.find({'type_id': type, }).limit(number).populate('type_id');
 }
 
 exports.Search = async (text) => {
