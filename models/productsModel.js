@@ -35,7 +35,8 @@ exports.getProductByType = async (type) =>{
 
 exports.getProductByTypeAndNumber = async (type, number) =>{
     //const collection = database().collection('Products');
-    return  Products.find({'type_id': type, }).limit(number).populate('type_id');
+    const _type = Catalogs.findOne({'name': type});
+    return  Products.find({'type_id': _type._id }).limit(number).populate('type_id');
 }
 
 exports.Search = async (text) => {
