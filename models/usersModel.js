@@ -1,5 +1,6 @@
 const {database} = require('../DAL/loadDatabase');
 const mongoose=require('mongoose');
+const bcrypt = require('bcrypt');
 const ObjectId = mongoose.Types.ObjectId;
 
 const Accounts = require('./mongooseModels/accounts');
@@ -17,15 +18,24 @@ exports.Signin = async (req) =>{
 exports.Signup = async (req) =>{
     const account = await Accounts.findOne({'email': req.body.email});
     if(account === null){
-        const newAccount = {
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            status: 'offline',
-            avatar :'https://firebasestorage.googleapis.com/v0/b/storageserver-b4fd7.appspot.com/o/null%20avatar.jpg?alt=media',
-            type: 'customer'
-        }
-        await Accounts.insertMany(newAccount);
+
+        const saltRounds = 10;
+        await bcrypt.genSalt(saltRounds, function(err, salt) {
+            bcrypt.hash(req.body.password, salt, function(err, hash) {
+                let newAccount = new Accounts({
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: hash,
+                    status: 'offline',
+                    avatar :'https://firebasestorage.googleapis.com/v0/b/storageserver-b4fd7.appspot.com/o/null%20avatar.jpg?alt=media',
+                    type: 'customer'
+                })
+                console.log(newAccount.password);
+                console.log(newAccount.name);
+                newAccount.save().then((doc)=>{})
+                    .then((err)=>{console.log(err);});
+            });
+        });
         return true;
     }
     else{
