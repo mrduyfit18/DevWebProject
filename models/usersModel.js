@@ -22,18 +22,19 @@ exports.Signup = async (req) =>{
         const saltRounds = 10;
         await bcrypt.genSalt(saltRounds, function(err, salt) {
             bcrypt.hash(req.body.password, salt, function(err, hash) {
-                let newAccount = new Accounts({
+                let newAccount = ({
                     name: req.body.name,
                     email: req.body.email,
-                    password: hash,
+                    password: req.body.password,
                     status: 'offline',
                     avatar :'https://firebasestorage.googleapis.com/v0/b/storageserver-b4fd7.appspot.com/o/null%20avatar.jpg?alt=media',
                     type: 'customer'
                 })
                 console.log(newAccount.password);
                 console.log(newAccount.name);
-                newAccount.save().then((doc)=>{})
-                    .then((err)=>{console.log(err);});
+                Accounts.insertMany(newAccount);
+                /*newAccount.save().then((doc)=>{})
+                    .then((err)=>{console.log(err);});*/
             });
         });
         return true;
