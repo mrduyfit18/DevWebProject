@@ -3,11 +3,11 @@ const mongoose=require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 const Products = require('./mongooseModels/products');
-const Catalogs = require('./mongooseModels/catalogs');
+const Manufacturers = require('./mongooseModels/manufacturers');
 
 exports.list = async (filter, currentPage) => {
     const currPage = currentPage || 1;
-    const res = await Products.paginate(filter, {page: currPage, limit: 2});
+    const res = await Products.paginate(filter, {page: currPage, limit: 6});
 
     if(res.hasNextPage){
         const secondPaging = parseInt(res.nextPage) + 1;
@@ -26,7 +26,7 @@ exports.list = async (filter, currentPage) => {
 }
 
 exports.getProduct = async (id) => {
-    return Products.findOne({'_id': ObjectId(id)}).populate('type_id');
+    return Products.findOne({'_id': ObjectId(id)}).populate('manufacturer_id');
 }
 
 exports.getProductByType = async (type) =>{
@@ -35,8 +35,7 @@ exports.getProductByType = async (type) =>{
 
 exports.getProductByTypeAndNumber = async (type, number) =>{
     //const collection = database().collection('Products');
-    const _type = Catalogs.findOne({'name': type});
-    return  Products.find({'type_id': _type._id }).limit(number).populate('type_id');
+    return  Products.find({'type': type }).limit(number);
 }
 
 exports.Search = async (text) => {

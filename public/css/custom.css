@@ -529,6 +529,7 @@
 
 
 				.products .product .body {
+					height: 500px;
 					box-sizing: border-box;
 					padding: 15px 0 25px;
 					background-color: #fff; 

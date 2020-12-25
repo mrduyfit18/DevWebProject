@@ -10,7 +10,7 @@ const Product = new Schema({
     manufacturer_id: {type: Schema.Types.ObjectId, ref: 'Manufacturer'},
     cover: String,
     basePrice: Number,
-    type_id: {type: Schema.Types.ObjectId, ref: 'Catalog'},
+    type: String,
     shortSpecs: {type:  new Schema({
             shortCPU: String,
             shortDisplay: String,
