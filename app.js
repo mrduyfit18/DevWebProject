@@ -6,10 +6,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv').config({ path: '.env' });
-
-const db = require('./DAL/loadDatabase');
 const hbshelpers = require('handlebars-helpers');
 const helpers = hbshelpers();
+
+const db = require('./DAL/loadDatabase');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 // const signinRouter = require('./routes/signin');

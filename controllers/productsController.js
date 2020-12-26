@@ -136,6 +136,7 @@ exports.index = async (req, res, next) => {
     const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" }, 'type': { "$regex": type, "$options": "i" } },
         req.query.page);
     const products = pagination.docs;
+    console.log(products);
     //Create Paging Information
     createPagination(pagination, req);
     const totalPage = pagination.totalPages;
@@ -148,6 +149,6 @@ exports.Show = async (req, res, next) => {
     // Get product from model
     //await console.log(req.params._id);
     const product = await productsModel.getProduct(await req.params._id);
-    const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type_id._id, 4);
+    const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type, 4);
     res.render('store/productDetail', {product, Products: relatedProducts});
 };
