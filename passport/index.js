@@ -1,17 +1,16 @@
-var passport = require('passport')
+const passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy;
 
+const userService = require('../models/usersModel');
+
 passport.use(new LocalStrategy(
-    function(username, password, done) {
-        User.findOne({ username: username }, function (err, user) {
-            if (err) { return done(err); }
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
-            }
-            if (!user.validPassword(password)) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
-        });
+    async function(username, password, done) {
+        const user = await userService.Signin(username, password);
+        if (!user) {
+            return done(null, false, { message: 'Incorrect username.' });
+        }
+        return done(null, user);
     }
 ));
+
+module.exports = passport;

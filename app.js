@@ -21,6 +21,7 @@ const galleryRouter = require('./routes/gallery');
 const blogRouter = require('./routes/blog/blog');
 const signinRouter = require('./routes/signin');
 const signupRouter = require('./routes/signup');
+const passport = require('./passport');
 
 db.Connect();
 const app = express();
@@ -37,7 +38,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+//passport
+app.use(express.session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/users', usersRouter);
 app.use('/store', productsRouter);

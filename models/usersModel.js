@@ -6,11 +6,23 @@ const ObjectId = mongoose.Types.ObjectId;
 const Accounts = require('./mongooseModels/accounts');
 
 exports.Signin = async (req) =>{
-    const account = await Accounts.findOne({'email': req.body.email});
-    if(account.password === req.body.password){
+    const account = await Accounts.findOne({email: req.body.email});
+    /*if(account.password === req.body.password){
         return account;
     }
     else{
+        return false;
+    }*/
+    if(!account){
+        return false;
+    }
+    let checkPassword = await bcrypt.compare(req.body.password, account.password);
+    if(checkPassword){
+        console.log(checkPassword);
+        return account;
+    }
+    else{
+        console.log(checkPassword);
         return false;
     }
 }
