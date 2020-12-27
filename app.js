@@ -8,6 +8,7 @@ const logger = require('morgan');
 require('dotenv').config({ path: '.env' });
 const hbshelpers = require('handlebars-helpers');
 const helpers = hbshelpers();
+const session = require("express-session");
 
 const db = require('./DAL/loadDatabase');
 const indexRouter = require('./routes/index');
@@ -38,8 +39,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-//passport
-app.use(express.session({ secret: 'keyboard cat' }));
+//passport middleware
+app.use(session({ secret: process.env.SESSION_SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -13,4 +13,14 @@ passport.use(new LocalStrategy(
     }
 ));
 
+passport.serializeUser(function(user, done) {
+    done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+    userModel.getAccount(id).then((user)=>{
+        done(null, user)
+    })
+});
+
 module.exports = passport;
