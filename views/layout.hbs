@@ -62,6 +62,25 @@
 <script type="text/javascript" src="../js/jquery-ui-1.11.4.js"></script>
 <script type="text/javascript" src="../js/jquery.ui.touch-punch.js"></script>
 <script type="text/javascript" src="../js/customjs.js"></script>
+<script type="text/javascript" src="../js/filter.js"></script>
+<script type="text/javascript" src="../js/handlebars.min-v4.7.6.js"></script>
+<script type="text/javascript">
+    Handlebars.registerHelper("gt", function(a, b, options) {
+        if (a > b) {
+            return options.fn(this);
+        }
+    });
+    Handlebars.registerHelper("lte", function(a, b, options) {
+        if (a <= b) {
+            return options.fn(this);
+        }
+    });
+    Handlebars.registerHelper("eq", function(a, b, options) {
+        if (a === b) {
+            return options.fn(this);
+        }
+    });
+</script>
 
 <script type="text/javascript">
     $(document).ready(function(){

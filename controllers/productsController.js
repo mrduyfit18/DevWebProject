@@ -111,7 +111,7 @@ exports.index = async (req, res, next) => {
     // Get products from model
     const textSearch =  req.query.name || '';
     const type = req.query.type || '';
-    let Desktopscheck, Allcheck, Laptopscheck, Tabletscheck, Hybridscheck;
+    let Desktopscheck, Allcheck, Laptopscheck;
 
     switch(type){
         case "":
@@ -123,12 +123,6 @@ exports.index = async (req, res, next) => {
         case 'Laptops':
             Laptopscheck = 1;
             break;
-        case 'Tablets':
-            Tabletscheck = 1;
-            break;
-        case 'Hybrids':
-            Hybridscheck = 1;
-            break;
         default:
             Allcheck = 1;
             break;
@@ -136,13 +130,12 @@ exports.index = async (req, res, next) => {
     const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" }, 'type': { "$regex": type, "$options": "i" } },
         req.query.page);
     const products = pagination.docs;
-    console.log(products);
     //Create Paging Information
     createPagination(pagination, req);
     const totalPage = pagination.totalPages;
     // Pass data to view to display list of products
     res.render('store/products', { products, pagingButtons , pagination,
-        totalPage ,onStore: 'active', Allcheck, Desktopscheck, Laptopscheck, Tabletscheck, Hybridscheck});
+        totalPage ,onStore: 'active', Allcheck, Desktopscheck, Laptopscheck});
 };
 
 exports.Show = async (req, res, next) => {
@@ -150,5 +143,52 @@ exports.Show = async (req, res, next) => {
     //await console.log(req.params._id);
     const product = await productsModel.getProduct(await req.params._id);
     const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type, 4);
-    res.render('store/productDetail', {product, Products: relatedProducts});
+    const imageCount = product.productImages.length + 1;
+    res.render('store/productDetail', {product, Products: relatedProducts, imageCount});
+};
+
+exports.Test = async (req, res, next) => {
+    // Get products from model
+    // Get products from model
+    const textSearch =  req.query.name || '';
+    const type = req.query.type || '';
+    let display= [];
+    if(!req.query.display){
+        display.push('');
+    }
+    else if(typeof req.query.display === 'string'){
+        display.push(req.query.display);
+    }
+    else{
+        display=req.query.display;
+    }
+    for(let i=0; i<display.length; i++) {
+        display[i] = new RegExp(display[i], "i");
+        console.log(display[i]);
+    }
+    let Desktopscheck, Allcheck, Laptopscheck;
+
+    switch(type){
+        case "":
+            Allcheck = 1;
+            break;
+        case 'Desktops':
+            Desktopscheck = 1;
+            break;
+        case 'Laptops':
+            Laptopscheck = 1;
+            break;
+        default:
+            Allcheck = 1;
+            break;
+    }
+    const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" },
+            'type': { "$regex": type, "$options": "i" }, 'display': {"$in": display }}, req.query.page);
+    const products = pagination.docs;
+    console.log(products);
+    //Create Paging Information
+    createPagination(pagination, req);
+    const totalPage = pagination.totalPages;
+    res.json( { products, pagingButtons , pagination,
+        totalPage ,onStore: 'active', Allcheck, Desktopscheck, Laptopscheck});
 };

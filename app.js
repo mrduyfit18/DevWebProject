@@ -23,6 +23,7 @@ const blogRouter = require('./routes/blog/blog');
 const signinRouter = require('./routes/signin');
 const signupRouter = require('./routes/signup');
 const passport = require('./passport');
+const productsAPIRouter = require('./routes/api/productsAPI');
 
 db.Connect();
 const app = express();
@@ -52,6 +53,7 @@ app.use('/gallery', galleryRouter);
 app.use('/blog', blogRouter);
 app.use('/signin', signinRouter);
 app.use('/signup', signupRouter);
+app.use('/api/products', productsAPIRouter);
 app.use('/', indexRouter);
 
 
@@ -75,6 +77,10 @@ app.use(function(err, req, res, next) {
 const hbs = require('hbs');
 hbs.registerPartials(path.join(__dirname,'views','partials'));
 hbs.registerHelper(helpers);
+hbs.registerHelper('incremented', function (index) {
+  index+=2;
+  return index;
+});
 
 
 module.exports = app;

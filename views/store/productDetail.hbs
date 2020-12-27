@@ -8,59 +8,35 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-7 col-md-7 white no-padding">
-                <div class="carousel-product" data-count="4" data-current="1">
+                <div class="carousel-product" data-count="{{../imageCount}}" data-current="1">
 
                     <div class="items">
                         <button class="btn btn-control" data-direction="right"> <i class="ion-ios-arrow-right"></i></button>
                         <button class="btn btn-control" data-direction="left"> <i class="ion-ios-arrow-left"></i></button>
-
-
                         <div class="item center" data-marker="1">
-                            <img src="../img/product/1.jpg" alt="Microsoft Surface Studio" class="background"/>
+                            <img src="{{cover}}" alt="Microsoft Surface Studio" class="background"/>
                         </div>
-
-                        <div class="item" data-marker="2">
-                            <img src="../img/product/2.jpg" alt="Microsoft Surface Studio" class="background"/>
-                        </div>
-
-                        <div class="item" data-marker="3">
-                            <img src="../img/product/3.jpg" alt="Microsoft Surface Studio" class="background"/>
-                        </div>
-
-                        <div class="item" data-marker="4">
-                            <img src="../img/product/video.jpg" alt="Microsoft Surface Studio" class="background"/>
-
-                            <div class="tiles">
-                                <a href="#video" data-gallery="#video" data-source="youtube" data-id="BzMLA8YIgG0">
-                                    <img src="../img/product/video.jpg" alt="Surface Studio">
-
-                                    <div class="overlay"></div>
-                                    <div class="content">
-                                        <div class="content-outside">
-                                            <div class="content-inside">
-                                                <i class="ion-ios-play"></i>
-                                                <h2 class="white hidden-xs">Introducing<br> {{name}}</h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
+                        {{#each productImages}}
+                            <div class="item" data-marker="{{incremented @index}}">
+                                <img src="{{path}}" alt="Microsoft Surface Studio" class="background"/>
                             </div>
-                        </div>
+                        {{/each}}
                     </div>
 
                     <ul class="markers">
                         <li data-marker="1" class="active"></li>
-                        <li data-marker="2"></li>
-                        <li data-marker="3"></li>
-                        <li data-marker="4"></li>
+                        {{#each productImages}}
+                            <li data-marker="{{incremented @index}}"></li>
+                        {{/each}}
                     </ul>
 
                 </div>
             </div>
             <div class="col-sm-5 col-md-5 no-padding-xs">
                 <div class="caption">
-                    <img src="../img/brands/microsoft.png" alt="Microsoft" class="brand hidden-xs hidden-sm" />
-
+                    {{#with manufacturer_id}}
+                    <img src="{{logo}}" alt="{{name}}" class="brand hidden-xs hidden-sm" />
+                    {{/with}}
                     <h1>{{name}}</h1>
                     {{#with shortSpecs}}
                     <p> &middot; {{shortOS}}</p>

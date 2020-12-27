@@ -4,7 +4,8 @@ const ObjectId = Schema.ObjectId;
 
 const manufacturer = new Schema({
     _id: ObjectId,
-    name: String
+    name: String,
+    logo: String
 });
 
 module.exports = mongoose.model('Manufacturer', manufacturer);

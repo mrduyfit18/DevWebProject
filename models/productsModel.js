@@ -4,10 +4,11 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const Products = require('./mongooseModels/products');
 const Manufacturers = require('./mongooseModels/manufacturers');
+const productImage = require('./mongooseModels/productImages');
 
 exports.list = async (filter, currentPage) => {
     const currPage = currentPage || 1;
-    const res = await Products.paginate(filter, {page: currPage, limit: 6});
+    const res = await Products.paginate(filter, {page: currPage, limit: 6, populate: 'manufacturer_id', sort: {'manufacturer_id.name': -1 }});
 
     if(res.hasNextPage){
         const secondPaging = parseInt(res.nextPage) + 1;
@@ -15,7 +16,25 @@ exports.list = async (filter, currentPage) => {
             res.secondNextPage = secondPaging;
         }
     }
-
+    // const a = await Products.aggregate([
+    //     {
+    //         $lookup: {
+    //             from: 'manufacturers',
+    //             localField: 'manufacturer_id',
+    //             foreignField: '_id',
+    //             as: 'manufacturer'
+    //         }
+    //     },
+    //     {
+    //         $match:{
+    //             'manufacturer.name': 'MSI'
+    //         }
+    //     },
+    //     {
+    //         $unwind: '$manufacturer'
+    //     }
+    // ]);
+    // console.log(a);
     if(res.hasPrevPage){
         const secondPaging = parseInt(res.prevPage) - 1;
         if(secondPaging >= 1){
@@ -23,10 +42,17 @@ exports.list = async (filter, currentPage) => {
         }
     }
     return res;
+
 }
 
 exports.getProduct = async (id) => {
-    return Products.findOne({'_id': ObjectId(id)}).populate('manufacturer_id');
+    const product = await Products.findOne({'_id': ObjectId(id)}).populate('manufacturer_id');
+    product.productImages = await productImage.find({'product_id': ObjectId(id)});
+    return product;
+}
+
+exports.getProducts = async (filter) => {
+    return Products.find(filter).populate('manufacturer_id');
 }
 
 exports.getProductByType = async (type) =>{
