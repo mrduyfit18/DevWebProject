@@ -8,7 +8,8 @@ const logger = require('morgan');
 require('dotenv').config({ path: '.env' });
 const hbshelpers = require('handlebars-helpers');
 const helpers = hbshelpers();
-const session = require("express-session");
+const session = require("express-session"),
+    bodyParser = require("body-parser");
 
 const db = require('./DAL/loadDatabase');
 const indexRouter = require('./routes/index');
@@ -40,11 +41,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-//passport middleware
 
+//passport middleware
+app.use(session({ secret: process.env.SESSION_SECRET , cookie: { maxAge: 360000000 }})); //time live 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(session({ secret: process.env.SESSION_SECRET }));
+app.use(function (req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
 app.use('/users', usersRouter);
 app.use('/store', productsRouter);
 app.use('/about', aboutRouter);

@@ -5,6 +5,5 @@ exports.index = async (req, res, next) => {
     const Desktops = await productsModel.getProductByTypeAndNumber('Desktops',4);
     const Hybrids = await productsModel.getProductByTypeAndNumber('Hybrids',3);
     const Tablets = await productsModel.getProductByTypeAndNumber('Tablets',3);
-    const status = true;
-    res.render('index', { Desktops, Hybrids, Tablets, onHome: 'active', status});
+    res.render('index', { Desktops, Hybrids, Tablets, onHome: 'active'});
 };

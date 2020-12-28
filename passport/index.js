@@ -18,7 +18,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-    userModel.getAccount(id).then((user)=>{
+    userService.getAccount(id).then((user)=>{
         done(null, user)
     })
 });

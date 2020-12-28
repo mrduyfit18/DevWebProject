@@ -157,7 +157,7 @@ exports.Test = async (req, res, next) => {
     const type = req.query.type || '';
     const minPrice = Number(req.query.minPrice) * 1000000;
     const maxPrice = Number(req.query.maxPrice) * 1000000;
-    let display= [];
+    let display = [];
     if(!req.query.display){
         display.push('');
     }
@@ -204,7 +204,10 @@ exports.Test = async (req, res, next) => {
 
     let manufacturer_id= [];
     if(!req.query.manufacturer_id){
-        //manufacturer_id.push('');
+        const manufacturers = await manufacturerModel.list();
+        for(let manufacturer of manufacturers){
+            manufacturer_id.push(manufacturer._id);
+        }
     }
     else if(typeof req.query.manufacturer_id === 'string'){
         manufacturer_id.push(req.query.manufacturer_id);
@@ -239,7 +242,6 @@ exports.Test = async (req, res, next) => {
          'basePrice': { $gte: minPrice }  },
         req.query.page);
     const products = pagination.docs;
-    console.log(products);
     //Create Paging Information
     createPagination(pagination, req);
     const totalPage = pagination.totalPages;

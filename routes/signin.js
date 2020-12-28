@@ -5,7 +5,7 @@ const passport = require('../passport/index');
 
 router.post('/', passport.authenticate('local', { successRedirect: '/',
     failureRedirect: '/login',
-    failureFlash: true })
+    failureFlash: false })
 );
 
 module.exports = router;

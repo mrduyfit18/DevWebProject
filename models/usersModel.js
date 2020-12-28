@@ -56,8 +56,8 @@ exports.Signup = async (req) =>{
     }
 }
 
-exports.getAccount =  (id) =>{
-    Accounts.findOne(ObjectId(id));
+exports.getAccount = (id) =>{
+    return Accounts.findOne({'_id': ObjectId(id)});
 }
 
 exports.SaveProfileChange = async (fields, avatarLocal, id) => {
