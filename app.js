@@ -41,10 +41,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //passport middleware
-app.use(session({ secret: process.env.SESSION_SECRET }));
+
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(session({ secret: process.env.SESSION_SECRET }));
 app.use('/users', usersRouter);
 app.use('/store', productsRouter);
 app.use('/about', aboutRouter);

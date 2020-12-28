@@ -5,8 +5,8 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const Accounts = require('./mongooseModels/accounts');
 
-exports.Signin = async (req) =>{
-    const account = await Accounts.findOne({email: req.body.email});
+exports.Signin = async (username, password) =>{
+    const account = await Accounts.findOne({email: username});
     /*if(account.password === req.body.password){
         return account;
     }
@@ -16,7 +16,7 @@ exports.Signin = async (req) =>{
     if(!account){
         return false;
     }
-    let checkPassword = await bcrypt.compare(req.body.password, account.password);
+    let checkPassword = await bcrypt.compare(password, account.password);
     if(checkPassword){
         console.log(checkPassword);
         return account;
@@ -34,7 +34,7 @@ exports.Signup = async (req) =>{
         const saltRounds = 10;
         await bcrypt.genSalt(saltRounds, function(err, salt) {
             bcrypt.hash(req.body.password, salt, function(err, hash) {
-                let newAccount = new account ({
+                let account = ({
                     name: req.body.name,
                     email: req.body.email,
                     password: hash,
@@ -43,7 +43,9 @@ exports.Signup = async (req) =>{
                     type: 'customer'
                 });
 
-                newAccount.save().then((doc)=>{})
+                /*account.save().then((doc)=>{})
+                    .then((err)=>{console.log(err);});*/
+                Accounts.insertMany(account).then((doc)=>{})
                     .then((err)=>{console.log(err);});
             });
         });
