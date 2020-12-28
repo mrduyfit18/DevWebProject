@@ -1,8 +1,10 @@
 <div class="toplinks">
-
     {{#if user}}
-        <a href="/users/{{user._id}}"><i class="ion-person"></i>{{user.email}}</a>
+        <a href="/signin/logout">Log out</a>
+        <a href="/users/{{user._id}}"><i class="ion-person"> </i>{{user.email}}</a>
         <p>{{user.name}}</p>
+
+
     {{else}}
         <a data-toggle="modal" data-target="#Modal-SignIn"> <i class="ion-unlocked"></i> Sign In</a>
         <a data-toggle="modal" data-target="#Modal-Registration"> <i class="ion-person"></i> Registration</a>

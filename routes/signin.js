@@ -8,4 +8,9 @@ router.post('/', passport.authenticate('local', { successRedirect: '/',
     failureFlash: false })
 );
 
+router.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
 module.exports = router;
