@@ -32,25 +32,25 @@ $(document).ready(function(){
 		//Slider price
 			$('.filter a[data-action="clear-price"]').on('click', function(){
 
-				$( ".filter #slider-price" ).slider({ values: [ 199, 700 ] });
+				$( ".filter #slider-price" ).slider({ values: [ 0, 100 ] });
 
-				$( ".filter #amount" ).html( $( ".filter #slider-price" ).slider( "values", 0 )  + " $ - " + 
-			  	$( ".filter #slider-price" ).slider( "values", 1 ) + " $" );
+				$( ".filter #amount" ).html( $( ".filter #slider-price" ).slider( "values", 0 )  + " triệu  - " +
+			  	$( ".filter #slider-price" ).slider( "values", 1 ) + " triệu ");
 			});
 
 			if( $( "body" ).find('.filter').length > 0 ){
 				$( ".filter #slider-price" ).slider({
 				  range: true,
-				  min: 99,
-				  max: 1000,
-				  values: [ 199, 700 ],
+				  min: 0,
+				  max: 100,
+				  values: [ 10, 20 ],
 				  slide: function( event, ui ) {
-				    $( "#amount" ).html( ui.values[ 0 ] + " $ - " + ui.values[ 1 ] + " $" );
+				    $( "#amount" ).html( ui.values[ 0 ] + " triệu - " + ui.values[ 1 ] + " triệu" );
 				  }
 				});
 
-				$( ".filter #amount" ).html( $( "#slider-price" ).slider( "values", 0 )  + " $ - " + 
-				  $( "#slider-price" ).slider( "values", 1 ) + " $" );
+				$( ".filter #amount" ).html( $( "#slider-price" ).slider( "values", 0 )  + " triệu - " +
+				  $( "#slider-price" ).slider( "values", 1 ) + " triệu" );
 			}
 		//Slider price
 	//Filter

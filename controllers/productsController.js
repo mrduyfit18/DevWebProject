@@ -1,7 +1,9 @@
-const productsModel = require('../models/productsModel');
 const querystring = require('querystring');
 const mongoose = require('mongoose');
 const buildUrl = require('build-url');
+
+const productsModel = require('../models/productsModel');
+const manufacturerModel = require('../models/manufacturerModel');
 
 
 
@@ -133,9 +135,10 @@ exports.index = async (req, res, next) => {
     //Create Paging Information
     createPagination(pagination, req);
     const totalPage = pagination.totalPages;
+    const Manufacturers = await manufacturerModel.list();
     // Pass data to view to display list of products
     res.render('store/products', { products, pagingButtons , pagination,
-        totalPage ,onStore: 'active', Allcheck, Desktopscheck, Laptopscheck});
+        totalPage ,onStore: 'active', Allcheck, Desktopscheck, Laptopscheck, Manufacturers});
 };
 
 exports.Show = async (req, res, next) => {
@@ -152,6 +155,8 @@ exports.Test = async (req, res, next) => {
     // Get products from model
     const textSearch =  req.query.name || '';
     const type = req.query.type || '';
+    const minPrice = Number(req.query.minPrice) * 1000000;
+    const maxPrice = Number(req.query.maxPrice) * 1000000;
     let display= [];
     if(!req.query.display){
         display.push('');
@@ -162,10 +167,56 @@ exports.Test = async (req, res, next) => {
     else{
         display=req.query.display;
     }
+
     for(let i=0; i<display.length; i++) {
         display[i] = new RegExp(display[i], "i");
-        console.log(display[i]);
     }
+
+    let processor= [];
+    if(!req.query.processor){
+        processor.push('');
+    }
+    else if(typeof req.query.processor === 'string'){
+        processor.push(req.query.processor);
+    }
+    else{
+        processor=req.query.processor;
+    }
+
+    for(let i=0; i<processor.length; i++) {
+        processor[i] = new RegExp(processor[i], "i");
+    }
+
+    let memory= [];
+    if(!req.query.memory){
+        memory.push('');
+    }
+    else if(typeof req.query.memory === 'string'){
+        memory.push(req.query.memory);
+    }
+    else{
+        memory=req.query.memory;
+    }
+
+    for(let i=0; i<memory.length; i++) {
+        memory[i] = new RegExp(memory[i], "i");
+    }
+
+    let manufacturer_id= [];
+    if(!req.query.manufacturer_id){
+        //manufacturer_id.push('');
+    }
+    else if(typeof req.query.manufacturer_id === 'string'){
+        manufacturer_id.push(req.query.manufacturer_id);
+    }
+    else{
+        manufacturer_id=req.query.manufacturer_id;
+    }
+
+    for(let i=0; i<manufacturer_id.length; i++) {
+        manufacturer_id[i] = mongoose.Types.ObjectId(manufacturer_id[i]);
+    }
+
     let Desktopscheck, Allcheck, Laptopscheck;
 
     switch(type){
@@ -183,7 +234,10 @@ exports.Test = async (req, res, next) => {
             break;
     }
     const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" },
-            'type': { "$regex": type, "$options": "i" }, 'display': {"$in": display }}, req.query.page);
+            'type': { "$regex": type, "$options": "i" }, 'display': {"$in": display },
+        'processor': {"$in": processor }, 'memory': {"$in": memory }, 'manufacturer_id': {"$in": manufacturer_id },
+         'basePrice': { $gte: minPrice }  },
+        req.query.page);
     const products = pagination.docs;
     console.log(products);
     //Create Paging Information

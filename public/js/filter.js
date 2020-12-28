@@ -21,12 +21,30 @@ function getSelectedCheckboxValues(name) {
 }
 
 function filterChange(){
-    const selectedFilter = getSelectedCheckboxValues('Display');
-    console.log(selectedFilter);
+    const selectedDisplay = getSelectedCheckboxValues('Display');
+    const selectedProcessor = getSelectedCheckboxValues('Processor');
+    const selectedMemory = getSelectedCheckboxValues('Memory');
+    const selectedManufacturer = getSelectedCheckboxValues('Manufacturer');
+    const minPrice =  $( ".filter #slider-price" ).slider( "values", 0 );
+    const maxPrice =  $( ".filter #slider-price" ).slider( "values", 1 );
+    console.log("abc");
     let queryString='';
-    for (let query of selectedFilter) {
+    for (let query of selectedDisplay) {
         queryString+="display="+query+'&';
     }
+    for (let query of selectedProcessor) {
+        queryString+="processor="+query+'&';
+    }
+    for (let query of selectedMemory) {
+        queryString+="memory="+query+'&';
+    }
+    for (let query of selectedManufacturer) {
+        queryString+="manufacturer_id="+query+'&';
+    }
+    queryString += "minPrice="+minPrice+'&';
+    queryString += "maxPrice="+maxPrice+'&';
+
+
     $.getJSON('/api/products?'+queryString, (data) =>{
         relatedProducts(data);
     })
