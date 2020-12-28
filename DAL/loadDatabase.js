@@ -18,7 +18,6 @@ async function Connect() {
             //b = await client.db('data');
             console.log('Successfully connected');
 
-
     }
     finally {
 

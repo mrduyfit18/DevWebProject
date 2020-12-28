@@ -27,7 +27,7 @@ function filterChange(){
     const selectedManufacturer = getSelectedCheckboxValues('Manufacturer');
     const minPrice =  $( ".filter #slider-price" ).slider( "values", 0 );
     const maxPrice =  $( ".filter #slider-price" ).slider( "values", 1 );
-    console.log("abc");
+    const page = $('input[name="Page"]:checked').val();
     let queryString='';
     for (let query of selectedDisplay) {
         queryString+="display="+query+'&';
@@ -43,14 +43,17 @@ function filterChange(){
     }
     queryString += "minPrice="+minPrice+'&';
     queryString += "maxPrice="+maxPrice+'&';
+    console.log(page);
+    queryString += "page="+page;
 
-
+    console.log(queryString);
     $.getJSON('/api/products?'+queryString, (data) =>{
-        relatedProducts(data);
+        renderProducts(data);
+        window.scrollTo(0, 250);
     })
 }
 
-function relatedProducts(data)
+function renderProducts(data)
 {
     const template = Handlebars.compile($('#products-template').html());
     const productsHtml = template({products: data.products, pagingButtons: data.pagingButtons, totalPages: data.totalPages, pagination: data.pagination});

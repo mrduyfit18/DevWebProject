@@ -11,38 +11,32 @@ const manufacturerModel = require('../models/manufacturerModel');
 const pagingButtons = [
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
+
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     }
 ]
 
@@ -51,7 +45,6 @@ function createPagination(pagination, req){
     //Reset last selected button
     for (i = 0; i < 7; i++) {
         pagingButtons[i].active = false;
-        pagingButtons[i].link = '';
     }
     if(pagination.page < 4) {
         pagingButtons[0].value = 1;
@@ -92,18 +85,6 @@ function createPagination(pagination, req){
             pagingButtons[6].value = 0;
         }
         pagingButtons[3].active = true;
-    }
-
-    //Tạo link cho từng nút
-    for(i = 0; i < 7; i++){
-        let x;
-        pagingButtons[i].link +='/store?'
-        for(x in req.query){
-            if(x !== 'page'){
-                pagingButtons[i].link = pagingButtons[i].link + x + '=' + req.query[x]+'&';
-            }
-        }
-        pagingButtons[i].link = pagingButtons[i].link + 'page='+ pagingButtons[i].value;
     }
 
 }
@@ -150,7 +131,7 @@ exports.Show = async (req, res, next) => {
     res.render('store/productDetail', {product, Products: relatedProducts, imageCount});
 };
 
-exports.Test = async (req, res, next) => {
+exports.listAPI = async (req, res, next) => {
     // Get products from model
     // Get products from model
     const textSearch =  req.query.name || '';
@@ -187,7 +168,7 @@ exports.Test = async (req, res, next) => {
         processor[i] = new RegExp(processor[i], "i");
     }
 
-    let memory= [];
+    let memory = [];
     if(!req.query.memory){
         memory.push('');
     }
@@ -238,8 +219,8 @@ exports.Test = async (req, res, next) => {
     }
     const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" },
             'type': { "$regex": type, "$options": "i" }, 'display': {"$in": display },
-        'processor': {"$in": processor }, 'memory': {"$in": memory }, 'manufacturer_id': {"$in": manufacturer_id },
-         'basePrice': { $gte: minPrice }  },
+            'processor': {"$in": processor }, 'memory': {"$in": memory }, 'manufacturer_id': {"$in": manufacturer_id },
+            $and: [{ 'basePrice': { $gte: minPrice } }, { 'basePrice': { $lte: maxPrice } }]  },
         req.query.page);
     const products = pagination.docs;
     //Create Paging Information

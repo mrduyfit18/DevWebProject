@@ -5,7 +5,7 @@ const productsController = require('../../controllers/productsController');
 
 
 
-router.get('/', productsController.Test);
+router.get('/', productsController.listAPI);
 router.use('/', productsController.index);
 
 module.exports = router;
