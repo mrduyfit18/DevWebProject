@@ -71,7 +71,6 @@ $(document).ready(function(){
 				$(this).find('i').removeClass('rotate'); }
 			else{ $(this).find('i').addClass('rotate'); }
 
-			console.log( $(this).find('i').attr('class') );
 		});
 
 		$('.tags').on('focusout', 'button.dropdown-toggle', function(){

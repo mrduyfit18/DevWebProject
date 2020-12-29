@@ -168,7 +168,21 @@ async function getProducts (req) {
     for(let i=0; i<manufacturer_id.length; i++) {
         manufacturer_id[i] = mongoose.Types.ObjectId(manufacturer_id[i]);
     }
-
+    let sortOption={};
+    switch(req.query.sort){
+        case '1':
+            sortOption.name = 1;
+            break;
+        case '2':
+           sortOption.name = -1;
+            break;
+        case '3':
+            sortOption.basePrice = 1;
+            break;
+        case '4':
+            sortOption.basePrice = -1;
+            break;
+    }
 
     switch(type){
         case 'Desktops':
@@ -185,7 +199,7 @@ async function getProducts (req) {
             'type': { "$regex": type, "$options": "i" }, 'display': {"$in": display }, 'processor': {"$in": processor },
             'memory': {"$in": memory }, 'manufacturer_id': {"$in": manufacturer_id },
             $and: [{ 'basePrice': { $gte: minPrice } }, { 'basePrice': { $lte: maxPrice } }]  },
-        req.query.page);
+        req.query.page, sortOption);
     //Create Paging Information
     createPagination(pagination, req);
     result.pagination = pagination;

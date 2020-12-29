@@ -19,7 +19,7 @@
         <form method="post" id="typeform">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default btn-sm {{#if Allcheck}} active{{/if}}">
-                    <input type="radio" name="Type" onchange="filterChange();" value=""  > All products
+                    <input type="radio" name="Type" onchange="filterChange();" value="" checked > All products
                 </label>
                 <label class="btn btn-default btn-sm {{#if Desktopscheck}}active{{/if}}">
                     <input type="radio" name="Type" onchange="filterChange();" value="Desktops"> Desktops
@@ -214,7 +214,7 @@
 
                                     <div class="content">
                                         <h1 class="h3">{{name}}</h1>
-                                        <p class="price">{{basePrice}}</p>
+                                        <p class="price">{{convertPrice basePrice}}</p>
                                         <label>{{type}}</label>
 
                                         <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
@@ -266,7 +266,7 @@
 
                                     <div class="content">
                                         <h1 class="h3">\{{name}}</h1>
-                                        <p class="price">\{{basePrice}}</p>
+                                        <p class="price">\{{convertPrice basePrice}}</p>
                                         <label>\{{type}}</label>
 
                                         <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>

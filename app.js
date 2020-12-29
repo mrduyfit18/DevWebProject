@@ -89,6 +89,13 @@ hbs.registerHelper('incremented', function (index) {
   index+=2;
   return index;
 });
-
+hbs.registerHelper('convertPrice', function (index) {
+    const moneyFormatter2 = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+      minimumFractionDigits: 0,
+    });
+    return moneyFormatter2.format(index).replace(/\s/g, '');
+});
 
 module.exports = app;

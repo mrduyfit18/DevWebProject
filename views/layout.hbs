@@ -81,6 +81,14 @@
             return options.fn(this);
         }
     });
+    Handlebars.registerHelper('convertPrice', function (index) {
+        var moneyFormatter2 = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+            minimumFractionDigits: 0
+        });
+        return moneyFormatter2.format(index).replace(/\s/g, '');
+    });
 </script>
 
 <script type="text/javascript">

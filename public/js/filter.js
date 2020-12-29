@@ -30,7 +30,7 @@ function filterChange(sortOption) {
     const page = $('input[name="Page"]:checked').val();
     const type = $('input[name="Type"]:checked').val();
     let queryString='?';
-    queryString += 'sort=' + sortOption;
+    queryString += 'sort=' + (sortOption || "1") + '&';
     for (let query of selectedDisplay) {
         queryString+="display="+query+'&';
     }
@@ -48,7 +48,6 @@ function filterChange(sortOption) {
     queryString += "maxPrice="+maxPrice+'&';
     queryString += "page="+page;
 
-    console.log(queryString);
     $.getJSON('/api/products'+queryString, (data) =>{
         renderProducts(data);
         window.scrollTo(0, 250);
