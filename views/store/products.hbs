@@ -4,14 +4,14 @@
     <div class="container">
         <div class="btn-group pull-right sorting">
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ion-arrow-down-b"></i> Sorting by name
+                <i class="ion-arrow-down-b"></i> Sắp xếp
             </button>
 
             <ul class="dropdown-menu">
-                <li class="active"><a href="#"> <i class="ion-arrow-down-c"></i> Name [A-Z]</a></li>
-                <li><a href="#"> <i class="ion-arrow-up-c"></i> Name [Z-A]</a></li>
-                <li><a href="#"> <i class="ion-arrow-down-c"></i> Price [Low-High]</a></li>
-                <li><a href="#"> <i class="ion-arrow-up-c"></i> Price [High-Low]</a></li>
+                <li class="active"><a href="javascript:;" class="sort-product" data-id="1"> <i class="ion-arrow-down-c"></i> Tên [A-Z]</a></li>
+                <li><a href="javascript:;" class="sort-product" data-id="2"> <i class="ion-arrow-up-c"></i> Tên [Z-A]</a></li>
+                <li><a href="javascript:;" class="sort-product" data-id="3"> <i class="ion-arrow-down-c"></i> Giá [Low-High]</a></li>
+                <li><a href="javascript:;" class="sort-product" data-id="4"> <i class="ion-arrow-up-c"></i> Giá [High-Low]</a></li>
             </ul>
         </div>
 
@@ -19,33 +19,18 @@
         <form method="post" id="typeform">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default btn-sm {{#if Allcheck}} active{{/if}}">
-                    <input type="radio" name="options" id="option1" onchange="TypeFormSubmit();" value="" > All products
+                    <input type="radio" name="Type" onchange="filterChange();" value="" checked > All products
                 </label>
                 <label class="btn btn-default btn-sm {{#if Desktopscheck}}active{{/if}}">
-                    <input type="radio" name="options" id="option2" onchange="TypeFormSubmit();" value="Desktops"> Desktops
+                    <input type="radio" name="Type" onchange="filterChange();" value="Desktops"> Desktops
                 </label>
                 <label class="btn btn-default btn-sm {{#if Laptopscheck}}active{{/if}}">
-                    <input type="radio" name="options" id="option3" onchange="TypeFormSubmit();" value="Laptops"> Laptops
+                    <input type="radio" name="Type" onchange="filterChange();" value="Laptops"> Laptops
                 </label>
             </div>
         </form>
     </div>
 </div>
-<script type="text/javascript">
-    function TypeFormSubmit(){
-        let link = '/store?';
-        const params = new URLSearchParams(document.location.search)
-        for (const param of params) {
-            if(param[0]!=='page' && param[0] !== 'type'){
-                link = link + param[0] + '=' + param[1] + '&';
-            }
-        }
-        document.getElementById("typeform").action = link + 'type=' + document.getElementById('typeform').options.value + '&';
-        document.getElementById("typeform").action = document.getElementById("typeform").action + 'page=' + 1;
-        document.getElementById("typeform").submit();
-
-    }
-</script>
 
 
 
@@ -58,33 +43,42 @@
             <div class="filter">
                 <div class="item">
                     <div class="title">
-                        <a data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
-                            Xem</a>
-                        <a data-action="clear"> <i class="ion-ios-trash-outline"></i> Reset</a>
+                        <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
+                            Open</a>
+                        <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Reset</a>
                         <h1 class="h4">Màn hình</h1>
                     </div>
-                    <div class="grid">
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Display" value='13.3"' onchange="filterChange();">
-                            <label >13.3"</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Display" value='14"' onchange="filterChange();">
-                            <label >14"</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Display" value='15.6"' onchange="filterChange();">
-                            <label >15.6"</label>
-                        </div>
-                        <div class="checkbox-group">
-                                <input type="checkbox" name="Display" value='17"' onchange="filterChange();">
-                            <label >17"</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Display" value='21.5"' onchange="filterChange();">
-                            <label >21.5"</label>
+
+                    <div class="controls grid">
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">13.3"</div>
+                            <input type="checkbox" name="Display" value='13.3"'>
                         </div>
 
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">14"</div>
+                            <input type="checkbox" name="Display" value='14"'>
+                        </div>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">15.6"</div>
+                            <input type="checkbox" name="Display" value='15.6"'>
+                        </div>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">17"</div>
+                            <input type="checkbox" name="Display" value='17"'>
+                        </div>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">21.5"</div>
+                            <input type="checkbox" name="Display" value='21.5"'>
+                        </div>
                     </div>
                 </div>
 
@@ -92,31 +86,71 @@
 
                 <div class="item">
                     <div class="title">
-                        <a data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
-                            Xem</a>
-                        <a data-action="clear"> <i class="ion-ios-trash-outline"></i> Reset</a>
+                        <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
+                            Open</a>
+                        <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Reset</a>
                         <h1 class="h4">Vi xử lý</h1>
                     </div>
-                    <div class="grid">
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Processor" value='i3' onchange="filterChange();">
-                            <label >Core i3</label>
+                    <div class="controls grid">
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">Core i3</div>
+                            <input type="checkbox" name="Processor" value='i3'>
                         </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Processor" value='i5' onchange="filterChange();">
-                            <label >Core i5</label>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">Core i5</div>
+                            <input type="checkbox" name="Processor" value='i5'>
                         </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Processor" value='i7' onchange="filterChange();">
-                            <label >Core i7</label>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">Core i7</div>
+                            <input type="checkbox" name="Processor" value='i7'>
                         </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Processor" value='Ryzen 5' onchange="filterChange();">
-                            <label >Ryzen 5</label>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">Ryzen 5</div>
+                            <input type="checkbox" name="Processor" value='Ryzen 5'>
                         </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Processor" value='Ryzen 7' onchange="filterChange();">
-                            <label >Ryzen 7</label>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">Ryzen 7</div>
+                            <input type="checkbox" name="Processor" value='Ryzen 7'>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="item">
+                    <div class="title">
+                        <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
+                            Open</a>
+                        <a href="#clear" data-action="clear"> <i class="ion-ios-trash-outline"></i> Clear</a>
+                        <h1 class="h4">RAM</h1>
+                    </div>
+
+                    <div class="controls grid">
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label" data-value="7 in">4GB</div>
+                            <input type="checkbox" name="Memory" value="4GB">
+                        </div>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label" data-value="10 in">8GB</div>
+                            <input type="checkbox" name="Memory" value="8GB">
+                        </div>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label" data-value="11 in">16GB</div>
+                            <input type="checkbox" name="Memory" value="16GB">
                         </div>
 
                     </div>
@@ -126,39 +160,17 @@
 
                 <div class="item">
                     <div class="title">
-                        <a data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
+                        <a  data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i>
                             Xem</a>
                         <a data-action="clear"> <i class="ion-ios-trash-outline"></i> Reset</a>
-                        <h1 class="h4">RAM</h1>
-                    </div>
-                    <div class="grid">
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Memory" value='4GB' onchange="filterChange();">
-                            <label >4GB</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Memory" value='8GB' onchange="filterChange();">
-                            <label >8GB</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="Memory" value='16GB' onchange="filterChange();">
-                            <label >16GB</label>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="title">
                         <h1 class="h4">Lọc theo giá</h1>
                     </div>
 
-                    <div class="">
+                    <div class="controls" onmouseup="filterChange();">
                         <br>
-                        <input type="range" id="slider-price"  onchange="filterChange();">
+                        <div id="slider-price"></div>
                         <br>
-                        <p id="amount"  onchange="filterChange();" ></p>
+                        <p id="amount"></p>
                     </div>
                 </div>
 
@@ -172,11 +184,12 @@
                         <h1 class="h4">Thương hiệu</h1>
                     </div>
 
-                    <div class="grid">
+                    <div class="controls grid">
                         {{#each Manufacturers}}
-                            <div class="checkbox-group">
-                                <input type="checkbox" name="Manufacturer" value='{{_id}}' onchange="filterChange();">
-                                <label >{{name}}</label>
+                            <div class="checkbox-group" data-status="inactive" >
+                                <div class="checkbox"><i class="ion-android-done"></i></div>
+                                <div class="label" data-value="11 in">{{name}}</div>
+                                <input type="checkbox" name="Manufacturer" value="{{_id}}">
                             </div>
                         {{/each}}
 
@@ -184,7 +197,6 @@
                 </div>
             </div>
         </div>
-        <!-- /// -->
 
         <!-- Products -->
 
@@ -202,7 +214,7 @@
 
                                     <div class="content">
                                         <h1 class="h3">{{name}}</h1>
-                                        <p class="price">{{basePrice}}</p>
+                                        <p class="price">{{convertPrice basePrice}}</p>
                                         <label>{{type}}</label>
 
                                         <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
@@ -217,30 +229,26 @@
 
                 </div>
             </div>
-
-            <nav>
-                {{#with pagination}}
-                <ul class="pagination">
-                    <li {{#eq page 1}}class="disabled" {{/eq}}>
-                        <a href="/store?page={{prevPage}}" aria-label="Previous">
-                            <span aria-hidden="true"><i class="ion-ios-arrow-left"></i></span>
-                        </a>
-                    </li>
-                    {{#each ../pagingButtons}}
+            {{#with pagination}}
+            <nav class="pagination" data-toggle="buttons">
+                <label class="btn btn-info pagination-button {{#eq page 1}} disabled {{/eq}}" >
+                    <input type="radio" name="Page" onchange="filterChange();" value="{{prevPage}}" ><
+                </label>
+                {{#each ../pagingButtons}}
                     {{#gt value 0}}
-                    {{#lte value ../totalPages}}
-                    <li {{#if active}} class="active" {{/if}}> <a href="{{link}}">{{value}}</a> </li>
-                    {{/lte}}
+                        {{#lte value ../totalPages}}
+                            <label class="btn btn-info pagination-button {{#if active}}active{{/if}} {{#eq ../totalDocs 0}}disabled{{/eq}}">
+                                <input type="radio" name="Page" onchange="filterChange();" value="{{value}}" {{#if active}}checked{{/if}}> {{value}}
+                            </label>
+                        {{/lte}}
                     {{/gt}}
-                    {{/each}}
-                    <li {{#eq page totalPages}}class="disabled" {{/eq}}>
-                        <a href="/store?page={{nextPage}}" aria-label="Next">
-                            <span aria-hidden="true"><i class="ion-ios-arrow-right"></i></span>
-                        </a>
-                    </li>
-                </ul>
-                {{/with}}
+                {{/each}}
+
+                <label class="btn btn-info pagination-button {{#eq page totalPages}}disabled {{/eq}}">
+                    <input type="radio" name="Page" onchange="filterChange();" value="{{nextPage}}"> >
+                </label>
             </nav>
+            {{/with}}
         </div>
         <!-- /// -->
     </div>
@@ -258,7 +266,7 @@
 
                                     <div class="content">
                                         <h1 class="h3">\{{name}}</h1>
-                                        <p class="price">\{{basePrice}}</p>
+                                        <p class="price">\{{convertPrice basePrice}}</p>
                                         <label>\{{type}}</label>
 
                                         <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
@@ -274,27 +282,24 @@
                 </div>
             </div>
 
-            <nav>
-                \{{#with pagination}}
-                <ul class="pagination">
-                    <li \{{#eq page 1}}class="disabled" \{{/eq}}>
-                        <a href="/store?page=\{{prevPage}}" aria-label="Previous">
-                            <span aria-hidden="true"><i class="ion-ios-arrow-left"></i></span>
-                        </a>
-                    </li>
-                    \{{#each ../pagingButtons}}
-                        \{{#gt value 0}}
-                        \{{#lte value ../totalPages}}
-                        <li \{{#if active}} class="active" \{{/if}}> <a href="\{{link}}">\{{value}}</a> </li>
-                        \{{/lte}}
-                        \{{/gt}}
-                    \{{/each}}
-                    <li \{{#eq page totalPages}}class="disabled" \{{/eq}}>
-                        <a href="/store?page=\{{nextPage}}" aria-label="Next">
-                            <span aria-hidden="true"><i class="ion-ios-arrow-right"></i></span>
-                        </a>
-                    </li>
-                </ul>
-                \{{/with}}
+            \{{#with pagination}}
+            <nav class="pagination" data-toggle="buttons">
+                <label class="btn btn-info pagination-button \{{#eq page 1}}disabled \{{/eq}}" >
+                    <input type="radio" name="Page" onchange="filterChange();" value="\{{prevPage}}" ><
+                </label>
+                \{{#each ../pagingButtons}}
+                    \{{#gt value 0}}
+                    \{{#lte value ../totalPages}}
+                            <label class="btn btn-info pagination-button \{{#if active}}active\{{/if}} \{{#eq ../totalDocs 0}}disabled\{{/eq}}">
+                                <input type="radio" name="Page" onchange="filterChange();" value="\{{value}}" \{{#if active}}checked\{{/if}}> \{{value}}
+                            </label>
+                    \{{/lte}}
+                    \{{/gt}}
+                \{{/each}}
+
+                <label class="btn btn-info pagination-button \{{#eq page totalPages}}disabled \{{/eq}}">
+                    <input type="radio" name="Page" onchange="filterChange();" value="\{{nextPage}}"> >
+                </label>
             </nav>
+            \{{/with}}
 </script>

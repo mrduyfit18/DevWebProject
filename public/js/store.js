@@ -1,12 +1,13 @@
 $(document).ready(function(){
 	//Filter
-		$('.filter .item > .controls').on('click', '.checkbox-group', function(){
+		$('.filter .item > .controls').on('click', '.checkbox-group', async function(){
 			if( $(this).attr('data-status') =='inactive' ){
-				$(this).find('input').prop('checked', true);
-				$(this).attr('data-status','active'); }
+				await  $(this).find('input').prop('checked', true);
+				await $(this).attr('data-status','active'); }
 			else{
-				$(this).find('input').prop('checked', false);
-				$(this).attr('data-status','inactive'); }
+				await $(this).find('input').prop('checked', false);
+				await $(this).attr('data-status','inactive'); }
+				filterChange();
 		});
 
 
@@ -33,7 +34,6 @@ $(document).ready(function(){
 			$('.filter a[data-action="clear-price"]').on('click', function(){
 
 				$( ".filter #slider-price" ).slider({ values: [ 0, 100 ] });
-
 				$( ".filter #amount" ).html( $( ".filter #slider-price" ).slider( "values", 0 )  + " triệu  - " +
 			  	$( ".filter #slider-price" ).slider( "values", 1 ) + " triệu ");
 			});
@@ -43,12 +43,11 @@ $(document).ready(function(){
 				  range: true,
 				  min: 0,
 				  max: 100,
-				  values: [ 10, 20 ],
+				  values: [ 0, 100 ],
 				  slide: function( event, ui ) {
 				    $( "#amount" ).html( ui.values[ 0 ] + " triệu - " + ui.values[ 1 ] + " triệu" );
 				  }
 				});
-
 				$( ".filter #amount" ).html( $( "#slider-price" ).slider( "values", 0 )  + " triệu - " +
 				  $( "#slider-price" ).slider( "values", 1 ) + " triệu" );
 			}
@@ -72,7 +71,6 @@ $(document).ready(function(){
 				$(this).find('i').removeClass('rotate'); }
 			else{ $(this).find('i').addClass('rotate'); }
 
-			console.log( $(this).find('i').attr('class') );
 		});
 
 		$('.tags').on('focusout', 'button.dropdown-toggle', function(){

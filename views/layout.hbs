@@ -63,6 +63,7 @@
 <script type="text/javascript" src="../js/jquery.ui.touch-punch.js"></script>
 <script type="text/javascript" src="../js/customjs.js"></script>
 <script type="text/javascript" src="../js/filter.js"></script>
+<script type="text/javascript" src="../js/sort.js"></script>
 <script type="text/javascript" src="../js/handlebars.min-v4.7.6.js"></script>
 <script type="text/javascript">
     Handlebars.registerHelper("gt", function(a, b, options) {
@@ -79,6 +80,14 @@
         if (a === b) {
             return options.fn(this);
         }
+    });
+    Handlebars.registerHelper('convertPrice', function (index) {
+        var moneyFormatter2 = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+            minimumFractionDigits: 0
+        });
+        return moneyFormatter2.format(index).replace(/\s/g, '');
     });
 </script>
 

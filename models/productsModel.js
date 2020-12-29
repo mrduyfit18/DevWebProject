@@ -6,9 +6,9 @@ const Products = require('./mongooseModels/products');
 const Manufacturers = require('./mongooseModels/manufacturers');
 const productImage = require('./mongooseModels/productImages');
 
-exports.list = async (filter, currentPage) => {
+exports.list = async (filter, currentPage, sortOption) => {
     const currPage = currentPage || 1;
-    const res = await Products.paginate(filter, {page: currPage, limit: 6, populate: 'manufacturer_id', sort: {'manufacturer_id.name': -1 }});
+    const res = await Products.paginate(filter, {page: currPage, limit: 6, populate: 'manufacturer_id', sort: sortOption});
 
     if(res.hasNextPage){
         const secondPaging = parseInt(res.nextPage) + 1;

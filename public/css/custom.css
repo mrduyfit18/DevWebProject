@@ -3069,4 +3069,8 @@
 		width: 100px;
 		height: 100px;
 	}
+.pagination-button {
+	min-width: 20px !important;
+	font-size: 18px;
+}
 /* Helper classes */

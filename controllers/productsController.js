@@ -11,38 +11,32 @@ const manufacturerModel = require('../models/manufacturerModel');
 const pagingButtons = [
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
+
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     },
     {
         value: 0,
-        active: false,
-        link:''
+        active: false
     }
 ]
 
@@ -51,7 +45,6 @@ function createPagination(pagination, req){
     //Reset last selected button
     for (i = 0; i < 7; i++) {
         pagingButtons[i].active = false;
-        pagingButtons[i].link = '';
     }
     if(pagination.page < 4) {
         pagingButtons[0].value = 1;
@@ -94,52 +87,9 @@ function createPagination(pagination, req){
         pagingButtons[3].active = true;
     }
 
-    //Tạo link cho từng nút
-    for(i = 0; i < 7; i++){
-        let x;
-        pagingButtons[i].link +='/store?'
-        for(x in req.query){
-            if(x !== 'page'){
-                pagingButtons[i].link = pagingButtons[i].link + x + '=' + req.query[x]+'&';
-            }
-        }
-        pagingButtons[i].link = pagingButtons[i].link + 'page='+ pagingButtons[i].value;
-    }
-
 }
 
 
-exports.index = async (req, res, next) => {
-    // Get products from model
-    const textSearch =  req.query.name || '';
-    const type = req.query.type || '';
-    let Desktopscheck, Allcheck, Laptopscheck;
-
-    switch(type){
-        case "":
-            Allcheck = 1;
-            break;
-        case 'Desktops':
-            Desktopscheck = 1;
-            break;
-        case 'Laptops':
-            Laptopscheck = 1;
-            break;
-        default:
-            Allcheck = 1;
-            break;
-    }
-    const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" }, 'type': { "$regex": type, "$options": "i" } },
-        req.query.page);
-    const products = pagination.docs;
-    //Create Paging Information
-    createPagination(pagination, req);
-    const totalPage = pagination.totalPages;
-    const Manufacturers = await manufacturerModel.list();
-    // Pass data to view to display list of products
-    res.render('store/products', { products, pagingButtons , pagination,
-        totalPage ,onStore: 'active', Allcheck, Desktopscheck, Laptopscheck, Manufacturers});
-};
 
 exports.Show = async (req, res, next) => {
     // Get product from model
@@ -150,13 +100,12 @@ exports.Show = async (req, res, next) => {
     res.render('store/productDetail', {product, Products: relatedProducts, imageCount});
 };
 
-exports.Test = async (req, res, next) => {
-    // Get products from model
-    // Get products from model
+async function getProducts (req) {
+    let result = {};
     const textSearch =  req.query.name || '';
     const type = req.query.type || '';
-    const minPrice = Number(req.query.minPrice) * 1000000;
-    const maxPrice = Number(req.query.maxPrice) * 1000000;
+    const minPrice = (Number(req.query.minPrice) * 1000000) || 0;
+    const maxPrice = (Number(req.query.maxPrice) * 1000000) ||100000000;
     let display = [];
     if(!req.query.display){
         display.push('');
@@ -187,7 +136,7 @@ exports.Test = async (req, res, next) => {
         processor[i] = new RegExp(processor[i], "i");
     }
 
-    let memory= [];
+    let memory = [];
     if(!req.query.memory){
         memory.push('');
     }
@@ -203,48 +152,73 @@ exports.Test = async (req, res, next) => {
     }
 
     let manufacturer_id= [];
-    if(!req.query.manufacturer_id){
+    if(!req.query.manufacturer){
         const manufacturers = await manufacturerModel.list();
         for(let manufacturer of manufacturers){
             manufacturer_id.push(manufacturer._id);
         }
     }
-    else if(typeof req.query.manufacturer_id === 'string'){
-        manufacturer_id.push(req.query.manufacturer_id);
+    else if(typeof req.query.manufacturer === 'string'){
+        manufacturer_id.push(req.query.manufacturer);
     }
     else{
-        manufacturer_id=req.query.manufacturer_id;
+        manufacturer_id=req.query.manufacturer;
     }
 
     for(let i=0; i<manufacturer_id.length; i++) {
         manufacturer_id[i] = mongoose.Types.ObjectId(manufacturer_id[i]);
     }
-
-    let Desktopscheck, Allcheck, Laptopscheck;
+    let sortOption={};
+    switch(req.query.sort){
+        case '1':
+            sortOption.name = 1;
+            break;
+        case '2':
+           sortOption.name = -1;
+            break;
+        case '3':
+            sortOption.basePrice = 1;
+            break;
+        case '4':
+            sortOption.basePrice = -1;
+            break;
+    }
 
     switch(type){
-        case "":
-            Allcheck = 1;
-            break;
         case 'Desktops':
-            Desktopscheck = 1;
+            result.Desktopscheck = 1;
             break;
         case 'Laptops':
-            Laptopscheck = 1;
+            result.Laptopscheck = 1;
             break;
         default:
-            Allcheck = 1;
+            result.Allcheck = 1;
             break;
     }
     const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" },
-            'type': { "$regex": type, "$options": "i" }, 'display': {"$in": display },
-        'processor': {"$in": processor }, 'memory': {"$in": memory }, 'manufacturer_id': {"$in": manufacturer_id },
-         'basePrice': { $gte: minPrice }  },
-        req.query.page);
-    const products = pagination.docs;
+            'type': { "$regex": type, "$options": "i" }, 'display': {"$in": display }, 'processor': {"$in": processor },
+            'memory': {"$in": memory }, 'manufacturer_id': {"$in": manufacturer_id },
+            $and: [{ 'basePrice': { $gte: minPrice } }, { 'basePrice': { $lte: maxPrice } }]  },
+        req.query.page, sortOption);
     //Create Paging Information
     createPagination(pagination, req);
-    const totalPage = pagination.totalPages;
-    res.json( { products, pagingButtons , pagination,
-        totalPage ,onStore: 'active', Allcheck, Desktopscheck, Laptopscheck});
+    result.pagination = pagination;
+    return result;
+}
+
+exports.index = async (req, res, next) => {
+    const result = await getProducts(req);
+    const manufacturers = await manufacturerModel.list();
+    res.render( 'store/products',{ products: result.pagination.docs, pagingButtons , pagination: result.pagination,
+        totalPage: result.pagination.totalPages ,onStore: 'active', Manufacturers: manufacturers,
+        Allcheck: result.Allcheck, Desktopscheck: result.Desktopscheck, Laptopscheck: result.Laptopscheck});
+};
+
+
+exports.indexAPI = async (req, res, next) => {
+    const result = await getProducts(req);
+    const manufacturers = await manufacturerModel.list();
+    res.json( { products: result.pagination.docs, pagingButtons , pagination: result.pagination,
+        totalPage: result.pagination.totalPages ,onStore: 'active', Manufacturers: manufacturers,
+        Allcheck: result.Allcheck, Desktopscheck: result.Desktopscheck, Laptopscheck: result.Laptopscheck});
 };
