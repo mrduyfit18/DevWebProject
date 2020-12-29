@@ -121,6 +121,11 @@
                             <div class="label">Ryzen 7</div>
                             <input type="checkbox" name="Processor" value='Ryzen 7'>
                         </div>
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">Apple M1</div>
+                            <input type="checkbox" name="Processor" value='M1'>
+                        </div>
                     </div>
                 </div>
 
@@ -217,8 +222,8 @@
                                         <p class="price">{{convertPrice basePrice}}</p>
                                         <label>{{type}}</label>
 
-                                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
+                                        <a href="./store/{{_id}}" ><button class="btn btn-link"> <i class="ion-android-open"></i> Chi tiết</button></a>
+                                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Thêm vào giỏ</button>
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +237,7 @@
             {{#with pagination}}
             <nav class="pagination" data-toggle="buttons">
                 <label class="btn btn-info pagination-button {{#eq page 1}} disabled {{/eq}}" >
-                    <input type="radio" name="Page" onchange="filterChange();" value="{{prevPage}}" ><
+                    <input type="radio" name="Page" onchange="filterChange();" value="{{prevPage}}" ><i class="ion-ios-arrow-left"></i>
                 </label>
                 {{#each ../pagingButtons}}
                     {{#gt value 0}}
@@ -245,7 +250,7 @@
                 {{/each}}
 
                 <label class="btn btn-info pagination-button {{#eq page totalPages}}disabled {{/eq}}">
-                    <input type="radio" name="Page" onchange="filterChange();" value="{{nextPage}}"> >
+                    <input type="radio" name="Page" onchange="filterChange();" value="{{nextPage}}"><i class="ion-ios-arrow-right"></i>
                 </label>
             </nav>
             {{/with}}
@@ -285,7 +290,7 @@
             \{{#with pagination}}
             <nav class="pagination" data-toggle="buttons">
                 <label class="btn btn-info pagination-button \{{#eq page 1}}disabled \{{/eq}}" >
-                    <input type="radio" name="Page" onchange="filterChange();" value="\{{prevPage}}" ><
+                    <input type="radio" name="Page" onchange="filterChange();" value="\{{prevPage}}" ><i class="ion-ios-arrow-left"></i>
                 </label>
                 \{{#each ../pagingButtons}}
                     \{{#gt value 0}}
@@ -298,7 +303,7 @@
                 \{{/each}}
 
                 <label class="btn btn-info pagination-button \{{#eq page totalPages}}disabled \{{/eq}}">
-                    <input type="radio" name="Page" onchange="filterChange();" value="\{{nextPage}}"> >
+                    <input type="radio" name="Page" onchange="filterChange();" value="\{{nextPage}}"><i class="ion-ios-arrow-right"></i>
                 </label>
             </nav>
             \{{/with}}

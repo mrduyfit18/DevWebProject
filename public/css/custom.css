@@ -83,7 +83,7 @@
 /* Top links */
 	.toplinks {
 		display: block;
-		position: absolute;
+		position: relative;
 		top: 0;
 		left: 0;
 		width: 100%;
@@ -91,12 +91,11 @@
 		background-color: #000;
 		box-sizing: border-box;
 		padding: 5px 15px;
-
-		overflow: hidden;
-		z-index: 1000;
+		overflow: visible;
+		z-index: 100;
 	}
 
-	.toplinks > a {
+	.toplinks > a, .user {
 		float: right;
 		margin: 0 0 0 45px;
 		font-weight: 400;
@@ -107,6 +106,12 @@
 	.toplinks > a:hover, .toplinks > a:active {
 		color: #00a1b4;
 		text-decoration: none;
+	}
+	@media all and (min-width: 992px) {
+		.toplinks .nav-item .dropdown-menu { display: none; }
+		.toplinks .nav-item:hover .nav-link{ color: #fff;  }
+		.toplinks .nav-item:hover .dropdown-menu { display: block; }
+		.toplinks .nav-item .dropdown-menu{ margin-top:0; }
 	}
 /* Top links */
 
@@ -120,7 +125,7 @@
 	    background-color: rgba(0,0,0,0.5);
 	    border: none;
 	    box-shadow: 0px 0px 8px rgba(35,35,35,0.1);
-	    z-index: 1000;
+	    z-index: 10;
 	}
 
 	.navbar-brand {
@@ -514,7 +519,7 @@
 		/* Store */
 			/* Products */
 				.products {
-					display: block;
+					display: table;
 					width: 100%;
 					height: auto;
 					box-sizing: border-box;
@@ -526,14 +531,31 @@
 					margin-bottom: 5px;
 					padding: 6px;
 				}
+				.row {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display:         flex;
+				flex-wrap: wrap;
+				}
+
+
+				.row > [class*='col-'] {
+					display: flex;
+					flex-direction: column;
+				}
 
 
 				.products .product .body {
-					height: 500px;
+					height: 100%;
 					box-sizing: border-box;
 					padding: 15px 0 25px;
 					background-color: #fff; 
 					border: 1px solid #fff;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-around;
+
 
 					box-shadow: 0px 4px 2px rgba(31,31,31,0.02);
 						-webkit-box-shadow: 0px 4px 2px rgba(31,31,31,0.02);
@@ -565,7 +587,7 @@
 
 				.products .product .content{
 					display: block;
-					width: 75%;
+					width: 78%;
 					height: auto;
 					min-height: 145px;
 					margin: 0 auto;

@@ -68,13 +68,14 @@
                         <div class="inside-content">
                             <div class="container align-right">
 
-                                <h1 class="h3 colorful blue hidden-xs">Luxury watches, business tablets and 3D touch: <br> How Apple plans to stay ahead in mobile.</h1>
+                                <h1 class="h3 colorful blue hidden-xs">Luxury watches, business tablets and 3D touch: <br>
+                                    How Apple plans to stay ahead in mobile.</h1>
 
                                 <hr class="offset-sm">
                                 <h2 class="h1 lg upp colorful blue">Brand new day <br class="hidden-xs"> for business</h2>
                                 <hr class="offset-md">
                                 <hr class="offset-md">
-                                <a href="/blog" rel="nofollow" class="btn btn-primary btn-lg black"> View article </a>
+                                <a href="/blog" rel="nofollow" class="btn btn-primary btn-lg black"> Xem bài viết </a>
 
                             </div>
                         </div>
@@ -104,7 +105,7 @@
                     <div class="wrapper">
                         <div class="content">
                             <hr class="offset-sm">
-                            <a href="/store" rel="nofollow" class="btn btn-default black"> Buy now </a>
+                            <a href="/store" rel="nofollow" class="btn btn-default black"> Mua ngay </a>
                         </div>
                     </div>
                 </div>
@@ -116,7 +117,7 @@
                     <div class="wrapper">
                         <div class="content">
                             <hr class="offset-sm">
-                            <a href="/store" rel="nofollow" class="btn btn-primary black"> Buy now </a>
+                            <a href="/store" rel="nofollow" class="btn btn-primary black"> Mua ngay </a>
                         </div>
                     </div>
                 </div>
@@ -130,19 +131,19 @@
                     <div class="wrapper">
                         <div class="content">
                             <hr class="offset-sm">
-                            <a href="/store" rel="nofollow" class="btn btn-primary black"> Buy now </a>
+                            <a href="/store" rel="nofollow" class="btn btn-primary black"> Mua ngay </a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 no-padding hidden-xs hidden-sm">
                 <div class="bar medium" data-background="img/bars/accessories.jpg">
-                    <h3 class="title black">Accessories</h3>
+                    <h3 class="title black"> Phụ kiện </h3>
 
                     <div class="wrapper">
                         <div class="content">
                             <hr class="offset-sm">
-                            <a href="/store" rel="nofollow" class="btn btn-primary black"> Buy now </a>
+                            <a href="/store" rel="nofollow" class="btn btn-primary black"> Mua ngay </a>
                         </div>
                     </div>
                 </div>
@@ -161,18 +162,18 @@
 
         <div class="row">
             {{#each Desktops}}
-            <div class="col-sm-6 col-md-3 product">
+            <div class="col-sm-6 col-md-4 product">
                 <div class="body">
                     <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
                     <a href="/store/{{_id}}"><img src="{{cover}}" alt="{{manufacturer}} {{name}}"/></a>
 
                     <div class="content align-center">
-                        <p class="price">${{basePrice}}</p>
+                        <p class="price">{{convertPrice basePrice}}</p>
                         <h2 class="h3">{{name}}</h2>
                         <hr class="offset-sm">
 
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
+                        <a href="./store/{{_id}}" ><button class="btn btn-link"> <i class="ion-android-open"></i> Chi tiết</button></a>
+                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Thêm vào giỏ</button>
                     </div>
                 </div>
             </div>
@@ -181,30 +182,30 @@
 
         <div class="align-right align-center-xs">
             <hr class="offset-sm">
-            <a href="/store"> <h5 class="upp">View all desktops </h5> </a>
+            <a href="/store"> <h5 class="upp">Xem tất cả Desktops </h5> </a>
         </div>
     </div>
 </section>
 
 <section class="products">
     <div class="container">
-        <h2 class="h2 upp align-center"> Hybrid devices</h2>
+        <h2 class="h2 upp align-center"> Laptops</h2>
         <hr class="offset-lg">
 
-        <div class="row">
-            {{#each Hybrids}}
-            <div class="col-sm-6 col-md-4 product">
+        <div class="row custom-col">
+            {{#each Laptops}}
+            <div class="col-sm-6 col-md-3 product custom-cell">
                 <div class="body">
                     <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
                     <a href="/store/{{_id}}"><img src="{{cover}}" alt="{{name}}"/></a>
 
                     <div class="content align-center">
-                        <p class="price">${{basePrice}}</p>
+                        <p class="price">{{convertPrice basePrice}}</p>
                         <h2 class="h3">{{name}}</h2>
                         <hr class="offset-sm">
 
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
+                        <a href="./store/{{_id}}" ><button class="btn btn-link"> <i class="ion-android-open"></i> Chi tiết</button></a>
+                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Thêm vào giỏ</button>
                     </div>
                 </div>
             </div>
@@ -212,47 +213,16 @@
         </div>
         <div class="align-right align-center-xs">
             <hr class="offset-sm">
-            <a href="./store"> <h5 class="upp">View all Hybrids</h5> </a>
+            <a href="./store/?type=Laptops"> <h5 class="upp">Xem tất cả Laptops</h5> </a>
         </div>
     </div>
 </section>
 
-
-<section class="products">
-    <div class="container">
-        <h2 class="h2 upp align-center"> Tablets</h2>
-        <hr class="offset-lg">
-
-        <div class="row">
-            {{#each Tablets}}
-            <div class="col-sm-6 col-md-4 product">
-                <div class="body">
-                    <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                    <a href="/store/{{_id}}"><img src="{{cover}}" alt="{{name}}"/></a>
-
-                    <div class="content align-center">
-                        <p class="price">${{basePrice}}</p>
-                        <h2 class="h3">{{name}}</h2>
-                        <hr class="offset-sm">
-
-                        <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
-                        <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-        <div class="align-right align-center-xs">
-            <hr class="offset-sm">
-            <a href="./store"> <h5 class="upp">View all tablets </h5> </a>
-        </div>
-    </div>
-</section>
 
 
 <section class="blog">
     <div class="container">
-        <h2 class="h2 upp align-center"> Blog Headlines </h2>
+        <h2 class="h2 upp align-center"> Blogs </h2>
         <hr class="offset-lg">
 
         <div class="row">
@@ -275,7 +245,7 @@
                         </p>
                         <hr class="offset-sm">
 
-                        <a href="#"> View article </a>
+                        <a href="#"> Xem bài viết </a>
                     </div>
                 </div>
             </div>
@@ -298,7 +268,7 @@
                         </p>
                         <hr class="offset-sm">
 
-                        <a href="#"> View article <i class="ion-ios-arrow-right"></i> </a>
+                        <a href="#"> Xem bài viết <i class="ion-ios-arrow-right"></i> </a>
                     </div>
                 </div>
             </div>
@@ -307,7 +277,7 @@
 
         <div class="align-right align-center-xs">
             <hr class="offset-sm">
-            <a href="/blog"> <h5 class="upp">View all articles </h5> </a>
+            <a href="/blog"> <h5 class="upp">Xem tất cả bài viết </h5> </a>
         </div>
     </div>
 </section>

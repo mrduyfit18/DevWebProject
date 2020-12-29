@@ -1,16 +1,18 @@
 <div class="toplinks">
     {{#if user}}
-        <a href="/signin/logout">Log out</a>
-        <a href="/users/{{user._id}}"><i class="ion-person"> </i>{{user.email}}</a>
-        <p>{{user.name}}</p>
-
-
+        <div class="nav-item dropdown user">
+            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"><i class="ion-person"></i>  Xin chào {{user.name}}!</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/users/{{user._id}}"> Tài khoản của tôi</a></li>
+                <li><a class="dropdown-item" href="/signin/logout"> Đăng xuất </a></li>
+            </ul>
+        </div>
+        <a href="/favorites"> <i class="ion-ios-heart"></i> Favorites </a>
     {{else}}
-        <a data-toggle="modal" data-target="#Modal-SignIn"> <i class="ion-unlocked"></i> Sign In</a>
-        <a data-toggle="modal" data-target="#Modal-Registration"> <i class="ion-person"></i> Registration</a>
-
+        <a data-toggle="modal" data-target="#Modal-SignIn"> <i class="ion-unlocked"></i> Đăng nhập</a>
+        <a data-toggle="modal" data-target="#Modal-Registration"> <i class="ion-person"></i> Đăng ký</a>
     {{/if }}
 
-    <a href="/favorites"> <i class="ion-ios-heart"></i> Favorites </a>
     <a href="tel:+80005554465" class="hidden-xs"> <i class="ion-android-call"></i> 8000 555-44-65 </a>
+
 </div>
