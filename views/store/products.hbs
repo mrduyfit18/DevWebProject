@@ -4,14 +4,14 @@
     <div class="container">
         <div class="btn-group pull-right sorting">
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ion-arrow-down-b"></i> Sorting by name
+                <i class="ion-arrow-down-b"></i> Sắp xếp
             </button>
 
             <ul class="dropdown-menu">
-                <li class="active"><a href="#"> <i class="ion-arrow-down-c"></i> Name [A-Z]</a></li>
-                <li><a href="#"> <i class="ion-arrow-up-c"></i> Name [Z-A]</a></li>
-                <li><a href="#"> <i class="ion-arrow-down-c"></i> Price [Low-High]</a></li>
-                <li><a href="#"> <i class="ion-arrow-up-c"></i> Price [High-Low]</a></li>
+                <li class="active"><a href="javascript:;" class="sort-product" data-id="1"> <i class="ion-arrow-down-c"></i> Tên [A-Z]</a></li>
+                <li><a href="javascript:;" class="sort-product" data-id="2"> <i class="ion-arrow-up-c"></i> Tên [Z-A]</a></li>
+                <li><a href="javascript:;" class="sort-product" data-id="3"> <i class="ion-arrow-down-c"></i> Giá [Low-High]</a></li>
+                <li><a href="javascript:;" class="sort-product" data-id="4"> <i class="ion-arrow-up-c"></i> Giá [High-Low]</a></li>
             </ul>
         </div>
 
@@ -19,33 +19,18 @@
         <form method="post" id="typeform">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default btn-sm {{#if Allcheck}} active{{/if}}">
-                    <input type="radio" name="options" id="option1" onchange="TypeFormSubmit();" value="" > All products
+                    <input type="radio" name="Type" onchange="filterChange();" value=""  > All products
                 </label>
                 <label class="btn btn-default btn-sm {{#if Desktopscheck}}active{{/if}}">
-                    <input type="radio" name="options" id="option2" onchange="TypeFormSubmit();" value="Desktops"> Desktops
+                    <input type="radio" name="Type" onchange="filterChange();" value="Desktops"> Desktops
                 </label>
                 <label class="btn btn-default btn-sm {{#if Laptopscheck}}active{{/if}}">
-                    <input type="radio" name="options" id="option3" onchange="TypeFormSubmit();" value="Laptops"> Laptops
+                    <input type="radio" name="Type" onchange="filterChange();" value="Laptops"> Laptops
                 </label>
             </div>
         </form>
     </div>
 </div>
-<script type="text/javascript">
-    function TypeFormSubmit(){
-        let link = '/store?';
-        const params = new URLSearchParams(document.location.search)
-        for (const param of params) {
-            if(param[0]!=='page' && param[0] !== 'type'){
-                link = link + param[0] + '=' + param[1] + '&';
-            }
-        }
-        document.getElementById("typeform").action = link + 'type=' + document.getElementById('typeform').options.value + '&';
-        document.getElementById("typeform").action = document.getElementById("typeform").action + 'page=' + 1;
-        document.getElementById("typeform").submit();
-
-    }
-</script>
 
 
 
@@ -246,14 +231,14 @@
             </div>
             {{#with pagination}}
             <nav class="pagination" data-toggle="buttons">
-                <label class="btn btn-info pagination-button {{#eq page 1}}disabled {{/eq}}" >
+                <label class="btn btn-info pagination-button {{#eq page 1}} disabled {{/eq}}" >
                     <input type="radio" name="Page" onchange="filterChange();" value="{{prevPage}}" ><
                 </label>
                 {{#each ../pagingButtons}}
                     {{#gt value 0}}
                         {{#lte value ../totalPages}}
-                            <label class="btn btn-info pagination-button {{#if active}}active{{/if}}">
-                                <input type="radio" name="Page" onchange="filterChange();" value="{{value}}"> {{value}}
+                            <label class="btn btn-info pagination-button {{#if active}}active{{/if}} {{#eq ../totalDocs 0}}disabled{{/eq}}">
+                                <input type="radio" name="Page" onchange="filterChange();" value="{{value}}" {{#if active}}checked{{/if}}> {{value}}
                             </label>
                         {{/lte}}
                     {{/gt}}
@@ -305,8 +290,8 @@
                 \{{#each ../pagingButtons}}
                     \{{#gt value 0}}
                     \{{#lte value ../totalPages}}
-                            <label class="btn btn-info pagination-button \{{#if active}}active\{{/if}}">
-                                <input type="radio" name="Page" onchange="filterChange();" value="\{{value}}"> \{{value}}
+                            <label class="btn btn-info pagination-button \{{#if active}}active\{{/if}} \{{#eq ../totalDocs 0}}disabled\{{/eq}}">
+                                <input type="radio" name="Page" onchange="filterChange();" value="\{{value}}" \{{#if active}}checked\{{/if}}> \{{value}}
                             </label>
                     \{{/lte}}
                     \{{/gt}}

@@ -20,7 +20,7 @@ function getSelectedCheckboxValues(name) {
     return values;
 }
 
-function filterChange(){
+function filterChange(sortOption) {
     const selectedDisplay = getSelectedCheckboxValues('Display');
     const selectedProcessor = getSelectedCheckboxValues('Processor');
     const selectedMemory = getSelectedCheckboxValues('Memory');
@@ -28,7 +28,9 @@ function filterChange(){
     const minPrice =  $( ".filter #slider-price" ).slider( "values", 0 );
     const maxPrice =  $( ".filter #slider-price" ).slider( "values", 1 );
     const page = $('input[name="Page"]:checked').val();
-    let queryString='';
+    const type = $('input[name="Type"]:checked').val();
+    let queryString='?';
+    queryString += 'sort=' + sortOption;
     for (let query of selectedDisplay) {
         queryString+="display="+query+'&';
     }
@@ -39,17 +41,18 @@ function filterChange(){
         queryString+="memory="+query+'&';
     }
     for (let query of selectedManufacturer) {
-        queryString+="manufacturer_id="+query+'&';
+        queryString+="manufacturer="+query+'&';
     }
+    queryString += "type="+type+'&';
     queryString += "minPrice="+minPrice+'&';
     queryString += "maxPrice="+maxPrice+'&';
-    console.log(page);
     queryString += "page="+page;
 
     console.log(queryString);
-    $.getJSON('/api/products?'+queryString, (data) =>{
+    $.getJSON('/api/products'+queryString, (data) =>{
         renderProducts(data);
         window.scrollTo(0, 250);
+        window.history.pushState("object or string", "Title", queryString);
     })
 }
 

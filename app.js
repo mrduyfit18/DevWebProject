@@ -24,7 +24,7 @@ const blogRouter = require('./routes/blog/blog');
 const signinRouter = require('./routes/signin');
 const signupRouter = require('./routes/signup');
 const passport = require('./passport');
-const productsAPIRouter = require('./routes/api/productsAPI');
+const APIRouter = require('./routes/api/api');
 
 db.Connect();
 const app = express();
@@ -61,7 +61,7 @@ app.use('/gallery', galleryRouter);
 app.use('/blog', blogRouter);
 app.use('/signin', signinRouter);
 app.use('/signup', signupRouter);
-app.use('/api/products', productsAPIRouter);
+app.use('/api', APIRouter);
 app.use('/', indexRouter);
 
 
