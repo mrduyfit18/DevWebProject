@@ -152,33 +152,27 @@
                     <h2 class="h3">What do you think? (#3)</h2>
                     <br>
 
-
+                    {{#each cmt}}
                     <div class="wrapper">
                         <div class="content">
-                            <h3>Anne Hathaway</h3>
-                            <label>2 years ago</label>
+                            <h3>{{name}}</h3>
+                            <label>{{date}}</label>
                             <p>
-                                Apple Music brings iTunes music streaming to the UK. But is it worth paying for? In our Apple Music review, we examine the service's features, UK pricing, audio quality and music library
-                            </p>
-
-
-                            <h3>Chris Hemsworth</h3>
-                            <label>Today</label>
-                            <p>
-                                Samsung's Galaxy S7 smartphone is getting serious hype. Here's what it does better than Apple's iPhone 6s.
-                            </p>
-
-
-                            <h3>Anne Hathaway</h3>
-                            <label>2 years ago</label>
-                            <p>
-                                Apple Music brings iTunes music streaming to the UK. But is it worth paying for? In our Apple Music review, we examine the service's features, UK pricing, audio quality and music library
+                                {{content}}
                             </p>
                         </div>
                     </div>
+                    {{/each}}
                     <hr class="offset-lg">
                     <hr class="offset-md">
-
+                    {{#if user}}
+                        <h3>{{user.name}}</h3>
+                    {{else}}
+                        <input type="text" placeholder="Add guest's name" value="" name="name"/>
+                    {{/if}}
+                    <br><bt>
+                    <input type="text" placeholder="Add comment" value="" name="cmt"/>
+                    <hr>
                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Modal-Comment"> <i class="ion-chatbox-working"></i> Add comment </button>
                     <hr class="offset-md visible-xs">
                 </div>
