@@ -5,6 +5,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const Products = require('./mongooseModels/products');
 const Manufacturers = require('./mongooseModels/manufacturers');
 const productImage = require('./mongooseModels/productImages');
+const comment = require('./mongooseModels/comments')
 
 exports.list = async (filter, currentPage, sortOption) => {
     const currPage = currentPage || 1;
@@ -69,3 +70,27 @@ exports.Search = async (text) => {
         { 'name': { "$regex": text, "$options": "i" } }
     );
 }
+
+exports.listCmt = async (id) => {
+    console.log(id)
+
+    return (comment.find({'product_id' :ObjectId(id)}));
+};
+
+exports.addComment = async  (req, id) => {
+
+    let newComment = ({
+        name : req.body.new_comment_name,
+        product_id : id,
+        content : req.body.new_comment_text,
+        date : new Date()
+    });
+    console.log(id);
+    console.log(req.body.new_comment_name);
+    console.log(req.body.new_comment_text);
+
+    comment.insertMany(newComment).then((doc)=>{})
+        .then((err)=>{console.log(err);});
+
+    return true;
+};

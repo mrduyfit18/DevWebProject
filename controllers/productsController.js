@@ -97,7 +97,9 @@ exports.Show = async (req, res, next) => {
     const product = await productsModel.getProduct(await req.params._id);
     const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type, 4);
     const imageCount = product.productImages.length + 1;
-    res.render('store/productDetail', {product, Products: relatedProducts, imageCount});
+    const cmts = await productsModel.listCmt(await  req.params._id);
+
+    res.render('store/productDetail', {product, Products: relatedProducts, imageCount, cmts});
 };
 
 async function getProducts (req) {
@@ -224,4 +226,10 @@ exports.indexAPI = async (req, res, next) => {
     res.json( { products: result.pagination.docs, pagingButtons , pagination: result.pagination,
         totalPage: result.pagination.totalPages ,onStore: 'active', Manufacturers: manufacturers,
         Allcheck: result.Allcheck, Desktopscheck: result.Desktopscheck, Laptopscheck: result.Laptopscheck});
+};
+
+exports.addComment = async  (req, res, next)=>{
+    const addComment = productsModel.addComment(req, await req.params._id);
+    const status =  true;
+    res.render('index', {status});
 };

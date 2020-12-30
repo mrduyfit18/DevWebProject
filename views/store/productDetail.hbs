@@ -152,7 +152,7 @@
                     <h2 class="h3">What do you think? (#3)</h2>
                     <br>
 
-                    {{#each cmt}}
+                    {{#each cmts}}
                     <div class="wrapper">
                         <div class="content">
                             <h3>{{name}}</h3>
@@ -165,16 +165,25 @@
                     {{/each}}
                     <hr class="offset-lg">
                     <hr class="offset-md">
-                    {{#if user}}
-                        <h3>{{user.name}}</h3>
-                    {{else}}
-                        <input type="text" placeholder="Add guest's name" value="" name="name"/>
-                    {{/if}}
-                    <br><bt>
-                    <input type="text" placeholder="Add comment" value="" name="cmt"/>
-                    <hr>
-                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Modal-Comment"> <i class="ion-chatbox-working"></i> Add comment </button>
-                    <hr class="offset-md visible-xs">
+                    <form class="pure-form" id="comment-form" method="post">
+                        <div class="comment-form">
+                            <div class="left-side">
+                                {{#if ../user}}
+                                    <label name="new_comment_name">{{../user.name}}</label>
+                                {{else}}
+                                        <input type="text" required placeholder="enter your name" name="new_comment_name">
+                                {{/if}}
+                                <div>
+                                    <textarea placeholder="enter comment text" required name="new_comment_text" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="right-side">
+                                <button
+                                        type="submit"
+                                        class="button-secondary pure-button">Send Comment</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
