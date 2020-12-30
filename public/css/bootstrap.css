@@ -268,8 +268,8 @@ html {
 }
 
 body {
-  font-family: 'Verdana', serif;
-  font-size: 14px;
+  font-family: 'Open Sans', serif;
+  font-size: 12px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -5191,7 +5191,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Catamaran", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: normal;

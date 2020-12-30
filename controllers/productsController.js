@@ -169,18 +169,21 @@ async function getProducts (req) {
         manufacturer_id[i] = mongoose.Types.ObjectId(manufacturer_id[i]);
     }
     let sortOption={};
-    switch(req.query.sort){
+    switch(req.query.sort) {
         case '1':
             sortOption.name = 1;
             break;
         case '2':
-           sortOption.name = -1;
+            sortOption.name = -1;
             break;
         case '3':
             sortOption.basePrice = 1;
             break;
         case '4':
             sortOption.basePrice = -1;
+            break;
+        default:
+            sortOption.name = 1;
             break;
     }
 

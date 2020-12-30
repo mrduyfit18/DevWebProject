@@ -19,33 +19,58 @@ function getSelectedCheckboxValues(name) {
     });
     return values;
 }
+let sort = 1;
 
 function filterChange(sortOption) {
     const selectedDisplay = getSelectedCheckboxValues('Display');
     const selectedProcessor = getSelectedCheckboxValues('Processor');
     const selectedMemory = getSelectedCheckboxValues('Memory');
     const selectedManufacturer = getSelectedCheckboxValues('Manufacturer');
-    const minPrice =  $( ".filter #slider-price" ).slider( "values", 0 );
-    const maxPrice =  $( ".filter #slider-price" ).slider( "values", 1 );
+    const minPrice = $(".filter #slider-price").slider("values", 0);
+    const maxPrice = $(".filter #slider-price").slider("values", 1);
     const page = $('input[name="Page"]:checked').val();
     const type = $('input[name="Type"]:checked').val();
-    let queryString='?';
-    queryString += 'sort=' + (sortOption || "1") + '&';
-    for (let query of selectedDisplay) {
-        queryString+="display="+query+'&';
+    let queryString = '?';
+    name = document.getElementById('textSearch').value;
+    if(name !== '') {
+        queryString += 'name=' + name + '&';
     }
-    for (let query of selectedProcessor) {
-        queryString+="processor="+query+'&';
+    sort = sortOption || 1;
+    queryString += 'sort=' + sort + '&';
+    if (Array.isArray(selectedDisplay)) {
+        for (let query of selectedDisplay) {
+            queryString += "display=" + query + '&';
+        }
     }
-    for (let query of selectedMemory) {
-        queryString+="memory="+query+'&';
+
+    if (Array.isArray(selectedProcessor)) {
+        for (let query of selectedProcessor) {
+            queryString += "processor=" + query + '&';
+        }
     }
-    for (let query of selectedManufacturer) {
-        queryString+="manufacturer="+query+'&';
+
+    if (Array.isArray(selectedMemory)) {
+        for (let query of selectedMemory) {
+            queryString += "memory=" + query + '&';
+        }
     }
-    queryString += "type="+type+'&';
-    queryString += "minPrice="+minPrice+'&';
-    queryString += "maxPrice="+maxPrice+'&';
+
+    if (Array.isArray(selectedManufacturer)) {
+        for (let query of selectedManufacturer) {
+            queryString += "manufacturer=" + query + '&';
+        }
+    }
+    if (type !== '') {
+        queryString += "type=" + type + '&';
+    }
+
+    if (minPrice > 0) {
+        queryString += "minPrice=" + minPrice + '&';
+    }
+
+    if (maxPrice < 100) {
+        queryString += "maxPrice=" + maxPrice + '&';
+    }
     queryString += "page="+page;
 
     $.getJSON('/api/products'+queryString, (data) =>{
@@ -61,5 +86,16 @@ function renderProducts(data)
     const productsHtml = template({products: data.products, pagingButtons: data.pagingButtons, totalPages: data.totalPages, pagination: data.pagination});
     $('#products').html(productsHtml);
 }
+
+const input = document.getElementById("textSearch");
+input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        filterChange()
+    }
+    if(event.keyCode === 27) {
+        $('#searchDiv').addClass('hidden');
+    }
+});
 
 

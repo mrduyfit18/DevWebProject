@@ -14,6 +14,7 @@ $(document).ready(function(){
 		$('.filter .item a[data-action="clear"]').on('click', function(){
 			$(this).parents('.item').find('input').prop('checked', false);
 			$(this).parents('.item').find('.checkbox-group').attr('data-status', 'inactive');
+			filterChange();
 		});
 		
 
