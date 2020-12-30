@@ -25,6 +25,7 @@ const signinRouter = require('./routes/signin');
 const signupRouter = require('./routes/signup');
 const passport = require('./passport');
 const APIRouter = require('./routes/api/api');
+const cart = require('./models/guestsCartServices');
 
 db.Connect();
 const app = express();
@@ -51,6 +52,11 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use(async function (req, res, next) {
+    res.locals.cart = await cart.getCart(req.cookies.cartID);
+    console.log(req.cookies.cartID);
+    next();
+});
 
 
 app.use('/users', usersRouter);

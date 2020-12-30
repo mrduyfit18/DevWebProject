@@ -29,6 +29,9 @@ function filterChange(sortOption) {
     const minPrice = $(".filter #slider-price").slider("values", 0);
     const maxPrice = $(".filter #slider-price").slider("values", 1);
     const page = $('input[name="Page"]:checked').val();
+    // if(!page){
+    //     return;
+    // }
     const type = $('input[name="Type"]:checked').val();
     let queryString = '?';
     name = document.getElementById('textSearch').value;
@@ -75,7 +78,7 @@ function filterChange(sortOption) {
 
     $.getJSON('/api/products'+queryString, (data) =>{
         renderProducts(data);
-        window.scrollTo(0, 250);
+        window.scrollTo(0, 20);
         window.history.pushState("object or string", "Title", queryString);
     })
 }

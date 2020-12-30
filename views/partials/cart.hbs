@@ -1,3 +1,4 @@
+{{#with cart}}
 <div class="cart" data-toggle="inactive">
     <div class="label">
         <i class="ion-bag"></i> 1
@@ -12,24 +13,26 @@
         </div>
 
         <div class="content">
-
+        {{#each listProducts}}
             <div class="media">
+                {{#with productID}}
                 <div class="media-left">
-                    <a href="#">
-                        <img class="media-object" src="../img/products/chrome-book-11.jpg" alt="HP Chromebook 11"/>
+                    <a href="/store/{{_id}}">
+                        <img class="media-object" src="{{cover}}" alt="HP Chromebook 11"/>
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">HP Chromebook 11</h4>
-                    <label>Laptops</label>
-                    <p class="price">$199.99</p>
+                    <h4 class="media-heading">{{name}}</h4>
+                    <label>{{type}}</label>
+                    <p class="price">{{basePrice}}</p>
                 </div>
+                {{/with}}
                 <div class="controls">
                     <div class="input-group">
                 <span class="input-group-btn">
                   <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
                 </span>
-                        <input type="text" class="form-control input-sm" placeholder="Qty" value="1" readonly="">
+                        <input type="text" class="form-control input-sm" placeholder="Qty" value="{{number}}" readonly="">
                         <span class="input-group-btn">
                   <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
                 </span>
@@ -38,7 +41,9 @@
                     <a href="#remove"> <i class="ion-trash-b"></i> Xoá </a>
                 </div>
             </div>
+        {{/each}}
         </div>
+
 
         <div class="checkout container-fluid">
             <div class="row">
@@ -49,3 +54,4 @@
         </div>
     </div>
 </div>
+{{/with}}

@@ -203,7 +203,7 @@ async function getProducts (req) {
     const pagination = await productsModel.list( {'name': { "$regex": textSearch, "$options": "i" },
             'type': { "$regex": type, "$options": "i" }, 'display': {"$in": display }, 'processor': {"$in": processor },
             'memory': {"$in": memory }, 'manufacturer_id': {"$in": manufacturer_id },
-            $and: [{ 'basePrice': { $gte: minPrice } }, { 'basePrice': { $lte: maxPrice } }]  },
+            $and: [{ 'basePrice': { $gte: minPrice } }, { 'basePrice': { $lte: maxPrice } }], 'state': {$not: /hide/i}   },
         req.query.page, sortOption);
     //Create Paging Information
     createPagination(pagination, req);

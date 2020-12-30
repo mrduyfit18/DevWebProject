@@ -237,7 +237,7 @@
             {{#with pagination}}
             <nav class="pagination" data-toggle="buttons">
                 <label class="btn btn-info pagination-button {{#eq page 1}} disabled {{/eq}}" >
-                    <input type="radio" name="Page" onchange="filterChange();" value="{{prevPage}}" ><i class="ion-ios-arrow-left"></i>
+                    <input type="radio" name="Page" onchange="filterChange();" value="{{prevPage}}"><i class="ion-ios-arrow-left"> </i>
                 </label>
                 {{#each ../pagingButtons}}
                     {{#gt value 0}}
@@ -290,7 +290,7 @@
             \{{#with pagination}}
             <nav class="pagination" data-toggle="buttons">
                 <label class="btn btn-info pagination-button \{{#eq page 1}}disabled \{{/eq}}" >
-                    <input type="radio" name="Page" onchange="filterChange();" value="\{{prevPage}}" ><i class="ion-ios-arrow-left"></i>
+                    <input type="radio" name="Page" onchange="filterChange();" value="\{{prevPage}}" ><i class="ion-ios-arrow-left" ></i>
                 </label>
                 \{{#each ../pagingButtons}}
                     \{{#gt value 0}}
@@ -303,7 +303,7 @@
                 \{{/each}}
 
                 <label class="btn btn-info pagination-button \{{#eq page totalPages}}disabled \{{/eq}}">
-                    <input type="radio" name="Page" onchange="filterChange();" value="\{{nextPage}}"><i class="ion-ios-arrow-right"></i>
+                    <input type="radio" name="Page" onchange="filterChange();" value="\{{nextPage}}"><i class="ion-ios-arrow-right" ></i>
                 </label>
             </nav>
             \{{/with}}
