@@ -3092,8 +3092,12 @@
 		width: 100px;
 		height: 100px;
 	}
-.pagination-button {
-	min-width: 20px !important;
-	font-size: 18px;
-}
+
+	.pagination-button {
+		min-width: 20px !important;
+		font-size: 18px;
+	}
+	.err-signin {
+		color: red;
+	}
 /* Helper classes */

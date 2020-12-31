@@ -11,14 +11,14 @@
                             <h2 class="modal-title text-center">Đăng nhập</h2>
                             <br>
 
-                            <form class="signin" action="/signin" method="post">
-                                <input type="email" name="username" value="" placeholder="E-mail" required="" class="form-control" />
+                            <form class="signin" id="signin-form">
+                                <input type="email" name="email"  id="email" placeholder="E-mail" required="" class="form-control" />
                                 <br>
-                                <input type="password" name="password" value="" placeholder="Password" required="" class="form-control" />
+                                <input type="password" name="password" id="password" placeholder="Password" required="" class="form-control" />
+                                <span id="signin-notification" class="err-signin"></span>
                                 <br>
-                                <p>{{notification}}</p>
                                 <button type="submit" class="btn btn-primary btn-sm">Đăng nhập</button>
-                                <a href="#forgin-password" data-action="Forgot-Password">Quên mật khẩu ></a>
+                                <a href="" data-action="Forgot-Password">Quên mật khẩu ></a>
                             </form>
                             <br>
                             <div class="social-login">
@@ -50,7 +50,7 @@
                             <h2 class="modal-title text-center">Đăng ký</h2>
                             <br>
 
-                            <form class="join" action="/signup" method="post">
+                            <form class="join" id="signin-form">
                                 <input type="text" name="name" value="" placeholder="Name" required="" class="form-control" />
 
                                 <br>

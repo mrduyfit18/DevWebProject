@@ -47,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: process.env.SESSION_SECRET , cookie: { maxAge: 360000000 }})); //time live
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(function (req, res, next) {
   res.locals.user = req.user;
   next();
