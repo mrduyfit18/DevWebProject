@@ -21,11 +21,27 @@ exports.createCart = async (productID) => {
 exports.addToCart = async (cartID, productID) => {
     const product = {productID: productID, number: 1};
     const dateCreated = new Date();
+    const cart = await guestsCarts.findById(ObjectId(cartID));
+    if(cart) {
+        const currentProduct = await cart.listProducts.find(s => productID == s.productID._id);
+        if (currentProduct) {
+            const newNum = currentProduct.number + 1;
+            return guestsCarts.findOneAndUpdate({'_id': ObjectId(cartID), 'listProducts.productID': ObjectId(productID)},
+                {'$set': {'listProducts.$.number': newNum}}, {new: true}).populate('listProducts.productID');
+        }
+    }
+
     return guestsCarts.findByIdAndUpdate(ObjectId(cartID),{ '$push': { 'listProducts': product },
         '$set': { 'dateCreated': dateCreated} }, { "new": true, "upsert": true }).populate('listProducts.productID');
 
 }
 
-exports.increaseNumofProducts = async (cartID, productID, newNum) => {
-    return guestsCarts.findOneAndUpdate({'_id': ObjectId(cartID), 'listProducts.productID': ObjectId(productID)}, {'$set': { 'listProducts.$.number': newNum}})
+exports.updateNumofProducts = async (cartID, productID, newNum) => {
+    console.log(cartID, productID, newNum);
+    return guestsCarts.findOneAndUpdate({'_id': ObjectId(cartID), 'listProducts.productID': ObjectId(productID)},
+        {'$set': { 'listProducts.$.number': newNum}}, {new: true}).populate('listProducts.productID');
+}
+
+exports.removeProduct = async (cartID, productID) => {
+    return guestsCarts.findByIdAndUpdate(ObjectId(cartID),{ '$pull': { 'listProducts':{ 'productID': ObjectId(productID)} }}).populate('listProducts.productID');
 }

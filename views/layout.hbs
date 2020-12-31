@@ -65,6 +65,7 @@
 <script type="text/javascript" src="../js/customjs.js"></script>
 <script type="text/javascript" src="../js/filter.js"></script>
 <script type="text/javascript" src="../js/sort.js"></script>
+<script type="text/javascript" src="../js/cart.js"></script>
 <script type="text/javascript" src="../js/handlebars.min-v4.7.6.js"></script>
 <script type="text/javascript">
     Handlebars.registerHelper("gt", function(a, b, options) {
@@ -89,6 +90,14 @@
             minimumFractionDigits: 0
         });
         return moneyFormatter2.format(index).replace(/\s/g, '');
+    });
+    Handlebars.registerHelper('totalProducts', function (cart) {
+        if(cart) {
+            return cart.listProducts.reduce(
+                    (accumulator, currentValue) => accumulator + currentValue.number
+                    , 0 );
+        }
+        return 0;
     });
 </script>
 

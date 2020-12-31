@@ -102,22 +102,7 @@ $(document).ready(function(){
 			});
 		//Toggle
 
-		//Remove
-			$('.cart').on('click', 'a[href="#remove"]', function(){
-				$(this).parents('.media').fadeOut('300');
-			});
-		//Remove
 
-		//Count
-			$('.cart').on('click', '.input-group button[data-action="plus"]', function(){
-				$(this).parents('.input-group').find('input').val( parseInt($(this).parents('.input-group').find('input').val()) + 1 );
-			});
-			$('.cart').on('click', '.input-group button[data-action="minus"]', function(){
-				if( parseInt($(this).parents('.input-group').find('input').val()) > 1 ) {
-					$(this).parents('.input-group').find('input').val( parseInt($(this).parents('.input-group').find('input').val()) - 1 );
-				}
-			});
-		//Count
 
 		//Scroll
 			$(".cart .content").mCustomScrollbar({

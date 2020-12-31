@@ -1,7 +1,7 @@
-{{#with cart}}
+
 <div class="cart" data-toggle="inactive">
-    <div class="label">
-        <i class="ion-bag"></i> 1
+    <div class="label" id="cart-label">
+        <i class="ion-bag"></i> {{totalProducts cart}}
     </div>
 
     <div class="overlay"></div>
@@ -12,7 +12,8 @@
             <h4>Giỏ hàng</h4>
         </div>
 
-        <div class="content">
+        <div class="content" id="cart-content">
+        {{#with cart}}
         {{#each listProducts}}
             <div class="media">
                 {{#with productID}}
@@ -28,22 +29,22 @@
                 </div>
                 {{/with}}
                 <div class="controls">
-                    <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
-                </span>
+                    <div class="input-group" data-id="{{productID._id}}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
+                        </span>
                         <input type="text" class="form-control input-sm" placeholder="Qty" value="{{number}}" readonly="">
                         <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
-                </span>
+                            <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
+                        </span>
                     </div><!-- /input-group -->
 
                     <a href="#remove"> <i class="ion-trash-b"></i> Xoá </a>
                 </div>
             </div>
         {{/each}}
+        {{/with}}
         </div>
-
 
         <div class="checkout container-fluid">
             <div class="row">
@@ -54,4 +55,45 @@
         </div>
     </div>
 </div>
-{{/with}}
+
+
+<script type="text/x-handlebars" id="cart-product-template">
+
+        \{{#with cart}}
+        \{{#each listProducts}}
+            <div class="media">
+                \{{#with productID}}
+                <div class="media-left">
+                    <a href="/store/\{{_id}}">
+                        <img class="media-object" src="\{{cover}}" alt="HP Chromebook 11"/>
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">\{{name}}</h4>
+                    <label>\{{type}}</label>
+                    <p class="price">\{{basePrice}}</p>
+                </div>
+                \{{/with}}
+                <div class="controls">
+                    <div class="input-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
+                </span>
+                        <input type="text" class="form-control input-sm" placeholder="Qty" value="\{{number}}" readonly="">
+                        <span class="input-group-btn">
+                  <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
+                </span>
+                    </div><!-- /input-group -->
+
+                    <a href="#remove"> <i class="ion-trash-b"></i> Xoá </a>
+                </div>
+            </div>
+        \{{/each}}
+        \{{/with}}
+        </div>
+
+</script>
+
+<script type="text/x-handlebars" id="cart-label-template">
+    <i class="ion-bag"></i> \{{totalProducts cart}}
+</script>

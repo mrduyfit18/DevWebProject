@@ -54,7 +54,6 @@ app.use(function (req, res, next) {
 
 app.use(async function (req, res, next) {
     res.locals.cart = await cart.getCart(req.cookies.cartID);
-    console.log(req.cookies.cartID);
     next();
 });
 
@@ -95,6 +94,7 @@ hbs.registerHelper('incremented', function (index) {
   index+=2;
   return index;
 });
+
 hbs.registerHelper('convertPrice', function (index) {
     const moneyFormatter2 = new Intl.NumberFormat('de-DE', {
       style: 'currency',
@@ -102,6 +102,15 @@ hbs.registerHelper('convertPrice', function (index) {
       minimumFractionDigits: 0,
     });
     return moneyFormatter2.format(index).replace(/\s/g, '');
+});
+
+hbs.registerHelper('totalProducts', function (cart) {
+    if(cart) {
+        return cart.listProducts.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.number
+            , 0 );
+    }
+    return 0;
 });
 
 module.exports = app;

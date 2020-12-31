@@ -2,22 +2,63 @@ const guestsCartServices = require('../models/guestsCartServices');
 
 exports.addToCart = async (req, res, next) => {
     let cart;
-    if( !req.user ){
-        let cartID = req.cookies.cartID;
-        cart = await  guestsCartServices.getCart(cartID);
-        console.log(cart);
-        if(cart) {
-            const product = await cart.listProducts.find(product1 => req.query.productID == product1.productID._id);
-            if (product) {
-                cart = await guestsCartServices.increaseNumofProducts(cartID, req.query.productID, product.number + 1);
-
-            }
-        }
-        else {
-            cart = await guestsCartServices.addToCart(req.cookies.cardID, req.query.productID);
-            res.cookie('cartID', cart._id);
+    if( !req.user ) {
+        const cartID = req.cookies.cartID;
+        const productID = req.query.productID;
+        cart = await guestsCartServices.addToCart(cartID, productID);
+        if(!cartID || cartID !== cart.cartID) {
+            res.cookie('cartID', cart._id, {  maxAge: 1800000});
         }
     }
-    const cartProduct = cart.listProducts;
-    res.json(cartProduct[cartProduct.length-1]);
+    res.json(cart);
+}
+
+exports.increaseNumofProducts = async (req, res, next) => {
+    if( !req.user ) {
+        const cartID = req.cookies.cartID;
+        const productID = req.params.productID;
+        const currentNum = Number(req.query.oldNum) + 1;
+        console.log(currentNum);
+        if(!cartID){
+            res.clearCookie('cartID');
+            res.json("Giỏ hàng của bạn đã hết hạn!!");
+        }
+        else{
+            await guestsCartServices.updateNumofProducts(cartID, productID, currentNum);
+            res.json('OK');
+        }
+    }
+}
+
+exports.decreaseNumofProducts = async (req, res, next) => {
+    if( !req.user ) {
+        const cartID = req.cookies.cartID;
+        const productID = req.params.productID;
+        const currentNum = req.query.oldNum - 1;
+        if(!cartID){
+            res.clearCookie('cartID');
+            res.json("Giỏ hàng của bạn đã hết hạn!!");
+        }
+        else{
+            await guestsCartServices.updateNumofProducts(cartID, productID, currentNum);
+            res.json('OK');
+        }
+    }
+}
+
+
+exports.removeProduct = async (req, res, next) => {
+    if( !req.user ) {
+        const cartID = req.cookies.cartID;
+        const productID = req.params.productID;
+        if(!cartID){
+            res.clearCookie('cartID');
+            res.json("Giỏ hàng của bạn đã hết hạn!!");
+        }
+        else{
+            console.log(productID);
+            await guestsCartServices.removeProduct(cartID, productID);
+            res.json('OK');
+        }
+    }
 }
