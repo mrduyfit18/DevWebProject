@@ -2,10 +2,12 @@
 $('.cart').on('click', 'a[href="#remove"]', function(){
     const productID =  $(this).parents('.controls').find('.input-group').data('id');
     const path = '/api/cart/' + productID +'/remove';
+    const number = parseInt($(this).parents('.controls').find('.input-group').find('input').val());
 
     $.getJSON(path, (data) =>{
         if(data==='OK') {
             $(this).parents('.media').fadeOut('300');
+            $('.cart-num').text(parseInt($('.cart-num')[0].textContent) - number )
         }
         else{
             alert(data);
@@ -25,6 +27,7 @@ $('.cart').on('click', '.input-group button[data-action="plus"]', async function
     $.getJSON(path, (data) =>{
         if(data==='OK') {
             $(this).parents('.input-group').find('input').val( parseInt($(this).parents('.input-group').find('input').val()) + 1 );
+            $('.cart-num').text(parseInt($('.cart-num')[0].textContent) + 1 )
         }
         else{
             alert(data);
@@ -41,6 +44,7 @@ $('.cart').on('click', '.input-group button[data-action="minus"]', function(){
         $.getJSON(path, (data) =>{
             if(data==='OK') {
                 $(this).parents('.input-group').find('input').val( parseInt($(this).parents('.input-group').find('input').val()) - 1 );
+                $('.cart-num').text(parseInt($('.cart-num')[0].textContent) - 1 )
             }
             else{
                 alert(data);

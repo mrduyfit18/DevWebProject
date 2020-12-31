@@ -1,7 +1,8 @@
 
 <div class="cart" data-toggle="inactive">
     <div class="label" id="cart-label">
-        <i class="ion-bag"></i> {{totalProducts cart}}
+        <i class="ion-bag"></i>
+        <i class="cart-num">{{totalProducts cart}}</i>
     </div>
 
     <div class="overlay"></div>
@@ -75,7 +76,7 @@
                 </div>
                 \{{/with}}
                 <div class="controls">
-                    <div class="input-group">
+                   <div class="input-group" data-id="\{{productID._id}}">
                 <span class="input-group-btn">
                   <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
                 </span>
