@@ -97,7 +97,7 @@ hbs.registerHelper('incremented', function (index) {
 });
 
 hbs.registerHelper('convertPrice', function (index) {
-    const moneyFormatter2 = new Intl.NumberFormat('de-DE', {
+    const moneyFormatter2 = new Intl.NumberFormat('fr-FR', {
       style: 'currency',
       currency: 'VND',
       minimumFractionDigits: 0,

@@ -38,7 +38,7 @@ function filterChange(sortOption) {
     if(name !== '') {
         queryString += 'name=' + name + '&';
     }
-    sort = sortOption || 1;
+    sort = sortOption || sort;
     queryString += 'sort=' + sort + '&';
     if (Array.isArray(selectedDisplay)) {
         for (let query of selectedDisplay) {
