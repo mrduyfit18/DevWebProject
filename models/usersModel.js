@@ -65,3 +65,11 @@ exports.SaveProfileChange = async (fields, avatarLocal, id) => {
     const avatarPath = process.env.GClOUD_IMAGE_FOlDER + fileName + '?alt=media'
     await Accounts.updateOne({_id: ObjectId(id)},{'name': fields.name, password: fields.password, avatar: avatarPath});
 }
+
+exports.findOrCreate = async (profile) => {
+
+    console.log(profile);
+    return Accounts.findOneAndUpdate({'email':profile._json.email}, {'$set': {'email': profile._json.email, 'name': profile.displayName,
+        'type': 'customer', 'avatar': profile._json.picture, 'status': 'active'},
+        }, {new: true, "upsert": true});
+}
