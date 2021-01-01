@@ -50,9 +50,13 @@ exports.Signin = async (req, res, next) => {
 }
 
 exports.Signup = async (req, res, next) => {
-    await usersModel.Signup(req);
-    const status =  true;
-    res.render('index', {status});
+    const check = await usersModel.Signup(req);
+    if(check){
+        res.send('1');
+    }
+    else{
+        res.send('Email đã tồn tại!!!');
+    }
 }
 
 exports.edit = async (req, res, next) => {
