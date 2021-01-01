@@ -1,5 +1,6 @@
 const passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const userService = require('../models/usersModel');
 
@@ -24,6 +25,23 @@ passport.deserializeUser(function(id, done) {
     userService.getAccount(id).then((user)=>{
         done(null, user)
     })
-});
+})
+
+
+
+// Use the GoogleStrategy within Passport.
+//   Strategies in Passport require a `verify` function, which accept
+//   credentials (in this case, an accessToken, refreshToken, and Google
+//   profile), and invoke a callback with a user object.
+passport.use(new GoogleStrategy({
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: "http://localhost:3000/signin/google/callback"
+    },
+    async function(accessToken, refreshToken, profile, done) {
+        const user = await userService.findOrCreate( profile);
+        return done(null, user);
+    }
+));
 
 module.exports = passport;

@@ -27,7 +27,7 @@ exports.addToCart = async (cartID, productID) => {
         if (currentProduct) {
             const newNum = currentProduct.number + 1;
             return guestsCarts.findOneAndUpdate({'_id': ObjectId(cartID), 'listProducts.productID': ObjectId(productID)},
-                {'$set': {'listProducts.$.number': newNum}}, {new: true}).populate('listProducts.productID');
+                {'$set': {'listProducts.$.number': newNum}}, {new: true, "upsert": true}).populate('listProducts.productID');
         }
     }
 
