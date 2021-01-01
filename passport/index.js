@@ -4,6 +4,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const userService = require('../models/usersModel');
 
+
 passport.use(new LocalStrategy({usernameField: 'email',},
     async function(email, password, done) {
         const user = await userService.Signin(email, password);
@@ -36,7 +37,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/signin/google/callback"
+        callbackURL: process.env.APP_DOMAIN + 'signin/google/callback'    //APP_DOMAIN_LOCAL if run local
     },
     async function(accessToken, refreshToken, profile, done) {
         const user = await userService.findOrCreate( profile);

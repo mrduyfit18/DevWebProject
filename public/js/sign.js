@@ -72,22 +72,13 @@ $('#signup-form').submit(function(event)
 
 //Google Auth
 // $('#signin-google').on("click",function(){
-//     event.preventDefault();
-//     $.ajax({
-//         method: 'POST',
-//         type: 'POST',
-//         datatype:'text',
-//         url:'/signin/google',
-//         success: function(result)
-//         {
-//             if(parseInt(result) === 1)
-//             {
-//                 window.location = window.location.href;
+//         console.log('abcs');
+//         var xhttp = new XMLHttpRequest();
+//         xhttp.onreadystatechange = function() {
+//             if (this.readyState == 4 && this.status == 200) {
+//                window.location=window.location.href;
 //             }
-//             else
-//             {
-//                 $('#signin-notification').html(result);
-//             }
-//         }
-//     });
+//         };
+//         xhttp.open("GET", "/signin/google", true);
+//         xhttp.send();
 // })

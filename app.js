@@ -26,6 +26,8 @@ const signupRouter = require('./routes/signup');
 const passport = require('./passport');
 const APIRouter = require('./routes/api/api');
 const cart = require('./models/guestsCartServices');
+const url = require('url');
+const cors = require('cors');
 
 db.Connect();
 const app = express();
@@ -53,8 +55,14 @@ app.use(function (req, res, next) {
   next();
 });
 
+
 app.use(async function (req, res, next) {
     res.locals.cart = await cart.getCart(req.cookies.cartID);
+    const reqURL = url.format({
+        protocol: req.protocol,
+        host: req.get('host'),
+    });
+    console.log(reqURL);
     next();
 });
 
