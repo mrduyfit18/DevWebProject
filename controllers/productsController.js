@@ -227,7 +227,7 @@ exports.indexAPI = async (req, res, next) => {
         Allcheck: result.Allcheck, Desktopscheck: result.Desktopscheck, Laptopscheck: result.Laptopscheck});
 };
 
-exports.addComment = async (req, res, next)=>{
-    productsModel.addComment(req, req.params._id);
-    res.render()
+exports.addComment = (req, res)=>{
+
+    res.json(productsModel.addComment(req, req.params._id));
 };
