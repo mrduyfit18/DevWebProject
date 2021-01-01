@@ -147,7 +147,8 @@
                     <hr class="offset-md visible-xs">
                 </div>
                 <hr class="offset-sm hidden-xs">
-
+                <!--Comment-->
+                <input type="hidden" id="productId" value="{{_id}}">
                 <div class="comments white">
                     <h2 class="h3">What do you think? (#3)</h2>
                     <br>
@@ -167,22 +168,22 @@
 
                     <hr class="offset-lg">
                     <hr class="offset-md">
-                    <form class="pure-form" id="comment-form" method="post">
+                    <form class="pure-form" id="comment-form">
                         <div class="comment-form">
                             <div class="left-side">
                                 {{#if ../user}}
                                     <input name="new_comment_name" disabled value="{{../user.name}}"></input>
                                 {{else}}
-                                    <input type="text" required placeholder="enter your name" name="new_comment_name">
+                                    <input type="text" required placeholder="Nhập tên của bạn" name="new_comment_name">
                                 {{/if}}
                                 <div>
-                                    <textarea placeholder="enter comment text" required name="new_comment_text" rows="3"></textarea>
+                                    <textarea placeholder="Nhập bình luận" required name="new_comment_text" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="right-side">
-                                <button
+                                <input  onclick="postComment()"
                                         type="submit"
-                                        class="button-secondary pure-button">Send Comment</button>
+                                        class="button-secondary pure-button" value="Bình luận"></input>
                             </div>
                         </div>
                     </form>
@@ -220,3 +221,16 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    function  postComment(){
+        let ajax = new XMLHttpRequest();
+        ajax.open("POST", "/comment", true);
+        ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        let productID = document.getElementById("productId").value;
+        let commentName = document.getElementsByName("new_comment_text")
+        ajax.send("productID=" + productID + "&comment=" + commentName);
+
+        return false;
+    }
+</script>

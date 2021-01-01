@@ -75,18 +75,22 @@ exports.listCmt = async (id) => {
     return comment.find({'product_id' :ObjectId(id)});
 };
 
-exports.addComment = (req, id) => {
-
+exports.addComment = async (req, id) => {
+    let name;
+    console.log(req.session.name);
+    if(req.session._id){
+        name =req.session.user.name;
+    }
+    else{
+        name = req.body.new_comment_name
+    }
     let newComment = ({
-        name : req.body.new_comment_name,
+        name : name,
         product_id : id,
         content : req.body.new_comment_text,
         date : new Date()
     });
-    console.log(id);
-    console.log(req.body.new_comment_name);
-    console.log(req.body.new_comment_text);
 
-    comment.insertMany(newComment).then((doc)=>{})
+    await comment.insertMany(newComment).then((doc)=>{})
         .then((err)=>{console.log(err);});
 };

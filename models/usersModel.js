@@ -68,7 +68,6 @@ exports.SaveProfileChange = async (fields, avatarLocal, id) => {
 
 exports.findOrCreate = async (profile) => {
 
-    console.log(profile);
     return Accounts.findOneAndUpdate({'email':profile._json.email}, {'$set': {'email': profile._json.email, 'name': profile.displayName,
         'type': 'customer', 'avatar': profile._json.picture, 'status': 'active'},
         }, {new: true, "upsert": true});
