@@ -152,26 +152,28 @@
                     <h2 class="h3">What do you think? (#3)</h2>
                     <br>
 
-                    {{#each cmts}}
                     <div class="wrapper">
                         <div class="content">
-                            <h3>{{name}}</h3>
-                            <label>{{date}}</label>
-                            <p>
-                                {{content}}
-                            </p>
+                            {{#each ../cmts}}
+                                <h3>{{name}}</h3>
+                                <label>{{date}}</label>
+                                <p>
+                                    {{content}}
+                                </p>
+                            {{/each}}
                         </div>
                     </div>
-                    {{/each}}
+
+
                     <hr class="offset-lg">
                     <hr class="offset-md">
                     <form class="pure-form" id="comment-form" method="post">
                         <div class="comment-form">
                             <div class="left-side">
                                 {{#if ../user}}
-                                    <label name="new_comment_name">{{../user.name}}</label>
+                                    <input name="new_comment_name" disabled value="{{../user.name}}"></input>
                                 {{else}}
-                                        <input type="text" required placeholder="enter your name" name="new_comment_name">
+                                    <input type="text" required placeholder="enter your name" name="new_comment_name">
                                 {{/if}}
                                 <div>
                                     <textarea placeholder="enter comment text" required name="new_comment_text" rows="3"></textarea>
@@ -190,6 +192,7 @@
     </div>
 </section>
 {{/with}}
+
 <hr class="offset-lg">
 
 <section class="products">

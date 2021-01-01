@@ -72,12 +72,10 @@ exports.Search = async (text) => {
 }
 
 exports.listCmt = async (id) => {
-    console.log(id)
-
-    return (comment.find({'product_id' :ObjectId(id)}));
+    return comment.find({'product_id' :ObjectId(id)});
 };
 
-exports.addComment = async  (req, id) => {
+exports.addComment = (req, id) => {
 
     let newComment = ({
         name : req.body.new_comment_name,
@@ -91,6 +89,4 @@ exports.addComment = async  (req, id) => {
 
     comment.insertMany(newComment).then((doc)=>{})
         .then((err)=>{console.log(err);});
-
-    return true;
 };
