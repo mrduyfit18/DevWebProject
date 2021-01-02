@@ -13,6 +13,10 @@ router.post('/', function(req, res, next) {
         if (!user||user===-1) { return res.send(info.message); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
+            if(user.type==='admin'){
+                res.cookie('_id', user._id);
+                return res.send('2');
+            }
             return res.send('1');
         });
 
@@ -23,8 +27,21 @@ router.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
 });
-router.get('/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', function(req, res, next){
+    passport.authenticate('google', { scope: ['profile', 'email'] }, function(err,user, info){
+        if (error) { return next(error); }
+        if (!user||user===-1) { return res.send(info.message); }   // can fix
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            if(user.type==='admin'){
+                return res.redirect('http://localhost:4000/');
+            }
+            return res.redirect('/');
+        });
+
+    })
+});
+
 
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/', successRedirect: '/'})
