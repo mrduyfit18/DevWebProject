@@ -32,23 +32,18 @@ exports.Signup = async (req) =>{
     if(account === null){
 
         const saltRounds = 10;
-        await bcrypt.genSalt(saltRounds, function(err, salt) {
-            bcrypt.hash(req.body.password, salt, function(err, hash) {
-                let account = ({
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: hash,
-                    status: 'offline',
-                    avatar :'https://firebasestorage.googleapis.com/v0/b/storageserver-b4fd7.appspot.com/o/null%20avatar.jpg?alt=media',
-                    type: 'customer'
-                });
-
-                /*account.save().then((doc)=>{})
-                    .then((err)=>{console.log(err);});*/
-                Accounts.insertMany(account).then((doc)=>{})
-                    .then((err)=>{console.log(err);});
-            });
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hash = await bcrypt.hash(req.body.password, salt)
+        let account = await ({
+            name: req.body.name,
+            email: req.body.email,
+            password: hash,
+            status: 'inactive',
+            avatar :'https://firebasestorage.googleapis.com/v0/b/storageserver-b4fd7.appspot.com/o/null%20avatar.jpg?alt=media',
+            type: 'customer'
         });
+
+        await Accounts.insertMany(account)
         return true;
     }
     else{
@@ -60,6 +55,10 @@ exports.getAccount = (id) =>{
     return Accounts.findOne({'_id': ObjectId(id)});
 }
 
+exports.getAccountByEmail = async (email) =>{
+    return Accounts.findOne({'email': email});
+}
+
 exports.SaveProfileChange = async (fields, avatarLocal, id) => {
     const fileName = avatarLocal.split('/').pop();
     const avatarPath = process.env.GClOUD_IMAGE_FOlDER + fileName + '?alt=media'
@@ -67,8 +66,12 @@ exports.SaveProfileChange = async (fields, avatarLocal, id) => {
 }
 
 exports.findOrCreate = async (profile) => {
-
     return Accounts.findOneAndUpdate({'email':profile._json.email}, {'$set': {'email': profile._json.email, 'name': profile.displayName,
         'type': 'customer', 'avatar': profile._json.picture, 'status': 'active'},
         }, {new: true, "upsert": true});
+}
+
+
+exports.activeAccount = async (id) =>{
+    await Accounts.updateOne({'_id': id}, {'$set': {status: 'active'}});
 }

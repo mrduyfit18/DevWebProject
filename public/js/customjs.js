@@ -13,3 +13,7 @@ function readURL(input) {
 $("#imgInp").change(function() {
     readURL(this);
 });
+
+$(window).on('load', function() {
+    $('#active-success-notification-modal').modal('show');
+});

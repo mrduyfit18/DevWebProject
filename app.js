@@ -10,6 +10,8 @@ const hbshelpers = require('handlebars-helpers');
 const helpers = hbshelpers();
 const session = require("express-session"),
     bodyParser = require("body-parser");
+const url = require('url');
+const cors = require('cors');
 
 const db = require('./DAL/loadDatabase');
 const indexRouter = require('./routes/index');
@@ -25,9 +27,9 @@ const signinRouter = require('./routes/signin');
 const signupRouter = require('./routes/signup');
 const passport = require('./passport');
 const APIRouter = require('./routes/api/api');
+const activeRouter = require('./routes/activeAccount');
 const cart = require('./models/guestsCartServices');
-const url = require('url');
-const cors = require('cors');
+
 
 db.Connect();
 const app = express();
@@ -62,10 +64,10 @@ app.use(async function (req, res, next) {
         protocol: req.protocol,
         host: req.get('host'),
     });
-    console.log(reqURL);
     next();
 });
 
+app.use('/active', activeRouter);
 app.use('/comment', productsRouter);
 app.use('/users', usersRouter);
 app.use('/store', productsRouter);

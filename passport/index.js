@@ -1,6 +1,7 @@
 const passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 const userService = require('../models/usersModel');
 
@@ -37,7 +38,19 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.APP_DOMAIN + 'signin/google/callback'    //APP_DOMAIN_LOCAL if run local
+        callbackURL: process.env.APP_DOMAIN_LOCAL + 'signin/google/callback'    //APP_DOMAIN_LOCAL if run local
+    },
+    async function(accessToken, refreshToken, profile, done) {
+        const user = await userService.findOrCreate( profile);
+        return done(null, user);
+    }
+));
+
+
+passport.use(new FacebookStrategy({
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: process.env.APP_DOMAIN + 'signin/facebook/callback'
     },
     async function(accessToken, refreshToken, profile, done) {
         const user = await userService.findOrCreate( profile);

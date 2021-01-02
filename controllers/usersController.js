@@ -2,6 +2,7 @@ const formidable = require('formidable');
 const fs = require('fs');
 const admin = require("firebase-admin");
 const uuid = require('uuid-v4');
+const mailSender = require('../emailUtils/nodemailer');
 
 const usersModel = require('../models/usersModel');
 
@@ -52,6 +53,8 @@ exports.Signin = async (req, res, next) => {
 exports.Signup = async (req, res, next) => {
     const check = await usersModel.Signup(req);
     if(check){
+        const newAccount  = await usersModel.getAccountByEmail(req.body.email);
+        await mailSender.sendActiveMail(newAccount);
         res.send('1');
     }
     else{
@@ -84,4 +87,10 @@ exports.saveProfileChange = async (req, res, next) => {
         }
         usersModel.SaveProfileChange(fields, newPath, req.params.id).then(res.redirect('/'));
     });
+}
+
+exports.activeAccount = async (req, res, next) => {
+    await usersModel.activeAccount(req.params.id);
+    res.render('activeSuccess');
+
 }

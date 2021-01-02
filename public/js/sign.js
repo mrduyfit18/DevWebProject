@@ -72,13 +72,7 @@ $('#signup-form').submit(function(event)
 
 //Google Auth
 // $('#signin-google').on("click",function(){
-//         console.log('abcs');
-//         var xhttp = new XMLHttpRequest();
-//         xhttp.onreadystatechange = function() {
-//             if (this.readyState == 4 && this.status == 200) {
-//                window.location=window.location.href;
-//             }
-//         };
-//         xhttp.open("GET", "/signin/google", true);
-//         xhttp.send();
+//     $.getJSON('/signin/google', (data) =>{
+//         console.log('abc');
+//     })
 // })

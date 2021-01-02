@@ -30,5 +30,11 @@ router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/', successRedirect: '/'})
 );
 
+router.get('/facebook', passport.authenticate('facebook', { scope: 'read_stream'}));
+
+router.get('/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/', successRedirect: '/'})
+);
+
 
 module.exports = router;
