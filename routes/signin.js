@@ -14,7 +14,7 @@ router.post('/', function(req, res, next) {
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             if(user.type==='admin'){
-                res.cookie('_id', user._id);
+                res.cookie('id', user._id);
                 return res.send('2');
             }
             return res.send('1');
