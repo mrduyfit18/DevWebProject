@@ -3,9 +3,21 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const order = new Schema({
-        dateCreated: Schema.Types.Date         //Index to auto delete a doc after 3 days
+        user_id: { type: Schema.Types.ObjectId, ref: 'Account' },
+        status: String,
+        dateModified: Schema.Types.Date
     },
     {versionKey: false}
 );
+
+order.virtual('listProducts', {
+    ref: 'Ordersdetail',
+    localField: '_id',
+    foreignField: 'order_id',
+
+});
+order.set('toObject', { virtuals: true });
+order.set('toJSON', { virtuals: true });
+
 
 module.exports = mongoose.model('Order', order);

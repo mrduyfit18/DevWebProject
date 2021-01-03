@@ -28,7 +28,8 @@ const signupRouter = require('./routes/signup');
 const passport = require('./passport');
 const APIRouter = require('./routes/api/api');
 const activeRouter = require('./routes/activeAccount');
-const cart = require('./models/guestsCartServices');
+const guestsCartServices = require('./models/guestsCartServices');
+const orderServices = require('./models/orderServices');
 
 
 db.Connect();
@@ -59,11 +60,12 @@ app.use(function (req, res, next) {
 
 
 app.use(async function (req, res, next) {
-    res.locals.cart = await cart.getCart(req.cookies.cartID);
-    const reqURL = url.format({
-        protocol: req.protocol,
-        host: req.get('host'),
-    });
+    if(req.user){
+        res.locals.cart = await orderServices.getCart(req.user._id);
+    }
+    else {
+        res.locals.cart = await guestsCartServices.getCart(req.cookies.cartID);
+    }
     next();
 });
 
