@@ -75,3 +75,4 @@ function renderCart(data)
     const navCartLabelHtml = template({cart: data});
     $('#nav-cart-label').html(navCartLabelHtml);
 }
+

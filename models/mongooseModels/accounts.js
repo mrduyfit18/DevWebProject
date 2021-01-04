@@ -16,4 +16,20 @@ const Account = new Schema({
         versionKey: false
 });
 
+Account.virtual('contacts', {
+    ref: 'Contact',
+    localField: '_id',
+    foreignField: 'user_id',
+
+});
+
+Account.virtual('reserves', {
+    ref: 'Reservedproduct',
+    localField: '_id',
+    foreignField: 'user_id',
+});
+
+Account.set('toObject', { virtuals: true });
+Account.set('toJSON', { virtuals: true });
+
 module.exports = mongoose.model('Account', Account);

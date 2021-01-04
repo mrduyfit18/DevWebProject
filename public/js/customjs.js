@@ -17,3 +17,7 @@ $("#imgInp").change(function() {
 $(window).on('load', function() {
     $('#active-success-notification-modal').modal('show');
 });
+
+$("#active-success-notification-modal").on('hide.bs.modal', function () {
+    window.location= window.location.origin;
+});

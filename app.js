@@ -28,8 +28,10 @@ const signupRouter = require('./routes/signup');
 const passport = require('./passport');
 const APIRouter = require('./routes/api/api');
 const activeRouter = require('./routes/activeAccount');
+const checkoutRouter = require('./routes/checkout');
 const guestsCartServices = require('./models/guestsCartServices');
 const orderServices = require('./models/orderServices');
+
 
 
 db.Connect();
@@ -49,7 +51,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //passport middleware
-app.use(session({ secret: process.env.SESSION_SECRET , cookie: { maxAge: 360000000 }})); //time live
+app.use(session({ secret: process.env.SESSION_SECRET , cookie: { maxAge: 360000000 }, saveUninitialized: true, resave: true,})); //time live
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -69,6 +71,14 @@ app.use(async function (req, res, next) {
     next();
 });
 
+app.use('/checkout', function (req, res, next) {
+    if(!req.user){
+        const notification = 'Bạn cần đăng nhập trước khi mua hàng';
+        return res.render('notification', {notification});
+    }
+    next();
+})
+app.use('/checkout', checkoutRouter);
 app.use('/active', activeRouter);
 app.use('/users', usersRouter);
 app.use('/store', productsRouter);
@@ -108,7 +118,7 @@ hbs.registerHelper('incremented', function (index) {
 });
 
 hbs.registerHelper('convertPrice', function (index) {
-    const moneyFormatter2 = new Intl.NumberFormat('fr-FR', {
+    const moneyFormatter2 = new Intl.NumberFormat('de-DE', {
       style: 'currency',
       currency: 'VND',
       minimumFractionDigits: 0,
@@ -120,6 +130,15 @@ hbs.registerHelper('totalProducts', function (cart) {
     if(cart) {
         return cart.listProducts.reduce(
             (accumulator, currentValue) => accumulator + currentValue.number
+            , 0 );
+    }
+    return 0;
+});
+
+hbs.registerHelper('orderPrice', function (cart) {
+    if(cart) {
+        return cart.listProducts.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.number * currentValue.productID.basePrice
             , 0 );
     }
     return 0;

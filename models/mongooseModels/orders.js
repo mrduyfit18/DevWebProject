@@ -5,7 +5,8 @@ const ObjectId = Schema.ObjectId;
 const order = new Schema({
         user_id: { type: Schema.Types.ObjectId, ref: 'Account' },
         status: String,
-        dateModified: Schema.Types.Date
+        dateModified: Schema.Types.Date,
+        contact_id: { type: Schema.Types.ObjectId, ref: 'Contact' }
     },
     {versionKey: false}
 );

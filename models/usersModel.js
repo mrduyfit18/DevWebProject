@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const ObjectId = mongoose.Types.ObjectId;
 
 const Accounts = require('./mongooseModels/accounts');
+const Contacts = require('./mongooseModels/contacts');
 
 exports.Signin = async (email, password) =>{
     const account = await Accounts.findOne({email: email});
@@ -52,7 +53,7 @@ exports.Signup = async (req) =>{
 }
 
 exports.getAccount = (id) =>{
-    return Accounts.findOne({'_id': ObjectId(id)});
+    return Accounts.findOne({'_id': ObjectId(id)}).populate('contacts');
 }
 
 exports.getAccountByEmail = async (email) =>{

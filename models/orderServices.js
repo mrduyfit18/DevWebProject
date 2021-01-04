@@ -64,5 +64,7 @@ exports.removeProduct = async (cartID, productID) => {
     await details.deleteOne(({'order_id': cartID, 'product_id': productID}));
 }
 
-
+exports.updateAddress = async (orderID, addressID) => {
+    await orders.updateOne({'_id': orderID}, {'$set': {'contact_id': addressID}});
+}
 

@@ -20,6 +20,7 @@
     <link href="../css/carousel.css" rel="stylesheet">
     <link href="../css/carousel-product.css" rel="stylesheet">
     <link href="../ionicons-2.0.1/css/ionicons.css" rel="stylesheet">
+    <link href="../css/checkout.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href='https://fonts.googleapis.com/css?family=Open Sans:400,100,300' rel='stylesheet' type='text/css'>
 
@@ -67,6 +68,7 @@
 <script type="text/javascript" src="../js/sort.js"></script>
 <script type="text/javascript" src="../js/cart.js"></script>
 <script type="text/javascript" src="../js/sign.js"></script>
+<script type="text/javascript" src="../js/checkout.js"></script>
 <script type="text/javascript" src="../js/handlebars.min-v4.7.6.js"></script>
 <script type="text/javascript">
     Handlebars.registerHelper("gt", function(a, b, options) {
@@ -85,10 +87,10 @@
         }
     });
     Handlebars.registerHelper('convertPrice', function (index) {
-        var moneyFormatter2 = new Intl.NumberFormat('fr-FR', {
+        const moneyFormatter2 = new Intl.NumberFormat('de-DE', {
             style: 'currency',
             currency: 'VND',
-            minimumFractionDigits: 0
+            minimumFractionDigits: 0,
         });
         return moneyFormatter2.format(index).replace(/\s/g, '');
     });

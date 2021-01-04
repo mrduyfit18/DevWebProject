@@ -18,3 +18,37 @@ $(document).ready(function(){
 		//Count
 	//Cart
 });
+
+$('#checkout-button').on("click",function(){
+	const numberProduct = document.getElementById('cart-num').textContent;
+	if(parseInt(numberProduct)===0){
+		if (confirm("Giỏ hàng hiện tại đang rỗng\nBạn có muốn chuyển đến cửa hàng?")) {
+			window.location = window.location.origin + '/store';
+		}
+	}
+	else{
+		window.location = window.location.origin + '/checkout';
+	}
+})
+
+$('#ChangeAddress-Button').on("click", function(){
+	$('#Modal-Contact').modal('show');
+})
+
+$('input[type=radio][name=contact]').change(function() {
+	const selectedContact = $("input[type='radio'][name=contact]:checked").val();
+	$.ajax({
+		method: 'POST',
+		type: 'POST',
+		datatype:'text',
+		url:'/api/checkout/change-address',
+		data:({
+			id : selectedContact,
+		})
+	});
+});
+
+$('#Modal-Contact-Save').on("click", function(){
+	$("#phone-number").text($("input[type='radio'][name=contact]:checked").parent().find('strong').text());
+	$("#summary-address").text($("input[type='radio'][name=contact]:checked").parent().find('b').text());
+})

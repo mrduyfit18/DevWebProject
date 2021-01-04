@@ -91,6 +91,7 @@ exports.saveProfileChange = async (req, res, next) => {
 
 exports.activeAccount = async (req, res, next) => {
     await usersModel.activeAccount(req.params.id);
-    res.render('activeSuccess');
+    const notification = 'Tài khoản của bạn đã được kích hoạt thành công';
+    res.render('notification', {notification});
 
 }
