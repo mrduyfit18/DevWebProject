@@ -27,6 +27,9 @@ $('#signin-form').submit(function(event)
             {
                 window.location = window.location.href;
             }
+            else if(parseInt(result) === 2){
+                window.location = 'http://localhost:4000/'
+            }
             else
             {
                 $('#signin-notification').html(result);

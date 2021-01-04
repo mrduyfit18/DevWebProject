@@ -6,6 +6,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const userService = require('../models/usersModel');
 
 
+
 passport.use(new LocalStrategy({usernameField: 'email',},
     async function(email, password, done) {
         const user = await userService.Signin(email, password);
