@@ -74,8 +74,15 @@ $('#signup-form').submit(function(event)
 });
 
 //Google Auth
-// $('#signin-google').on("click",function(){
-//     $.getJSON('/signin/google', (data) =>{
-//         console.log('abc');
-//     })
-// })
+$('#signin-google').on("click",function(){
+    const top = (screen.height - 800)/2;
+    const left = (screen.width - 500)/2;
+    const authenticateWindow = window.open("/signin/google", "", "width=500, height=800, top="+top+", left=" +left);
+})
+
+$(window).on("load",function(){
+    if(window.opener){
+        window.opener.location.reload();
+        window.close();
+    }
+})
