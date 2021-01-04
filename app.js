@@ -68,7 +68,6 @@ app.use(async function (req, res, next) {
 });
 
 app.use('/active', activeRouter);
-app.use('/comment', productsRouter);
 app.use('/users', usersRouter);
 app.use('/store', productsRouter);
 app.use('/about', aboutRouter);

@@ -168,7 +168,7 @@
 
                     <hr class="offset-lg">
                     <hr class="offset-md">
-                    <form class="pure-form" id="comment-form">
+                    <form class="pure-form" id="comment-form" method="post">
                         <div class="comment-form">
                             <div class="left-side">
                                 {{#if ../user}}
@@ -181,9 +181,8 @@
                                 </div>
                             </div>
                             <div class="right-side">
-                                <input  onclick="postComment();"
-                                        type="submit"
-                                        class="button-secondary pure-button" value="Bình luận">
+                                <button type="submit"
+                                class="button-secondary pure-button">Send Comment</button>
                             </div>
                         </div>
                     </form>
@@ -221,16 +220,3 @@
         </div>
     </div>
 </section>
-<script type="text/javascript">
-    function  postComment(){
-        let ajax = new XMLHttpRequest();
-        ajax.open("POST", "/comment", true);
-        ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        let productID = document.getElementById("productId").value;
-        let commentName = document.getElementsByName("new_comment_text")
-        ajax.send("productID=" + productID + "&comment=" + commentName);
-
-        return false;
-    }
-</script>

@@ -90,7 +90,12 @@ exports.addComment = async (req, id) => {
         content : req.body.new_comment_text,
         date : new Date()
     });
+    console.log(id);
+    console.log(req.body.new_comment_name);
+    console.log(req.body.new_comment_text);
 
-    await comment.insertMany(newComment).then((doc)=>{})
+    comment.insertMany(newComment).then((doc)=>{})
         .then((err)=>{console.log(err);});
+
+    return true;
 };

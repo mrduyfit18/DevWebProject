@@ -4,7 +4,7 @@ const productsController = require('../../controllers/productsController');
 
 
 
-router.post('/comment', productsController.addComment);
+router.post('/:_id', productsController.addComment);
 router.get('/:_id', productsController.Show);
 router.use('/', productsController.index);
 
