@@ -72,7 +72,6 @@
                 <hr class="offset-md">
                 <div class="row">
                     <div class="col-xs-6 col-md-6">
-                        <h3 class="h5 no-margin">Tổng tiền đã giảm: 100$</h3>
                         <h3 class="h4 no-margin">Tổng: {{convertPrice (orderPrice cart)}}</h3>
                     </div>
                     <div class="col-md-3 hidden-xs">
@@ -100,6 +99,9 @@
                     &nbsp;&nbsp; <strong>{{phone}}</strong>&nbsp;&nbsp; <b>{{address}}</b></label><br><br>
                 {{/each}}
             </div>
+            <div class="modal-body">
+                <button class="pull-right" onclick="AddContactButton_click();">Thêm địa chỉ</button>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="Modal-Contact-Save">Lưu</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
@@ -107,4 +109,28 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="Modal-Add-Contact" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="ion-android-close"></i></span></button>
+                <h4 class="modal-title">Thêm địa chỉ mới</h4>
+            </div>
+            <div class="modal-body contact-adding">
+                <input placeholder="Số điện thoại" type="number" id="phone-number-adding">
+                <span id="phone-number-err" class="err-signin"></span>
+                <textarea placeholder="Địa chỉ" id="address-adding" contenteditable="true"></textarea>
+                <span id="address-err" class="err-signin"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="Modal-Adding-Contact-Save">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-handlebars" id="new-contact-template">
+     <label class="contact"> <input type="radio" name="contact" value="\{{_id}}"> &nbsp;&nbsp; <strong>\{{phone}}</strong>&nbsp;&nbsp; <b>\{{address}}</b></label><br><br>
+</script>
 

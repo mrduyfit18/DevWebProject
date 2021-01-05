@@ -32,3 +32,36 @@
     font-weight: bolder !important;
     font-size: 13pt !important;
 }
+
+.contact-adding {
+    font-size: 14pt;
+
+}
+.contact-adding > span  {
+    font-size: 11pt;
+
+}
+
+#phone-number-adding {
+    font-size: 14pt;
+}
+
+#address-adding {
+    min-height: 150px !important;
+    font-size: 12pt;
+
+}
+
+[contenteditable="true"] {
+    background: #ffffff;
+    -moz-box-sizing: border-box;
+    border: 1px solid #CBD5DD;
+    border-radius: 2px;
+    max-height: 300px;
+    height: auto !important;
+    word-wrap: break-word;
+    width: 550px;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}

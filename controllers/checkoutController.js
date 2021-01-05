@@ -19,3 +19,10 @@ exports.changeAddress = async  (req, res, next) => {
     await orderServices.updateAddress(orderID, newAddrID);
     res.send('1');
 }
+
+exports.addAddress = async (req, res, next) => {
+    const phoneNumber = req.body.phoneNumber;
+    const address = req.body.address;
+    const newAddr = await contactsModel.create({address: address, user_id: req.user.id, phone: phoneNumber, isMain: false});
+    res.json(newAddr);
+}

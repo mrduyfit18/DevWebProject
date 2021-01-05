@@ -78,6 +78,14 @@ app.use('/checkout', function (req, res, next) {
     }
     next();
 })
+
+app.use('/users', function (req, res, next) {
+    if(!req.user){
+        const notification = 'Bạn cần đăng nhập khi đến đây';
+        return res.render('notification', {notification});
+    }
+    next();
+})
 app.use('/checkout', checkoutRouter);
 app.use('/active', activeRouter);
 app.use('/users', usersRouter);

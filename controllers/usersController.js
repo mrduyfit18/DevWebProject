@@ -93,5 +93,12 @@ exports.activeAccount = async (req, res, next) => {
     await usersModel.activeAccount(req.params.id);
     const notification = 'Tài khoản của bạn đã được kích hoạt thành công';
     res.render('notification', {notification});
+}
 
+exports.changePassword = async (req, res, next) => {
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    const userID = req.user._id;
+    const check = await usersModel.updatePassword(userID, oldPassword, newPassword);
+    res.send(check.toString());
 }

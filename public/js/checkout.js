@@ -52,3 +52,59 @@ $('#Modal-Contact-Save').on("click", function(){
 	$("#phone-number").text($("input[type='radio'][name=contact]:checked").parent().find('strong').text());
 	$("#summary-address").text($("input[type='radio'][name=contact]:checked").parent().find('b').text());
 })
+
+function AddContactButton_click(){
+	$('#Modal-Add-Contact').modal('show');
+}
+
+
+$('#Modal-Adding-Contact-Save').on("click", async function(){
+	event.preventDefault();
+
+	const phoneNumber = $('#phone-number-adding').val();
+	if(!checkValidPhoneNumber(phoneNumber)){
+		$('#phone-number-err').html('Số điện thoại không hợp lệ!');
+		return;
+	}
+	const address = $('#address-adding').val();
+
+	if(address.length === 0){
+		$('#address-err').html('Không được bỏ trống địa chỉ');
+		return;
+	}
+
+	await $.ajax({
+		url: '/api/contacts/add',
+		type: 'POST',
+		method: 'POST',
+		data: {
+			phoneNumber: phoneNumber,
+			address: address
+		},
+		success: function (result){
+			console.log(result);
+			const template = Handlebars.compile($('#new-contact-template').html());
+			const contactHtml = template({_id: result._id, phone: result.phone, address: result.address});
+			$('#Modal-Contact-Body').append(contactHtml);
+		}
+	});
+	await $('#Modal-Add-Contact').modal('hide');
+	$('#address-err').html('');
+	$('#phone-number-err').html('');
+})
+function checkValidPhoneNumber(phoneNumber) {
+	if(phoneNumber.length!==10){
+		return false;
+	}
+	const arr = phoneNumber.split('');
+
+	return arr[0] === '0';
+
+}
+
+$('#address-adding').on('input', function(){
+	$('#address-err').html('');
+})
+$('#phone-number-adding').on('input', function(){
+	$('#phone-number-err').html('');
+})

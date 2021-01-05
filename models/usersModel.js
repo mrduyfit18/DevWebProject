@@ -19,11 +19,9 @@ exports.Signin = async (email, password) =>{
     }
     let checkPassword = await bcrypt.compare(password, account.password);
     if(checkPassword){
-        console.log(checkPassword);
         return account;
     }
     else{
-        console.log(checkPassword);
         return -1;
     }
 }
@@ -75,4 +73,21 @@ exports.findOrCreate = async (profile) => {
 
 exports.activeAccount = async (id) =>{
     await Accounts.updateOne({'_id': id}, {'$set': {status: 'active'}});
+}
+
+exports.updatePassword = async (userID, oldPassword, newPassword) => {
+    console.log(oldPassword, newPassword);
+    const account = await Accounts.findById(ObjectId(userID));
+    const check = await bcrypt.compare(oldPassword, account.password);
+    if(check){
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashPassword = await bcrypt.hash(newPassword, salt);
+        await Accounts.findByIdAndUpdate(ObjectId(userID), {'$set': {'password': hashPassword}});
+        return true;
+    }
+    else{
+        return false;
+    }
+
 }

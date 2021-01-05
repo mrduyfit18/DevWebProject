@@ -6,10 +6,13 @@ const Schema = mongoose.Schema;
 const guestsCarts = require('./mongooseModels/guestscarts');
 const orders = require('./mongooseModels/orders');
 const details = require('./mongooseModels/orderDetails');
+const contacts = require('./mongooseModels/contacts');
 
 exports.moveGuestCartToOrder = async (guestCartID, userID) => {
+    const mainContact = await contacts.findOne({'user_id': userID, 'isMain': true});
     const cart = await guestsCarts.findById(guestCartID);
-    const userCart = await orders.findOneAndUpdate({'user_id': userID, 'status': 'cart'}, {'$set': {'dateModified': new Date()}},
+    const userCart = await orders.findOneAndUpdate({'user_id': userID, 'status': 'cart'},
+        {'$set': {'dateModified': new Date(), 'contact_id': mainContact._id}},
         { upsert: true, new: true });
     let listProducts = [];
     if(cart && cart.listProducts) {

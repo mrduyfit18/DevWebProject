@@ -3088,6 +3088,16 @@
 		.padding-xs { padding: 0px 15px 0px 15px; }
 		.no-padding-xs { padding: 0; }
 	}
+
+	#imgInp {
+		width: 0.1px;
+		height: 0.1px;
+		opacity: 0;
+		overflow: hidden;
+		position: absolute;
+		z-index: -1;
+}
+
 	.avatar {
 		width: 100px;
 		height: 100px;
@@ -3099,5 +3109,8 @@
 	}
 	.err-signin {
 		color: red;
+	}
+	.success-signin {
+		color: green;
 	}
 /* Helper classes */

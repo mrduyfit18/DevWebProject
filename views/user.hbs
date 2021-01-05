@@ -1,56 +1,49 @@
 {{#with account}}
 <form action="/users/{{_id}}/save" method="post" enctype="multipart/form-data">
 <div class="container">
-    <h1 style="margin-top: 100px">Edit Profile</h1>
+    <h3 style="margin-top: 100px">Xin chào {{name}}</h3>
     <hr>
     <div class="row">
         <!-- left column -->
         <div class="col-md-3">
-            <div class="text-center">
-                <img src="{{avatar}}" class="avatar img-circle" alt="avatar" id="avatar">
-                <h6>Change Avatar</h6>
-
-                <input type="file" class="form-control" name="avatar" id="imgInp">
+            <div class="btn-group-vertical hidden-xs" role="group" aria-label="First group">
+                <button type="button" class="btn btn-default active" style="border: none !important;">Thông tin tài khoản</button>
+                <button type="button" class="btn btn-default" style="border: 0 !important;">Sổ địa chỉ</button>
+                <button type="button" class="btn btn-default" style="border: 0 !important;">Sản phẩm mua sau</button>
+                <button type="button" class="btn btn-default" style="border: 0 !important;">Quản lý đơn hàng</button>
             </div>
         </div>
         <!-- edit form column -->
         <div class="col-md-9 personal-info">
-            <div class="alert alert-info alert-dismissable">
-                <a class="panel-close close" data-dismiss="alert">×</a>
-                <i class="fa fa-coffee"></i>
-                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+            <div class="text-center user-avatar">
+                <img src="{{avatar}}" class="avatar img-circle" alt="avatar" id="avatar" >
+                <h6>Ảnh đai diện</h6>
+                <label><input type="file" class="form-control" name="avatar" id="imgInp" accept="image/*">
+                    <button type="button" class="btn btn-sm btn-info">Đổi Avatar</button></label>
             </div>
-            <h3>Personal info</h3>
+            <h3>Thông tin tài khoản</h3>
 
             <div class="row form-group">
-                <div class="col col-md-1 "><label for="name">Name:</label></div>
+                <div class="col-12 col-md-1 "><label for="name">Name:</label></div>
                 <div class="col-12 col-md-11">
                     <input type="text" name="name" class="form-control" value="{{name}}">
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col col-md-1"><label for="email">Email:</label></div>
+                <div class="col-12 col-md-1"><label for="email">Email:</label></div>
                 <div class="col-12 col-md-11">
                     <input type="text" name="email" class="form-control" value="{{email}}" disabled>
                 </div>
             </div>
-            <div class="row form-group">
-                <div class="col col-md-1"><label for="password">Password:</label></div>
-                <div class="col-12 col-md-11">
-                    <input type="password" name="password" class="form-control" value="{{password}}">
-                </div>
+            <div class="card-footer">
+               <button type="button" class="btn btn-primary btn-sm pull-right" id="change-password-button">Đổi mật khẩu</button>
             </div>
-            <div class="row form-group">
-                <div class="col col-md-1"><label for="rePassword">Confirm Password</label></div>
-                <div class="col-12 col-md-11">
-                    <input type="password" name="rePassword" class="form-control" value="{{password}}">
-                </div>
-            </div>
+            <br>
             <div class="card-footer d-flex justify-content-around">
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <i class="fa fa-dot-circle-o"></i> Save
+                <button type="submit" class="btn btn-info btn-sm pull-right">
+                    <i class="fa fa-dot-circle-o"></i> Lưu
                 </button>
-                <a href="/"><button type="button" class="btn btn-danger btn-sm">Do not save</button></a>
+                <a href="/"><button type="button" class="btn btn-danger btn-sm pull-right">Do not save</button></a>
             </div>
         </div>
     </div>
@@ -58,3 +51,37 @@
 <hr>
 </form>
 {{/with}}
+<div class="modal fade" id="Modal-Change-Password" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="ion-android-close"></i></span></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <h2 class="modal-title text-center">Đổi mật khẩu</h2>
+                            <br>
+
+                            <form class="signin" id="change-password-form">
+                                <input type="password" name="oldPassword" id="oldPassword" placeholder="Mật khẩu cũ" required class="form-control" />
+                                <span id="old-password-notification" class="err-signin"></span>
+                                <br>
+                                <input type="password" name="newPassword" id="newPassword" placeholder="Mật khẩu mới" required class="form-control" />
+                                <span id="new-password-notification" class="err-signin"></span>
+                                <br>
+                                <input type="password" name="reNewPassword" id="reNewPassword" placeholder="Nhập lại mật khẩu mới" required class="form-control" />
+                                <span id="validate-notification" class="err-signin"></span>
+                                <br>
+                                <button type="submit" class="btn btn-primary btn-sm pull-right" onclick="ChangePasswordSaveButton_Click();">Xác nhận</button>
+                            </form>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

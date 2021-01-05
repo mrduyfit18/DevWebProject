@@ -14,6 +14,8 @@ router.get('/add-to-cart', cartsController.addToCart);
 
 router.post('/checkout/change-address', checkoutController.changeAddress);
 
+router.post('/contacts/add', checkoutController.addAddress);
+
 
 
 module.exports = router;

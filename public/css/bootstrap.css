@@ -8,7 +8,9 @@ html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+
 }
+
 body {
   margin: 0;
 }
@@ -5969,4 +5971,12 @@ button.close {
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
   }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
 /* Transitions */
