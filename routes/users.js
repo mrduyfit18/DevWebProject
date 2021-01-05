@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/usersController');
 
-router.post('/:id/save', usersController.saveProfileChange);
-router.get('/:id', usersController.edit);
+router.post('/save', usersController.saveProfileChange);
+router.get('/', usersController.edit);
 
 router.post('/change-password', usersController.changePassword);
 

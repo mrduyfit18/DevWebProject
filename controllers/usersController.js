@@ -37,18 +37,6 @@ async function uploadFile(filePath, fileInfo) {
 }
 
 
-exports.Signin = async (req, res, next) => {
-    const check =  await usersModel.Signin(req);
-    if(check === false){
-        const notification = 'Email or password is incorrect!!';
-        const status =  true;
-        res.render('index', {status, notification});
-    }
-    else{
-        const status = false;
-        res.render('index', {status, userName: check.name, id: check._id});
-    }
-}
 
 exports.Signup = async (req, res, next) => {
     const check = await usersModel.Signup(req);
@@ -63,8 +51,8 @@ exports.Signup = async (req, res, next) => {
 }
 
 exports.edit = async (req, res, next) => {
-    console.log(req.params.id);
-    const account = await usersModel.getAccount(await req.params.id);
+    const userID = req.user._id;
+    const account = await usersModel.getAccount(userID);
     res.render('user', {account});
 
 }
@@ -72,7 +60,7 @@ exports.edit = async (req, res, next) => {
 exports.saveProfileChange = async (req, res, next) => {
     const form = formidable({ multiples: true });
     let newPath;
-    console.log(req.params.id);
+    const userID= req.user._id;
     form.parse(req, (err, fields, files) => {
         if (err) {
             next(err);
@@ -85,7 +73,7 @@ exports.saveProfileChange = async (req, res, next) => {
                 uploadFile(newPath, files.avatar).then();
             });
         }
-        usersModel.SaveProfileChange(fields, newPath, req.params.id).then(res.redirect('/'));
+        usersModel.SaveProfileChange(fields, newPath, userID).then(res.redirect('/'));
     });
 }
 

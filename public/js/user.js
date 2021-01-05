@@ -46,13 +46,20 @@ function ChangePasswordSaveButton_Click() {
 $('#oldPassword').on('change', function(){
     $('#old-password-notification').html('');
     $('#validate-notification').html('');
-})
+});
+
 $('#newPassword').on('change', function(){
     $('#new-password-notification').html('');
     $('#validate-notification').html('');
-})
+});
 
 $('#reNewPassword').on('change', function(){
     $('#new-password-notification').html('');
     $('#validate-notification').html('');
-})
+});
+
+function userMenu_click(button){
+    console.log($(button).parent())
+    $(button).parent().find('button').removeClass('active');
+    $(button).addClass('active');
+}

@@ -59,9 +59,19 @@ exports.getAccountByEmail = async (email) =>{
 }
 
 exports.SaveProfileChange = async (fields, avatarLocal, id) => {
-    const fileName = avatarLocal.split('/').pop();
-    const avatarPath = process.env.GClOUD_IMAGE_FOlDER + fileName + '?alt=media'
-    await Accounts.updateOne({_id: ObjectId(id)},{'name': fields.name, password: fields.password, avatar: avatarPath});
+    if(avatarLocal) {
+        const fileName = avatarLocal.split('/').pop();
+        const avatarPath = process.env.GClOUD_IMAGE_FOlDER + fileName + '?alt=media'
+        await Accounts.updateOne({_id: ObjectId(id)}, {
+            'name': fields.name,
+            avatar: avatarPath
+        });
+    }
+    else{
+        await Accounts.updateOne({_id: ObjectId(id)}, {
+            'name': fields.name,
+        });
+    }
 }
 
 exports.findOrCreate = async (profile) => {
@@ -76,9 +86,10 @@ exports.activeAccount = async (id) =>{
 }
 
 exports.updatePassword = async (userID, oldPassword, newPassword) => {
-    console.log(oldPassword, newPassword);
     const account = await Accounts.findById(ObjectId(userID));
-    const check = await bcrypt.compare(oldPassword, account.password);
+    let check = 1;
+    check = await bcrypt.compare(oldPassword, account.password);
+
     if(check){
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
