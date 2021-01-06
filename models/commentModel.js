@@ -15,12 +15,12 @@ exports.addComment = async (req, id) => {
         name =req.session.user.name;
     }
     else{
-        name = req.body.new_comment_name
+        name = req.body.name;
     }
     let newComment = ({
         name : name,
-        product_id : id,
-        content : req.body.new_comment_text,
+        product_id : req.body.productID,
+        content : req.body.content,
         date : new Date()
     });
 

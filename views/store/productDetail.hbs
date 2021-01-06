@@ -148,7 +148,7 @@
                 </div>
                 <hr class="offset-sm hidden-xs">
                 <!--Comment-->
-                <input type="hidden" id="productId" value="{{_id}}">
+                <span type="hidden" id="productId" value="{{_id}}"></span>
                 <div class="comments white">
                     <h2 class="h3">What do you think? (#3)</h2>
                     <br>
@@ -168,16 +168,16 @@
 
                     <hr class="offset-lg">
                     <hr class="offset-md">
-                    <form class="pure-form" id="comment-form" method="post">
+                    <form class="pure-form" id="comment-form">
                         <div class="comment-form">
                             <div class="left-side">
                                 {{#if ../user}}
                                     <input name="new_comment_name" disabled value="{{../user.name}}"></input>
                                 {{else}}
-                                    <input type="text" required placeholder="Nhập tên của bạn" id="new-comment-name">
+                                    <input type="text" required placeholder="Nhập tên của bạn" id="new-comment-name" name="new-comment-name">
                                 {{/if}}
                                 <div>
-                                    <textarea placeholder="Nhập bình luận" required id="new_comment_text" rows="3"></textarea>
+                                    <textarea placeholder="Nhập bình luận" required id="new_comment_text" name="new_comment_text" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="right-side">

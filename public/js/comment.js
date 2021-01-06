@@ -6,14 +6,18 @@ $('#add-new-comment').on("click", async  function (){
     else{*/
         name = $('#new-comment-name').val();
     //}
-
+    let id = $('#productId').val();
     await $.ajax({
         url: '/api/addComment',
         type: 'POST',
         method: 'POST',
         data:{
+            productID: id,
             name: name,
             content: $('#new_comment_text').val()
+        },
+        success:function (){
+
         }
     })
 
