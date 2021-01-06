@@ -157,7 +157,7 @@
                         <div class="content" id="comment-content">
                             {{#each ../cmts}}
                                 <h3>{{name}}</h3>
-                                <label>{{date}}</label>
+                                <label>{{convertTime date}}</label>
                                 <p>
                                     {{content}}
                                 </p>
@@ -221,6 +221,6 @@
 </section>
 <script type="text/x-handlebars" id="new-comment-template">
     <h3>\{{name}}</h3>
-    <label>\{{date}}</label>
+    <label>\{{convertTime date}}</label>
     <p>\{{content}}</p>
 </script>

@@ -93,13 +93,12 @@ function createPagination(pagination, req){
 
 
 exports.Show = async (req, res, next) => {
-    // Get product from model
-    //await console.log(req.params._id);
-    const product = await productsModel.getProduct(await req.params._id);
+    const productID = req.params._id;
+    const product = await productsModel.getProduct(productID);
     const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type, 4);
     const imageCount = product.productImages.length + 1;
-    const cmts = await commentModel.listCmt(await  req.params._id);
-    res.render('store/productDetail', {product, Products: relatedProducts, imageCount, cmts : cmts});
+    const comments = await commentModel.listCmt(productID);
+    res.render('store/productDetail', {product, Products: relatedProducts, imageCount, cmts : comments});
 };
 
 async function getProducts (req) {

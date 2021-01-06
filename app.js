@@ -168,4 +168,27 @@ hbs.registerHelper('orderPrice', function (cart) {
     return 0;
 });
 
+hbs.registerHelper('convertTime', function (date) {
+    const currentDate = new Date();
+    const second = (currentDate - date)/1000;
+    console.log(date);
+    console.log(currentDate);
+    console.log(second);
+    if(second < 60) {
+        return 'vừa xong';
+    }
+    else if(second < 3600){
+        const min = Math.trunc(second/60);
+        return min + ' phút trước';
+    }
+    else if(second < 86400){
+        const hour = Math.trunc(second/3600);
+        return hour +' giờ trước';
+    }
+    else{
+        const day = Math.trunc(second / 86400);
+        return day +' ngày trước';
+    }
+});
+
 module.exports = app;
