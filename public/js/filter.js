@@ -20,6 +20,7 @@ function getSelectedCheckboxValues(name) {
     return values;
 }
 let sort = 1;
+let oldPage = 1;
 
 function filterChange(sortOption) {
     const selectedDisplay = getSelectedCheckboxValues('Display');
@@ -28,7 +29,11 @@ function filterChange(sortOption) {
     const selectedManufacturer = getSelectedCheckboxValues('Manufacturer');
     const minPrice = $(".filter #slider-price").slider("values", 0);
     const maxPrice = $(".filter #slider-price").slider("values", 1);
-    const page = $('input[name="Page"]:checked').val();
+    let page = $('input[name="Page"]:checked').val();
+    if(page===oldPage){
+        page = 1;
+    }
+    oldPage = page;
     // if(!page){
     //     return;
     // }
@@ -81,6 +86,7 @@ function filterChange(sortOption) {
         window.scrollTo(0, 20);
         window.history.pushState("object or string", "Title", queryString);
     })
+
 }
 
 function renderProducts(data)

@@ -19,7 +19,7 @@ exports.addComment = async (req, id) => {
     }
     let newComment = ({
         name : name,
-        product_id :  ObjectId(req.body.productID),
+        product_id : ObjectId(req.body.productID),
         content : req.body.content,
         date : new Date()
     });
