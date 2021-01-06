@@ -1,9 +1,9 @@
-const commentModel = require('../models/commentModel');
+const commentModel = require('../models/mongooseModels/comments');
+const commentService = require('../models/commentModel');
 
 
 exports.addComment = async (req, res, next)=>{
-    console.log(req.body.name);
-    const newComment = await commentModel.addComment(req, await req.params._id);
+    const newComment = await commentService.addComment(req, await req.params._id);
 
     res.json(newComment);
 };

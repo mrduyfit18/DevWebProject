@@ -1,11 +1,7 @@
 $('#add-new-comment').on("click", async  function (){
     let name;
-    /*if(window.location.session._id){
-        name = window.location.session.name;
-    }
-    else{*/
-        name = $('#new-comment-name').val();
-    //}
+    name = $('#new-comment-name').val();
+
     let id = $('#productId').val();
     await $.ajax({
         url: '/api/addComment',
@@ -16,8 +12,10 @@ $('#add-new-comment').on("click", async  function (){
             name: name,
             content: $('#new_comment_text').val()
         },
-        success:function (){
-
+        success:function (result){
+            const template = Handlebars.compile($('#new-comment-template').html());
+            const cmt = template({name:result.name, content: result.content});
+            $('#cmtForm').append(cmt);
         }
     })
 

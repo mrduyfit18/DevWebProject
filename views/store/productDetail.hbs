@@ -172,7 +172,7 @@
                         <div class="comment-form" id="cmtForm">
                             <div class="left-side">
                                 {{#if ../user}}
-                                    <input name="new_comment_name" disabled value="{{../user.name}}"></input>
+                                    <input id="new-comment-name" name="new_comment_name" disabled value="{{../user.name}}"></input>
                                 {{else}}
                                     <input type="text" required placeholder="Nhập tên của bạn" id="new-comment-name" name="new-comment-name">
                                 {{/if}}
@@ -220,9 +220,9 @@
         </div>
     </div>
 </section>
-<!--<script type="text/x-handlebars" id="new-comment-template">
+<script type="text/x-handlebars" id="new-comment-template">
     \{{#each ../cmts}}
     <h3>\{{name}}</h3>
     <p> \{{content}}</p>
      \{{/each}}
-</script>-->
+</script>
