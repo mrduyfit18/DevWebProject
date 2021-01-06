@@ -3,8 +3,10 @@ const fs = require('fs');
 const admin = require("firebase-admin");
 const uuid = require('uuid-v4');
 const mailSender = require('../emailUtils/nodemailer');
+const bcrypt = require('bcrypt');
 
 const usersModel = require('../models/usersModel');
+const tokenModel = require('../models/tokenModel');
 
 const adminAccount = require('../storageserver-b4fd7-firebase-adminsdk-o7qpl-3939aaef50.json');
 
@@ -78,7 +80,8 @@ exports.saveProfileChange = async (req, res, next) => {
 }
 
 exports.activeAccount = async (req, res, next) => {
-    await usersModel.activeAccount(req.params.id);
+    const userID = req.params.id;
+    await usersModel.activeAccount(userID);
     const notification = 'Tài khoản của bạn đã được kích hoạt thành công';
     res.render('notification', {notification});
 }
@@ -89,4 +92,39 @@ exports.changePassword = async (req, res, next) => {
     const userID = req.user._id;
     const check = await usersModel.updatePassword(userID, oldPassword, newPassword);
     res.send(check.toString());
+}
+
+exports.forgotPassword = async (req, res, next) => {
+    const email = req.body.email;
+    const check = await usersModel.getAccountByEmail(email);
+    if(check){
+        const token = await tokenModel.genToken(check._id);
+        await mailSender.sendForgotPasswordMail(check, token.token);
+        res.send('true');
+    }
+    else{
+        res.send('false');
+    }
+}
+
+exports.recoverPassword = async (req, res, next) => {
+    const password = req.body.password;
+    const email = req.params.email;
+    const token = req.query.token;
+    const account = await usersModel.getAccountByEmail(email);
+    if(account) {
+        const check = await tokenModel.checkToken(token, account._id);
+        if(check) {
+            await usersModel.recoverPassword(account._id, password);
+            res.send('true');
+        }
+        else{
+            res.send('false');
+        }
+
+    }
+    else {
+        res.send('false');
+    }
+
 }

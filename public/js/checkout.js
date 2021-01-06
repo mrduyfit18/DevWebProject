@@ -108,3 +108,17 @@ $('#address-adding').on('input', function(){
 $('#phone-number-adding').on('input', function(){
 	$('#phone-number-err').html('');
 })
+
+function checkoutSubmit() {
+	const phone = $("#phone-number").text();
+	const address = $("#summary-address").text();
+	if(phone.length===0 || address.length===0) {
+		alert('Địa chỉ chưa hợp lệ, vui lòng cập nhật lại!!');
+	}
+	else{
+		$.post('/checkout/submit',function(data) {
+			alert("Đơn hàng của bạn đã được tiếp nhận");
+			window.location = window.location.origin;
+		});
+	}
+}

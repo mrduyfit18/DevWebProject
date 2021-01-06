@@ -28,9 +28,12 @@ const signupRouter = require('./routes/signup');
 const passport = require('./passport');
 const APIRouter = require('./routes/api/api');
 const activeRouter = require('./routes/activeAccount');
+const forgotPasswordRouter = require('./routes/forgotPassword');
 const checkoutRouter = require('./routes/checkout');
+const recoverRouter = require('./routes/recover');
 const guestsCartServices = require('./models/guestsCartServices');
 const orderServices = require('./models/orderServices');
+
 
 
 
@@ -86,6 +89,19 @@ app.use('/users', function (req, res, next) {
     }
     next();
 })
+
+app.use('/recover', function (req, res, next) {
+    if(!req.query.token){
+        const notification = 'Yêu cầu không hợp lệ!!';
+        return res.render('notification', {notification});
+    }
+    next();
+})
+
+
+
+app.use('/recover', recoverRouter);
+app.use('/forgot-password', forgotPasswordRouter);
 app.use('/checkout', checkoutRouter);
 app.use('/active', activeRouter);
 app.use('/users', usersRouter);

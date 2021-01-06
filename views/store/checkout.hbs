@@ -1,6 +1,6 @@
 <div class="white">
-    <div class="container checkout">
-        <h1>Checkout order</h1>
+    <div class="container checkout" >
+        <h1 style="margin-top: 100px">Checkout order</h1>
         <hr class="offset-sm">
     </div>
 </div>
@@ -15,6 +15,7 @@
                         <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                     </svg> Địa chỉ nhận hàng</h2></div>
                 </div>
+                {{#if user.contacts}}
                 {{#each user.contacts}}
                 {{#if isMain}}
                 <div class="row" data-id="{{_id}}" id="contact-div">
@@ -26,9 +27,22 @@
                         <p id="summary-address">{{address}}</p>
                         <button id="ChangeAddress-Button">Sửa</button>
                     </div>
-                </div>
                 {{/if}}
                 {{/each}}
+                {{else}}
+                <div class="row" data-id="" id="contact-div">
+                    <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
+                        <h5>{{user.name}}</h5>
+                        <h5 id="phone-number"></h5>
+                    </div>
+                    <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
+                        <p id="summary-address"></p>
+                        <button id="ChangeAddress-Button">Sửa</button>
+                    </div>
+                {{/if}}
+
+                </div>
+
 
                 <hr class="offset-lg visible-xs visible-sm">
                 <hr class="offset-lg visible-xs">
@@ -77,7 +91,7 @@
                     <div class="col-md-3 hidden-xs">
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <button class="btn btn-primary pull-right" type="submit">Đặt hàng</button>
+                        <button class="btn btn-primary pull-right" onclick="checkoutSubmit();">Đặt hàng</button>
                     </div>
                 </div>
                 <hr class="offset-md">

@@ -102,3 +102,10 @@ exports.updatePassword = async (userID, oldPassword, newPassword) => {
     }
 
 }
+
+exports.recoverPassword = async (userID, newPassword) => {
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashPassword = await bcrypt.hash(newPassword, salt);
+    await Accounts.findByIdAndUpdate(ObjectId(userID), {'$set':{'password': hashPassword}});
+}

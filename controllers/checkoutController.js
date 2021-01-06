@@ -23,6 +23,21 @@ exports.changeAddress = async  (req, res, next) => {
 exports.addAddress = async (req, res, next) => {
     const phoneNumber = req.body.phoneNumber;
     const address = req.body.address;
-    const newAddr = await contactsModel.create({address: address, user_id: req.user.id, phone: phoneNumber, isMain: false});
+    const isMain = !(req.user.contact === true);
+    const newAddr = await contactsModel.create({address: address, user_id: req.user.id, phone: phoneNumber, isMain: isMain});
+    if(isMain){
+        const orderID = res.locals.cart._id;
+        const contactID = newAddr._id;
+        await orderServices.updateAddress(orderID, contactID);
+    }
     res.json(newAddr);
+}
+
+exports.submit = async (req, res, next) => {
+    const userID = req.user._id;
+    const mainContact = req.user.contacts.find(s => s.isMain === true );
+    const orderID = res.locals.cart._id;
+    await orderServices.checkout(orderID);
+    await orderServices.createCart(userID, mainContact._id);
+    res.send('OK');
 }

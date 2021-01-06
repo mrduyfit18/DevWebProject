@@ -12,7 +12,7 @@ exports.moveGuestCartToOrder = async (guestCartID, userID) => {
     const mainContact = await contacts.findOne({'user_id': userID, 'isMain': true});
     const cart = await guestsCarts.findById(guestCartID);
     const userCart = await orders.findOneAndUpdate({'user_id': userID, 'status': 'cart'},
-        {'$set': {'dateModified': new Date(), 'contact_id': mainContact._id}},
+        {'$set': {'dateModified': new Date()}},
         { upsert: true, new: true });
     let listProducts = [];
     if(cart && cart.listProducts) {
@@ -71,3 +71,11 @@ exports.updateAddress = async (orderID, addressID) => {
     await orders.updateOne({'_id': orderID}, {'$set': {'contact_id': addressID}});
 }
 
+//Tạo giỏ hàng mới cho user khi thanh toán giỏ hàng trước
+exports.createCart = async (userID, contactID) => {
+    await orders.create({user_id: userID, contact_id: contactID, status: 'cart', dateModified: new Date()});
+}
+
+exports.checkout = async (orderID) => {
+    await orders.findByIdAndUpdate(ObjectId(orderID), {'$set': {'status': 'processing'}});
+}

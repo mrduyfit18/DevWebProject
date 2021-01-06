@@ -86,3 +86,78 @@ $(window).on("load",function(){
         window.close();
     }
 })
+
+$('#emailAuth').on('change', function(){
+    $('#forgot-password-notification').html('');
+});
+
+function forgotPassword_click(){
+    const email = $('#emailAuth').val();
+    if(email.length === 0) {
+        $('#forgot-password-notification').html('Vui lòng điền đầy đủ thông tin');
+        return;
+    }
+    if(!email.includes("@")){
+        $('#forgot-password-notification').html('Email chưa đúng! Vui lòng nhập lại');
+        return;
+    }
+    $.ajax({
+        method: 'POST',
+        type: 'POST',
+        datatype:'text',
+        url:'/forgot-password',
+        data:({
+            email: email,
+        }),
+        success: function(result)
+        {
+            if(result === 'true')
+            {
+                $('#forgot-password-notification').html('Email xác nhận đã được gửi').removeClass('err-signin').addClass('success-signin');
+                setTimeout(function(){
+                    $('#Modal-ForgotPassword').modal('hide');
+                    $('#forgot-password-notification').html('');
+                }, 2000);
+            }
+            else
+            {
+                $('#forgot-password-notification').html('Email không tồn tại');
+            }
+        }
+    });
+}
+
+$('#recover-form').on('submit', function(){
+    event.preventDefault();
+    const password = $('#recover-form').find('input[name="password"]').val();
+    const rePassword = $('#recover-form').find('input[name="rePassword"]').val();
+    if(password!==rePassword){
+        $('#recover-notification').html('Mật khẩu không khớp');
+        return;
+    }
+    const url = window.location.origin + window.location.pathname + '/submit' + window.location.search;
+    $.ajax({
+        method: 'POST',
+        type: 'POST',
+        datatype:'text',
+        url: url,
+        data:({
+            password: password,
+        }),
+        success: function(result)
+        {
+            if(result === 'true')
+            {
+                $('#recover-notification').html('Mật khẩu đã được khôi phục thành công').removeClass('err-signin').addClass('success-signin');
+            }
+            else
+            {
+                $('#recover-notification').html('Yêu cầu của bạn dã hết hạn hoặc không hợp lệ!! Bạn hãy thực hiện lại');
+            }
+            setTimeout(function(){
+                window.location = window.location.origin;
+            }, 2000);
+        }
+    });
+
+});
