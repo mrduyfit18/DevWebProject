@@ -4,6 +4,7 @@ const buildUrl = require('build-url');
 
 const productsModel = require('../models/productsModel');
 const manufacturerModel = require('../models/manufacturerModel');
+const commentModel = require('../models/commentModel');
 
 
 
@@ -97,7 +98,7 @@ exports.Show = async (req, res, next) => {
     const product = await productsModel.getProduct(await req.params._id);
     const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type, 4);
     const imageCount = product.productImages.length + 1;
-    const cmts = await productsModel.listCmt(await  req.params._id);
+    const cmts = await commentModel.listCmt(await  req.params._id);
     res.render('store/productDetail', {product, Products: relatedProducts, imageCount, cmts : cmts});
 };
 
@@ -225,10 +226,4 @@ exports.indexAPI = async (req, res, next) => {
     res.json( { products: result.pagination.docs, pagingButtons , pagination: result.pagination,
         totalPage: result.pagination.totalPages ,onStore: 'active', Manufacturers: manufacturers,
         Allcheck: result.Allcheck, Desktopscheck: result.Desktopscheck, Laptopscheck: result.Laptopscheck});
-};
-
-exports.addComment = async (req, res)=>{
-    const addComment = productsModel.addComment(req, await req.params._id);
-    const status =  true;
-    res.render('index', {status});
 };

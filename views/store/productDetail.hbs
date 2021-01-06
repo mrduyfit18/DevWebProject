@@ -174,14 +174,14 @@
                                 {{#if ../user}}
                                     <input name="new_comment_name" disabled value="{{../user.name}}"></input>
                                 {{else}}
-                                    <input type="text" required placeholder="Nhập tên của bạn" name="new_comment_name">
+                                    <input type="text" required placeholder="Nhập tên của bạn" id="new-comment-name">
                                 {{/if}}
                                 <div>
-                                    <textarea placeholder="Nhập bình luận" required name="new_comment_text" rows="3"></textarea>
+                                    <textarea placeholder="Nhập bình luận" required id="new_comment_text" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="right-side">
-                                <button type="submit"
+                                <button type="submit" id="add-new-comment"
                                 class="button-secondary pure-button">Send Comment</button>
                             </div>
                         </div>
