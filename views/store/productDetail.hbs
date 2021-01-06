@@ -148,7 +148,7 @@
                 </div>
                 <hr class="offset-sm hidden-xs">
                 <!--Comment-->
-                <span type="hidden" id="productId" value="{{_id}}"></span>
+                <input type="hidden" id="productId" value="{{_id}}">
                 <div class="comments white">
                     <h2 class="h3">What do you think? (#3)</h2>
                     <br>
@@ -169,7 +169,7 @@
                     <hr class="offset-lg">
                     <hr class="offset-md">
                     <form class="pure-form" id="comment-form">
-                        <div class="comment-form">
+                        <div class="comment-form" id="cmtForm">
                             <div class="left-side">
                                 {{#if ../user}}
                                     <input name="new_comment_name" disabled value="{{../user.name}}"></input>
@@ -220,3 +220,9 @@
         </div>
     </div>
 </section>
+<!--<script type="text/x-handlebars" id="new-comment-template">
+    \{{#each ../cmts}}
+    <h3>\{{name}}</h3>
+    <p> \{{content}}</p>
+     \{{/each}}
+</script>-->
