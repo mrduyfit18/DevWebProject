@@ -77,5 +77,27 @@ exports.createCart = async (userID, contactID) => {
 }
 
 exports.checkout = async (orderID) => {
-    await orders.findByIdAndUpdate(ObjectId(orderID), {'$set': {'status': 'processing'}});
+    await orders.findByIdAndUpdate(ObjectId(orderID), {'$set': {'status': 'processing', 'dateModified': new Date()}});
+}
+
+exports.getOrdersOfUser = async (userID) => {
+    return orders.find({'user_id': ObjectId(userID), 'status': {'$ne': 'cart'}}).populate({
+        path : 'listProducts',
+        populate : {
+            path : 'productID'
+        }
+    });
+}
+
+
+exports.getOrder= async (id) => {
+    return orders.findById(ObjectId(id)).populate('user_id').populate('contact_id').populate({
+        path : 'listProducts',
+        populate : {
+            path : 'productID',
+            populate:{
+                path : 'manufacturer_id',
+            }
+        }
+    });
 }

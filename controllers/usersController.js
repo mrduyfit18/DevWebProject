@@ -3,10 +3,10 @@ const fs = require('fs');
 const admin = require("firebase-admin");
 const uuid = require('uuid-v4');
 const mailSender = require('../emailUtils/nodemailer');
-const bcrypt = require('bcrypt');
 
 const usersModel = require('../models/usersModel');
 const tokenModel = require('../models/tokenModel');
+const orderServices = require('../models/orderServices');
 
 const adminAccount = require('../storageserver-b4fd7-firebase-adminsdk-o7qpl-3939aaef50.json');
 
@@ -55,7 +55,7 @@ exports.Signup = async (req, res, next) => {
 exports.edit = async (req, res, next) => {
     const userID = req.user._id;
     const account = await usersModel.getAccount(userID);
-    res.render('user', {account});
+    res.render('user/user', {account});
 
 }
 
@@ -127,4 +127,17 @@ exports.recoverPassword = async (req, res, next) => {
         res.send('false');
     }
 
+}
+
+exports.getOrders = async (req, res, next) => {
+    const userID = req.user._id;
+    const orders = await orderServices.getOrdersOfUser(userID);
+    res.render('user/orders', {layout: false, orders});
+}
+
+exports.getOrderDetail = async (req, res, next) => {
+    const orderID = req.params.id;
+    const order = await orderServices.getOrder(orderID);
+    console.log(order);
+    res.render('user/orderDetail', {order});
 }

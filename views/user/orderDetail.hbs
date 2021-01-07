@@ -1,0 +1,96 @@
+<hr class="offset-top">
+    <form action="/users/save" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <h3>Xin chào {{user.name}}</h3>
+            <hr>
+            <div class="row">
+                <!-- left column -->
+                <div class="col-xs-12 col-md-3" style="margin-bottom: 15px;">
+                    <div class="btn-group-vertical" role="group" aria-label="First group">
+                        <button type="button" onclick="userMenu_click(this);" data-id="1" class="btn btn-default active" style="border: none !important;">
+                            <i class="ion-person pull-left"> </i><b class="pull-left">&emsp;&emsp; Thông tin tài khoản</b></button>
+                        <button type="button" onclick="userMenu_click(this);" data-id="2" class="btn btn-default" style="border: 0 !important;">
+                            <i class="ion-location pull-left"></i><b class="pull-left">&emsp;&emsp;&nbsp; Sổ địa chỉ</b></button>
+                        <button type="button" onclick="userMenu_click(this);" data-id="3" class="btn btn-default" style="border: 0 !important;">
+                            <i class="ion-android-cart pull-left"></i><b class="pull-left">&emsp;&emsp; Sản phẩm mua sau</b></button>
+                        <button type="button" onclick="userMenu_click(this);" data-id="4" class="btn btn-default" style="border: 0 !important;">
+                            <i class="ion-android-menu pull-left"></i><b class="pull-left">&emsp;&emsp; Quản lý đơn hàng</b></button>
+                    </div>
+                </div>
+                <!-- edit form column -->
+                <div class="col-xs-12 col-md-9 personal-info" id="user-content">
+                {{#with order}}
+                    <h4>Chi tiết đơn hàng #{{_id}} - <strong>{{status}}</strong></h4>
+                    <h4>Địa chỉ người nhận</h4>
+                    <div class="white" style="padding: 10px !important;">
+                        <div>
+                            <h5>{{user_id.name}}</h5>
+                            <p>Địa chỉ: {{contact_id.address}}</p>
+                            <p>Số điện thoại: {{contact_id.phone}}</p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <table class="table white">
+                        <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each listProducts}}
+                            <tr>
+                                <td>
+                                    <a href="/store/{{productID._id}}">{{productID.name}}</a>
+                                    <p><i>{{productID.type}}</i></p>
+                                    <p>Hãng sản xuất: {{productID.manufacturer_id.name}}</p>
+                                </td>
+                                <td>{{convertPrice productID.basePrice}}</td>
+                                <td>{{productID.name}}</td>
+                                <td>{{convertPrice (multiply number productID.basePrice)}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/with}}
+                </div>
+            </div>
+        </div>
+        <hr>
+    </form>
+<div class="modal fade" id="Modal-Change-Password" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="ion-android-close"></i></span></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <h2 class="modal-title text-center">Đổi mật khẩu</h2>
+                            <br>
+
+                            <form class="signin" id="change-password-form">
+                                <input type="password" name="oldPassword" id="oldPassword" placeholder="Mật khẩu cũ" required class="form-control" />
+                                <span id="old-password-notification" class="err-signin"></span>
+                                <br>
+                                <input type="password" name="newPassword" id="newPassword" placeholder="Mật khẩu mới" required class="form-control" />
+                                <span id="new-password-notification" class="err-signin"></span>
+                                <br>
+                                <input type="password" name="reNewPassword" id="reNewPassword" placeholder="Nhập lại mật khẩu mới" required class="form-control" />
+                                <span id="validate-notification" class="err-signin"></span>
+                                <br>
+                                <button type="submit" class="btn btn-primary btn-sm pull-right" onclick="ChangePasswordSaveButton_Click();">Xác nhận</button>
+                            </form>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

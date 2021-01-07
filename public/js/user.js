@@ -59,8 +59,21 @@ $('#reNewPassword').on('change', function(){
 });
 
 function userMenu_click(button){
-    console.log($(button).parent())
     $(button).parent().find('button').removeClass('active');
     $(button).addClass('active');
+    const option = ($(button).data('id'));
+    switch (option){
+        case 4:
+            $.ajax({
+                method: 'POST',
+                type: 'POST',
+                url:'/users/orders',
+                success: function(result)
+                {
+                    $('#user-content').html(result);
+                }
+            });
+
+    }
 }
 

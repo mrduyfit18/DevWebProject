@@ -7,18 +7,18 @@
         <!-- left column -->
         <div class="col-xs-12 col-md-3" style="margin-bottom: 15px;">
             <div class="btn-group-vertical" role="group" aria-label="First group">
-                <button type="button" onclick="userMenu_click(this);" class="btn btn-default active" style="border: none !important;">
+                <button type="button" onclick="userMenu_click(this);" data-id="1" class="btn btn-default active" style="border: none !important;">
                     <i class="ion-person pull-left"> </i><b class="pull-left">&emsp;&emsp; Thông tin tài khoản</b></button>
-                <button type="button" onclick="userMenu_click(this);" class="btn btn-default" style="border: 0 !important;">
-                    <i class="ion-location pull-left"></i><b class="pull-left">&emsp;&emsp;&nbsp; Sổ địa chỉ</b></button>
-                <button type="button" onclick="userMenu_click(this);" class="btn btn-default" style="border: 0 !important;">
+                <button type="button" onclick="userMenu_click(this);" data-id="2" class="btn btn-default" style="border: 0 !important;">
+                      <i class="ion-location pull-left"></i><b class="pull-left">&emsp;&emsp;&nbsp; Sổ địa chỉ</b></button>
+                <button type="button" onclick="userMenu_click(this);" data-id="3" class="btn btn-default" style="border: 0 !important;">
                     <i class="ion-android-cart pull-left"></i><b class="pull-left">&emsp;&emsp; Sản phẩm mua sau</b></button>
-                <button type="button" onclick="userMenu_click(this);" class="btn btn-default" style="border: 0 !important;">
+                <button type="button" onclick="userMenu_click(this);" data-id="4" class="btn btn-default" style="border: 0 !important;">
                     <i class="ion-android-menu pull-left"></i><b class="pull-left">&emsp;&emsp; Quản lý đơn hàng</b></button>
             </div>
         </div>
         <!-- edit form column -->
-        <div class="col-xs-12 col-md-9 personal-info" >
+        <div class="col-xs-12 col-md-9 personal-info" id="user-content">
             <div class="text-center user-avatar">
                 <img src="{{avatar}}" class="avatar img-circle" alt="avatar" id="avatar" >
                 <h6>Ảnh đai diện</h6>
@@ -26,6 +26,7 @@
                     Đổi Avatar</label>
             </div>
             <h3>Thông tin tài khoản</h3>
+            <br>
 
             <div class="row form-group">
                 <div class="col-xs-1 col-sm-1"><label for="email">Tên</label></div>

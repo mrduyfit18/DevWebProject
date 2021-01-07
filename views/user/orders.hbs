@@ -1,0 +1,28 @@
+<h3>Đơn hàng của tôi</h3>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Mã đơn hàng</th>
+        <th>Ngày mua</th>
+        <th>Sản phẩm</th>
+        <th>Tổng tiền</th>
+        <th>Trạng thái</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each orders}}
+    <tr>
+        <th scope="row"><a href="/users/orders/{{_id}}">{{_id}}</a></th>
+        <td>{{convertDate dateModified}}</td>
+        <td>
+            {{#each listProducts}}
+                <p>{{productID.name}}</p>
+            {{/each}}
+        </td>
+        <td>{{convertPrice (orderPrice this)}}</td>
+        <td>{{status}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>

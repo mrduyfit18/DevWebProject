@@ -51,12 +51,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 //passport middleware
 app.use(session({ secret: process.env.SESSION_SECRET , cookie: { maxAge: 360000000 }, saveUninitialized: true, resave: true,})); //time live
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static('public'))
 
 app.use(function (req, res, next) {
   res.locals.user = req.user;
@@ -189,6 +190,11 @@ hbs.registerHelper('convertTime', function (date) {
         const day = Math.trunc(second / 86400);
         return day +' ngày trước';
     }
+});
+
+hbs.registerHelper('convertDate', function (date) {
+    date = new Date((date.toLocaleString("en-US", {timeZone: 'Asia/Ho_Chi_Minh'})));
+    return date.getDate()+ '/' + (date.getMonth()+1) + '/' +date.getFullYear();
 });
 
 module.exports = app;
