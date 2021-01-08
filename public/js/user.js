@@ -63,14 +63,39 @@ function userMenu_click(button){
     $(button).addClass('active');
     const option = ($(button).data('id'));
     switch (option){
-        case 4:
+        case 3:
             $.ajax({
-                method: 'POST',
-                type: 'POST',
-                url:'/users/orders',
+                method: 'GET',
+                type: 'GET',
+                url:'/users/orders?ajax=true',
                 success: function(result)
                 {
                     $('#user-content').html(result);
+                    window.history.pushState("object or string", "Title", '/users/orders');
+                }
+            });
+            break;
+        case 1:
+            $.ajax({
+                method: 'GET',
+                type: 'GET',
+                url:'/users/edit?ajax=true',
+                success: function(result)
+                {
+                    $('#user-content').html(result);
+                    window.history.pushState("object or string", "Title", '/users/edit');
+                }
+            });
+            break;
+        case 2:
+            $.ajax({
+                method: 'GET',
+                type: 'GET',
+                url:'/users/reserves?ajax=true',
+                success: function(result)
+                {
+                    $('#user-content').html(result);
+                    window.history.pushState("object or string", "Title", '/users/reserves');
                 }
             });
 

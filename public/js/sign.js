@@ -25,6 +25,7 @@ $('#signin-form').submit(function(event)
         {
             if(parseInt(result) === 1)
             {
+                console.log(result);
                 window.location = window.location.href;
             }
             else if(parseInt(result) === 2){

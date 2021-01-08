@@ -8,6 +8,7 @@ const commentController = require('../../controllers/commentController');
 router.get('/cart/:productID/increase', cartsController.increaseNumofProducts);
 router.get('/cart/:productID/decrease', cartsController.decreaseNumofProducts);
 router.get('/cart/:productID/remove', cartsController.removeProduct);
+router.get('/cart/:productID/reserve', cartsController.reserveProduct);
 
 router.get('/products', productsController.indexAPI);
 

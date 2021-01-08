@@ -1,30 +1,38 @@
-<div class="text-center user-avatar">
-    <img src="{{avatar}}" class="avatar img-circle" alt="avatar" id="avatar" >
-    <h6>Ảnh đai diện</h6>
-    <label class="btn btn-xs btn-info"><input type="file" class="form-control" name="avatar" id="imgInp" accept="image/*" hidden>
-        Đổi Avatar</label>
-</div>
-<h3>Thông tin tài khoản</h3>
+{{#with account}}
+    <form action="/users/save" method="post" enctype="multipart/form-data">
+        <div class="text-center user-avatar">
+            <img src="{{avatar}}" class="avatar img-circle" alt="avatar" id="avatar" >
+            <h6>Ảnh đai diện</h6>
+            <label class="btn btn-xs btn-info"><input type="file" class="form-control" name="avatar" id="imgInp" accept="image/*" hidden>
+                Đổi Avatar</label>
+        </div>
+        <h3>Thông tin tài khoản</h3>
+        <br>
 
-<div class="row form-group">
-    <div class="col-xs-1 col-sm-1"><label for="email">Tên</label></div>
-    <div class="col-xs-11 col-sm-11">
-        <input type="text" name="name" class="form-control" value="{{name}}">
-    </div>
-</div>
-<div class="row form-group">
-    <div class="col-xs-1 col-sm-1"><label for="email">Email</label></div>
-    <div class="col-xs-11 col-sm-11">
-        <input type="text" name="email" class="form-control" value="{{email}}" disabled>
-    </div>
-</div>
-<div class="card-footer">
-    <button type="button" class="btn btn-primary btn-sm pull-right" id="change-password-button">Đổi mật khẩu</button>
-</div>
-<br>
-<div class="card-footer d-flex justify-content-around">
-    <button type="submit" class="btn btn-info btn-sm pull-right">
-        <i class="fa fa-dot-circle-o"></i> Lưu
-    </button>
-    <a href="/"><button type="button" class="btn btn-danger btn-sm pull-right">Do not save</button></a>
-</div>
+        <div class="row form-group">
+            <div class="col-xs-1 col-sm-1"><label for="email">Tên</label></div>
+            <div class="col-xs-11 col-sm-11">
+                <input type="text" name="name" class="form-control" value="{{name}}">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-1 col-sm-1"><label for="email">Email</label></div>
+            <div class="col-xs-11 col-sm-11">
+                <input type="text" name="email" class="form-control" value="{{email}}" disabled>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary btn-sm pull-right" id="change-password-button">Đổi mật khẩu</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="card-footer d-flex justify-content-around">
+            <button type="submit" class="btn btn-info btn-sm pull-right">
+                <i class="fa fa-dot-circle-o"></i> Lưu
+            </button>
+            <a href="/"><button type="button" class="btn btn-danger btn-sm pull-right">Huỷ</button></a>
+        </div>
+        <br>
+    </form>
+{{/with}}

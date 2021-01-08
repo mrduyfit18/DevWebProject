@@ -5,12 +5,14 @@ const usersController = require('../controllers/usersController');
 router.get('/orders/:id', usersController.getOrderDetail);
 
 router.post('/save', usersController.saveProfileChange);
-router.get('/', usersController.edit);
+router.get('/edit', usersController.edit);
 
 router.post('/change-password', usersController.changePassword);
 
 
-router.all('/orders', usersController.getOrders);
+router.get('/orders', usersController.getOrders);
+
+router.get('/reserves', usersController.getReserves);
 
 
 

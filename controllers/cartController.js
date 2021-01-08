@@ -1,5 +1,10 @@
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
 const guestsCartServices = require('../models/guestsCartServices');
 const orderServices = require('../models/orderServices');
+const reserves = require('../models/mongooseModels/reservedProducts');
+
 
 exports.addToCart = async (req, res, next) => {
     let cart;
@@ -80,6 +85,15 @@ exports.removeProduct = async (req, res, next) => {
         await orderServices.removeProduct(cartID, productID);
         res.json('OK');
     }
+}
+
+exports.reserveProduct = async (req, res, next) => {
+    const productID = req.params.productID;
+    const userID = req.user._id;
+    const cartID = res.locals.cart._id;
+    await orderServices.removeProduct(cartID, productID);
+    await reserves.findOneAndUpdate({'user_id': ObjectId(userID), 'product_id': ObjectId(productID)},{},{upsert: true, new: true});
+    res.json('OK');
 }
 
 exports.mergeCart = async (req, userID) =>{

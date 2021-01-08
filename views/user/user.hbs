@@ -1,7 +1,7 @@
-{{#with account}}
-<form action="/users/save" method="post" enctype="multipart/form-data">
+
+
 <div class="container">
-    <h3 style="margin-top: 100px">Xin chào {{name}}</h3>
+    <h3 style="margin-top: 100px">Xin chào {{user.name}}</h3>
     <hr>
     <div class="row">
         <!-- left column -->
@@ -10,15 +10,17 @@
                 <button type="button" onclick="userMenu_click(this);" data-id="1" class="btn btn-default active" style="border: none !important;">
                     <i class="ion-person pull-left"> </i><b class="pull-left">&emsp;&emsp; Thông tin tài khoản</b></button>
                 <button type="button" onclick="userMenu_click(this);" data-id="2" class="btn btn-default" style="border: 0 !important;">
-                      <i class="ion-location pull-left"></i><b class="pull-left">&emsp;&emsp;&nbsp; Sổ địa chỉ</b></button>
-                <button type="button" onclick="userMenu_click(this);" data-id="3" class="btn btn-default" style="border: 0 !important;">
                     <i class="ion-android-cart pull-left"></i><b class="pull-left">&emsp;&emsp; Sản phẩm mua sau</b></button>
-                <button type="button" onclick="userMenu_click(this);" data-id="4" class="btn btn-default" style="border: 0 !important;">
+                <button type="button" onclick="userMenu_click(this);" data-id="3" class="btn btn-default" style="border: 0 !important;">
                     <i class="ion-android-menu pull-left"></i><b class="pull-left">&emsp;&emsp; Quản lý đơn hàng</b></button>
             </div>
         </div>
         <!-- edit form column -->
+
         <div class="col-xs-12 col-md-9 personal-info" id="user-content">
+        {{#if account}}
+        {{#with account}}
+        <form action="/users/save" method="post" enctype="multipart/form-data">
             <div class="text-center user-avatar">
                 <img src="{{avatar}}" class="avatar img-circle" alt="avatar" id="avatar" >
                 <h6>Ảnh đai diện</h6>
@@ -44,19 +46,75 @@
                <button type="button" class="btn btn-primary btn-sm pull-right" id="change-password-button">Đổi mật khẩu</button>
             </div>
             <br>
+            <br>
+            <br>
             <div class="card-footer d-flex justify-content-around">
                 <button type="submit" class="btn btn-info btn-sm pull-right">
                     <i class="fa fa-dot-circle-o"></i> Lưu
                 </button>
-                <a href="/"><button type="button" class="btn btn-danger btn-sm pull-right">Do not save</button></a>
+                <a href="/"><button type="button" class="btn btn-danger btn-sm pull-right">Huỷ</button></a>
             </div>
             <br>
+        </form>
+        {{/with}}
+        {{/if}}
+        {{#if orders}}
+            <h3 style="margin-top: 0 !important">Đơn hàng của tôi</h3>
+            <br>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Ngày mua</th>
+                    <th>Sản phẩm</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each orders}}
+                    <tr>
+                        <th scope="row"><a href="/users/orders/{{_id}}">{{_id}}</a></th>
+                        <td>{{convertDate dateModified}}</td>
+                        <td>
+                            {{#each listProducts}}
+                                <p>{{productID.name}}</p>
+                            {{/each}}
+                        </td>
+                        <td>{{convertPrice (orderPrice this)}}</td>
+                        <td>{{status}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        {{/if}}
+        {{#if products}}
+            <h3 style="margin-top: 0 !important;">Sản phẩm mua sau</h3>
+            <br>
+            <table class="table white">
+                <tbody>
+                {{#each products}}
+                    <tr>
+                        <th scope="row"><img src="{{product_id.cover}}" class="avatar"/></th>
+                        <td>
+                            <a href="/store/{{product_id._id}}">{{product_id.name}}</a>
+                            <p><i>{{product_id.type}}</i></p>
+                            <p>Hãng sản xuất: {{product_id.manufacturer_id.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{convertPrice product_id.basePrice}}</p>
+                            <button class="btn btn-primary btn-sm rounded" id="{{_id}}" onclick="addToCart_Click(this)"> <i class="ion-bag"></i> Thêm vào giỏ</button>
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        {{/if}}
         </div>
     </div>
 </div>
 <hr>
-</form>
-{{/with}}
+
 <div class="modal fade" id="Modal-Change-Password" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

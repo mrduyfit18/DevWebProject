@@ -7,6 +7,7 @@ const mailSender = require('../emailUtils/nodemailer');
 const usersModel = require('../models/usersModel');
 const tokenModel = require('../models/tokenModel');
 const orderServices = require('../models/orderServices');
+const reserves = require('../models/mongooseModels/reservedProducts');
 
 const adminAccount = require('../storageserver-b4fd7-firebase-adminsdk-o7qpl-3939aaef50.json');
 
@@ -55,8 +56,13 @@ exports.Signup = async (req, res, next) => {
 exports.edit = async (req, res, next) => {
     const userID = req.user._id;
     const account = await usersModel.getAccount(userID);
-    res.render('user/user', {account});
-
+    const isAjax = req.query.ajax;
+    if(isAjax) {
+        res.render('user/info', {layout: false, account});
+    }
+    else{
+        res.render('user/user', {account});
+    }
 }
 
 exports.saveProfileChange = async (req, res, next) => {
@@ -132,7 +138,13 @@ exports.recoverPassword = async (req, res, next) => {
 exports.getOrders = async (req, res, next) => {
     const userID = req.user._id;
     const orders = await orderServices.getOrdersOfUser(userID);
-    res.render('user/orders', {layout: false, orders});
+    const isAjax = req.query.ajax;
+    if(isAjax) {
+        res.render('user/orders', {layout: false, orders});
+    }
+    else{
+        res.render('user/user', {orders});
+    }
 }
 
 exports.getOrderDetail = async (req, res, next) => {
@@ -140,4 +152,21 @@ exports.getOrderDetail = async (req, res, next) => {
     const order = await orderServices.getOrder(orderID);
     console.log(order);
     res.render('user/orderDetail', {order});
+}
+
+exports.getReserves = async (req, res, next) => {
+    const userID = req.user._id;
+    const products = await reserves.find({'user_id': userID}).populate({
+        path : 'product_id',
+        populate : {
+            path : 'manufacturer_id'
+        }
+    });
+    const isAjax = req.query.ajax;
+    if(isAjax) {
+        res.render('user/reservedProducts', {layout: false, products});
+    }
+    else{
+        res.render('user/user', {products});
+    }
 }

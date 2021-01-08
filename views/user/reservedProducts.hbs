@@ -1,0 +1,21 @@
+
+    <h3 style="margin-top: 0 !important;">Sản phẩm mua sau</h3>
+    <br>
+    <table class="table white">
+        <tbody>
+        {{#each products}}
+            <tr>
+                <th scope="row"><img src="{{product_id.cover}}" class="avatar"/></th>
+                <td>
+                    <a href="/store/{{product_id._id}}">{{product_id.name}}</a>
+                    <p><i>{{product_id.type}}</i></p>
+                    <p>Hãng sản xuất: {{product_id.manufacturer_id.name}}</p>
+                </td>
+                <td>
+                    <p>{{convertPrice product_id.basePrice}}</p>
+                    <button class="btn btn-primary btn-sm rounded" id="{{_id}}" onclick="addToCart_Click(this)"> <i class="ion-bag"></i> Thêm vào giỏ</button>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>

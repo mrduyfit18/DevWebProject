@@ -1,5 +1,6 @@
 //Remove
 $('.cart').on('click', 'a[href="#remove"]', function(){
+    event.preventDefault();
     const productID =  $(this).parents('.controls').find('.input-group').data('id');
     const path = '/api/cart/' + productID +'/remove';
     const number = parseInt($(this).parents('.controls').find('.input-group').find('input').val());
@@ -16,7 +17,28 @@ $('.cart').on('click', 'a[href="#remove"]', function(){
     });
 
 });
+
+//reserve
+
 //Remove
+$('.cart').on('click', 'a[href="#reserve"]', function(){
+    event.preventDefault();
+    const productID =  $(this).parents('.controls').find('.input-group').data('id');
+    const path = '/api/cart/' + productID +'/reserve';
+
+    $.getJSON(path, (data) =>{
+        if(data==='OK') {
+            $(this).parents('.media').fadeOut('300');
+            $('.cart-num').text(parseInt($('.cart-num')[0].textContent) - number )
+        }
+        else{
+            alert(data);
+            window.location = window.location.origin+'/store';
+        }
+    });
+
+});
+
 
 //Count
 $('.cart').on('click', '.input-group button[data-action="plus"]', async function(){

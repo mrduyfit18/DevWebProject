@@ -43,15 +43,24 @@
                         {{#each listProducts}}
                             <tr>
                                 <td>
+                                    <img src="{{productID.cover}}" class="avatar"/>
                                     <a href="/store/{{productID._id}}">{{productID.name}}</a>
                                     <p><i>{{productID.type}}</i></p>
                                     <p>Hãng sản xuất: {{productID.manufacturer_id.name}}</p>
                                 </td>
                                 <td>{{convertPrice productID.basePrice}}</td>
-                                <td>{{productID.name}}</td>
+                                <td>{{number}}</td>
                                 <td>{{convertPrice (multiply number productID.basePrice)}}</td>
                             </tr>
                         {{/each}}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <h6 style="margin-top: 0 !important">Tổng tiền:</h6>
+                            </td>
+                            <td>{{convertPrice (orderPrice this)}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 {{/with}}
