@@ -37,7 +37,10 @@ exports.submit = async (req, res, next) => {
     const userID = req.user._id;
     const mainContact = req.user.contacts.find(s => s.isMain === true );
     const orderID = res.locals.cart._id;
-    await orderServices.checkout(orderID);
+    const totalCost = await res.locals.cart.listProducts.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.number * currentValue.productID.basePrice
+        , 0 );
+    await orderServices.checkout(orderID, totalCost);
     await orderServices.createCart(userID, mainContact._id);
     res.send('OK');
 }

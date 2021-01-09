@@ -76,8 +76,8 @@ exports.createCart = async (userID, contactID) => {
     await orders.create({user_id: userID, contact_id: contactID, status: 'cart', dateModified: new Date()});
 }
 
-exports.checkout = async (orderID) => {
-    await orders.findByIdAndUpdate(ObjectId(orderID), {'$set': {'status': 'processing', 'dateModified': new Date()}});
+exports.checkout = async (orderID, totalCost) => {
+    await orders.findByIdAndUpdate(ObjectId(orderID), {'$set': {'status': 'processing', 'dateModified': new Date(), 'totalCost': totalCost}});
 }
 
 exports.getOrdersOfUser = async (userID) => {
