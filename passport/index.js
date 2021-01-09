@@ -39,7 +39,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.APP_DOMAIN_LOCAL + 'signin/google/callback'    //APP_DOMAIN_LOCAL if run local
+        callbackURL: process.env.APP_DOMAIN + 'signin/google/callback'    //APP_DOMAIN_LOCAL if run local
     },
     async function(accessToken, refreshToken, profile, done) {
         const user = await userService.findOrCreate( profile);

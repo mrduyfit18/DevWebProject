@@ -12,7 +12,7 @@ exports.sendActiveMail = async (account) => {
         from: process.env.ADMIN_EMAIL,
         to: account.email,
         subject: 'Kích hoạt tài khoản',
-        html: '<p>Chào ' + account.name + '! Bạn vừa đăng ký tài khoản tại PC Trading. Nhấn vào đây' + '<a href="' +process.env.APP_DOMAIN_LOCAL + 'active/' + account._id + '"> Link</a> sau để kích hoạt tài khoản</p>'
+        html: '<p>Chào ' + account.name + '! Bạn vừa đăng ký tài khoản tại PC Trading. Nhấn vào đây' + '<a href="' +process.env.APP_DOMAIN + 'active/' + account._id + '"> Link</a> sau để kích hoạt tài khoản</p>'
     }
     transporter.sendMail(mainOptions, function(err, info){
         if (err) {

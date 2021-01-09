@@ -53,7 +53,7 @@ function prevCmts_Click(){
     });
 }
 
-const myVar = setInterval(myTimer, 20000);
+const myVar = setInterval(myTimer, 15000);
 
 function myTimer() {
     const Page = $('#curPage').data('id');
