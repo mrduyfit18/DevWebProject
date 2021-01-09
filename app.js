@@ -172,9 +172,6 @@ hbs.registerHelper('orderPrice', function (cart) {
 hbs.registerHelper('convertTime', function (date) {
     const currentDate = new Date();
     const second = (currentDate - date)/1000;
-    console.log(date);
-    console.log(currentDate);
-    console.log(second);
     if(second < 60) {
         return 'vừa xong';
     }

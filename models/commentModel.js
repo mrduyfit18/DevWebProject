@@ -4,23 +4,16 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const comment = require('./mongooseModels/comments')
 
-exports.listCmt = async (id) => {
-    return comment.find({'product_id' :ObjectId(id)});
+exports.listCmt = async (id, page) => {
+    return comment.paginate({'product_id' :ObjectId(id)}, {limit: 3, page:page, sort:{'date':-1}, new: true});
 };
 
-exports.addComment = async (req, id) => {
-    let name;
-    console.log(req.session.name);
-    if(req.session._id){
-        name =req.session.user.name;
-    }
-    else{
-        name = req.body.name;
-    }
+exports.addComment = async (name, content, productID) => {
+
     let newComment = ({
         name : name,
-        product_id : ObjectId(req.body.productID),
-        content : req.body.content,
+        product_id : ObjectId(productID),
+        content : content,
         date : new Date()
     });
 

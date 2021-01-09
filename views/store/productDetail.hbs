@@ -51,7 +51,7 @@
                     <p class="price through">${{basePrice}}</p>
                     <hr class="offset-md">
 
-                    <button class="btn btn-primary rounded"> <i class="ion-bag"></i> Add to cart</button>
+                    <button class="btn btn-primary rounded" id="{{_id}}" onclick="addToCart_Click(this)"> <i class="ion-bag"></i> Thêm vào giỏ</button>
                     <button class="btn btn-link"> <i class="ion-ios-heart"></i> See later </button>
                 </div>
             </div>
@@ -143,25 +143,31 @@
                     <p class="">Whatsuping now with our manager</p>
                     <hr class="offset-md">
 
-                    <a href="tel:+80005554465" class="btn btn-primary btn-sm"> <i class="ion-social-whatsapp"></i> 8000 555-44-65 </a>
-                    <hr class="offset-md visible-xs">
+                    <a href="tel:+80005554465" class="btn btn-primary btn-sm"> <i class="ion-social-whatsapp"></i> </a>
+                    <hr class="offset-md visible-xs"> 8000 555-44-65
                 </div>
                 <hr class="offset-sm hidden-xs">
                 <!--Comment-->
                 <input type="hidden" id="productId" value="{{_id}}">
-                <div class="comments white">
-                    <h2 class="h3">What do you think? (#3)</h2>
+                <div class="comments">
+                    <h2 class="h3">What do you think?</h2>
                     <br>
-
-                    <div class="wrapper">
-                        <div class="content" id="comment-content">
-                            {{#each ../cmts}}
-                                <h3>{{name}}</h3>
-                                <label>{{convertTime date}}</label>
-                                <p>
-                                    {{content}}
-                                </p>
-                            {{/each}}
+                    <div class="container-fluid" id="comment-container">
+                        <div class="wrapper" >
+                            <div class="content">
+                                {{#each ../cmts}}
+                                    <h3>{{name}}</h3>
+                                    <label>{{convertTime date}}</label>
+                                    <p>
+                                        {{content}}
+                                    </p>
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div class="align-center">
+                            <input hidden value="{{../page}}" id="curPage">
+                            <button id="prev" data-id="{{../prevPage}}" disabled class="btn btn-control"> <i class="ion-ios-arrow-left"></i></button>
+                            <button id="next" data-id="{{../nextPage}}" onclick="nextCmts_Click();" class="btn btn-control"> <i class="ion-ios-arrow-right"></i></button>
                         </div>
                     </div>
 
@@ -211,7 +217,7 @@
                             <hr class="offset-sm">
 
                             <a href="./store/{{_id}}" ><button class="btn btn-link"> <i class="ion-android-open"></i> Chi tiết</button></a>
-                            <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Thêm vào giỏ</button>
+                            <button class="btn btn-primary btn-sm rounded" id="{{_id}}" onclick="addToCart_Click(this)"> <i class="ion-bag"></i> Thêm vào giỏ</button>
                         </div>
                     </div>
                 </div>
@@ -219,8 +225,3 @@
         </div>
     </div>
 </section>
-<script type="text/x-handlebars" id="new-comment-template">
-    <h3>\{{name}}</h3>
-    <label>\{{convertTime date}}</label>
-    <p>\{{content}}</p>
-</script>

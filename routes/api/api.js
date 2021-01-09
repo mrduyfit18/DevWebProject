@@ -20,5 +20,6 @@ router.post('/contacts/add', checkoutController.addAddress);
 
 router.post('/addComment', commentController.addComment);
 
+router.get('/change-page', commentController.getComment);
 
 module.exports = router;

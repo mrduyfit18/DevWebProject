@@ -90,15 +90,23 @@ function createPagination(pagination, req){
 
 }
 
+async function getComment(id){
+    let res = {};
+    const pagination = await commentModel.listCmt(id);
+    createPagination(pagination);
+    res.pagination=pagination;
 
+    return res;
+}
 
 exports.Show = async (req, res, next) => {
     const productID = req.params._id;
     const product = await productsModel.getProduct(productID);
     const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type, 4);
     const imageCount = product.productImages.length + 1;
-    const comments = await commentModel.listCmt(productID);
-    res.render('store/productDetail', {product, Products: relatedProducts, imageCount, cmts : comments});
+    const comments = await commentModel.listCmt(productID, 1);
+    res.render('store/productDetail', {product, Products: relatedProducts, imageCount,
+        cmts : comments.docs, nextPage: comments.nextPage, page: comments.page});
 };
 
 async function getProducts (req) {
