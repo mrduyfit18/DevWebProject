@@ -51,7 +51,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL:  'https://devwebproject.herokuapp.com/signin/facebook/callback'
+        callbackURL:  process.env.APP_DOMAIN+'signin/facebook/callback'
     },
     async function(accessToken, refreshToken, profile, done) {
         const user = await userService.findOrCreate( profile);
