@@ -16,6 +16,11 @@ passport.use(new LocalStrategy({usernameField: 'email',},
         else if(user === -1){
             return done(null, false, { message: 'Mật khẩu không chính xác!!' });
         }
+        else if(user.status === 'inactive'){
+            return done(null, false, { message: 'Tài khoản của bạn chưa được kích hoạt, Vui lòng kiểm tra Email' });
+        } else if(user.status === 'blocked'){
+            return done(null, false, { message: 'Tài khoản của bạn đã bị khoá' });
+        }
         return done(null, user);
     }
 ));

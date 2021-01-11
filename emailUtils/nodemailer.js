@@ -29,7 +29,7 @@ exports.sendForgotPasswordMail = async (account, token) => {
         from: process.env.ADMIN_EMAIL,
         to: account.email,
         subject: 'Khôi phục mật khẩu',
-        html: '<p>Chào ' + account.name + '! Để khôi phục lại mật khẩu, nhấn vào' + '<a href="' +process.env.APP_DOMAIN_LOCAL + 'recover/' + account.email + '?token='+ token +'"> đây</a></p>'
+        html: '<p>Chào ' + account.name + '! Để khôi phục lại mật khẩu, nhấn vào' + '<a href="' +process.env.APP_DOMAIN + 'recover/' + account.email + '?token='+ token +'"> đây</a></p>'
     }
     transporter.sendMail(mainOptions, function(err, info){
         if (err) {
