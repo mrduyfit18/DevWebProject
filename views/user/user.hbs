@@ -7,11 +7,11 @@
         <!-- left column -->
         <div class="col-xs-12 col-md-3" style="margin-bottom: 15px;">
             <div class="btn-group-vertical" role="group" aria-label="First group">
-                <button type="button" onclick="userMenu_click(this);" data-id="1" class="btn btn-default active" style="border: none !important;">
-                    <i class="ion-person pull-left"> </i><b class="pull-left">&emsp;&emsp; Thông tin tài khoản</b></button>
-                <button type="button" onclick="userMenu_click(this);" data-id="2" class="btn btn-default" style="border: 0 !important;">
+                <button type="button" onclick="userMenu_click(this);" data-id="1" class="btn btn-default {{#if account}}active{{/if}}" style="border: none !important;">
+                    <i class="ion-person pull-left"> </i><b class="pull-left ">&emsp;&emsp; Thông tin tài khoản</b></button>
+                <button type="button" onclick="userMenu_click(this);" data-id="2" class="btn btn-default {{#if products}}active{{/if}}" style="border: 0 !important;">
                     <i class="ion-android-cart pull-left"></i><b class="pull-left">&emsp;&emsp; Sản phẩm mua sau</b></button>
-                <button type="button" onclick="userMenu_click(this);" data-id="3" class="btn btn-default" style="border: 0 !important;">
+                <button type="button" onclick="userMenu_click(this);" data-id="3" class="btn btn-default {{#if orders}}active{{/if}}" style="border: 0 !important;">
                     <i class="ion-android-menu pull-left"></i><b class="pull-left">&emsp;&emsp; Quản lý đơn hàng</b></button>
             </div>
         </div>
@@ -103,7 +103,7 @@
                         </td>
                         <td>
                             <p>{{convertPrice product_id.basePrice}}</p>
-                            <button class="btn btn-primary btn-sm rounded" id="{{_id}}" onclick="addToCart_Click(this)"> <i class="ion-bag"></i> Thêm vào giỏ</button>
+                            <button class="btn btn-primary btn-sm rounded" id="{{product_id._id}}" onclick="addToCart_Click(this)"> <i class="ion-bag"></i> Thêm vào giỏ</button>
                         </td>
                     </tr>
                 {{/each}}

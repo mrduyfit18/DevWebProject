@@ -9,7 +9,6 @@ const details = require('./mongooseModels/orderDetails');
 const contacts = require('./mongooseModels/contacts');
 
 exports.moveGuestCartToOrder = async (guestCartID, userID) => {
-    const mainContact = await contacts.findOne({'user_id': userID, 'isMain': true});
     const cart = await guestsCarts.findById(guestCartID);
     const userCart = await orders.findOneAndUpdate({'user_id': userID, 'status': 'cart'},
         {'$set': {'dateModified': new Date()}},
@@ -17,9 +16,10 @@ exports.moveGuestCartToOrder = async (guestCartID, userID) => {
     let listProducts = [];
     if(cart && cart.listProducts) {
         for (let product of cart.listProducts) {
-            await listProducts.push({product_id: product.productID, number: product.number, order_id: userCart._id});
+            await details.updateOne({'product_id': product.productID, 'order_id': userCart._id},
+                {'$inc': { 'number': product.number }},
+                {upsert: true, new: true});
         }
-        await details.insertMany(listProducts);
     }
     else{
         // do nothing
@@ -77,7 +77,7 @@ exports.createCart = async (userID, contactID) => {
 }
 
 exports.checkout = async (orderID, totalCost) => {
-    await orders.findByIdAndUpdate(ObjectId(orderID), {'$set': {'status': 'processing', 'dateModified': new Date(), 'totalCost': totalCost}});
+    await orders.findByIdAndUpdate(ObjectId(orderID), {'$set': {'status': 'đang xử lý', 'dateModified': new Date(), 'totalCost': totalCost}});
 }
 
 exports.getOrdersOfUser = async (userID) => {

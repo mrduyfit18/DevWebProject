@@ -94,12 +94,16 @@ app.use('/users', function (req, res, next) {
 app.use('/recover', function (req, res, next) {
     if(!req.query.token){
         const notification = 'Yêu cầu không hợp lệ!!';
-        return res.render('notification', {notification});
+        return res.render('notification', { notification});
     }
     next();
 })
 
 
+app.get('/signout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
 
 app.use('/recover', recoverRouter);
 app.use('/forgot-password', forgotPasswordRouter);

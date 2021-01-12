@@ -70,3 +70,8 @@ exports.Search = async (text) => {
         { 'name': { "$regex": text, "$options": "i" } }
     );
 }
+
+exports.getRelatedProduct = async (manufacturer, id) =>{
+
+    return Products.find({'manufacturer_id': manufacturer, '_id': { '$ne': id}}).limit(4);
+}

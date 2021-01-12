@@ -5,10 +5,9 @@
             <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"><i class="ion-person"></i>  Xin chào {{user.name}}!</a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/users/edit"> Tài khoản của tôi</a></li>
-                <li><a class="dropdown-item" href="/signin/logout"> Đăng xuất </a></li>
+                <li><a class="dropdown-item" href="/signout"> Đăng xuất </a></li>
             </ul>
         </div>
-        <a href="/favorites"> <i class="ion-ios-heart"></i> Favorites </a>
     {{else}}
         <a data-toggle="modal" data-target="#Modal-SignIn"> <i class="ion-unlocked"></i> Đăng nhập</a>
         <a data-toggle="modal" data-target="#Modal-Registration"> <i class="ion-person"></i> Đăng ký</a>

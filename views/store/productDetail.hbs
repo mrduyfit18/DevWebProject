@@ -47,12 +47,10 @@
                     <hr class="offset-sm visible-sm">
                     <hr class="offset-xs visible-sm">
 
-                    <p class="price">$2 999.00</p>
-                    <p class="price through">${{basePrice}}</p>
+                    <p class="price">{{convertPrice basePrice}}</p>
                     <hr class="offset-md">
 
                     <button class="btn btn-primary rounded" id="{{_id}}" onclick="addToCart_Click(this)"> <i class="ion-bag"></i> Thêm vào giỏ</button>
-                    <button class="btn btn-link"> <i class="ion-ios-heart"></i> See later </button>
                 </div>
             </div>
         </div>
@@ -70,16 +68,16 @@
                 </p>
                 <br>
 
-                <h2>Product specifications</h2>
+                <h2>Cấu hình chi tiết</h2>
                 <br>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Operating system</label> </div>
+                    <div class="col-sm-4"> <label>Hệ điều hành</label> </div>
                     <div class="col-sm-8"> <p>{{{OS}}}</p> </div>
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Display</label> </div>
+                    <div class="col-sm-4"> <label>Màn hình</label> </div>
                     <div class="col-sm-8">
                         <p>
                             {{{display}}}
@@ -88,7 +86,7 @@
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Processor</label> </div>
+                    <div class="col-sm-4"> <label>Vi xử lý</label> </div>
                     <div class="col-sm-8">
                         <p>{{{processor}}}</p>
                     </div>
@@ -96,22 +94,22 @@
 
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Graphics</label> </div>
+                    <div class="col-sm-4"> <label>Card dồ hoạ</label> </div>
                     <div class="col-sm-8"> <p>{{{graphics}}}</p> </div>
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Memory</label> </div>
+                    <div class="col-sm-4"> <label>RAM</label> </div>
                     <div class="col-sm-8"> <p>{{{memory}}}</p> </div>
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Storage</label> </div>
+                    <div class="col-sm-4"> <label>Ổ cứng</label> </div>
                     <div class="col-sm-8"> <p>{{{storage}}}</p> </div>
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Ethernet</label> </div>
+                    <div class="col-sm-4"> <label>LAN</label> </div>
                     <div class="col-sm-8"> <p>{{{ethernet}}}</p> </div>
                 </div>
 
@@ -130,7 +128,7 @@
                 </div>
 
                 <div class="row specification">
-                    <div class="col-sm-4"> <label>Power supply</label> </div>
+                    <div class="col-sm-4"> <label>Nguồn/Pin</label> </div>
                     <div class="col-sm-8"> <p>{{{power}}}</p> </div>
                 </div>
 
@@ -139,9 +137,7 @@
             </div>
             <div class="col-sm-5 no-padding-xs">
                 <div class="talk white">
-                    <h2 class="h3">Do you have any questions?</h2>
-                    <p class="">Whatsuping now with our manager</p>
-                    <hr class="offset-md">
+                    <h2 class="h3">Liên hệ hỗ trợ</h2>
 
                     <a href="tel:+80005554465" class="btn btn-primary btn-sm"> <i class="ion-social-whatsapp"></i> </a>
                     <hr class="offset-md visible-xs"> 8000 555-44-65
@@ -150,7 +146,7 @@
                 <!--Comment-->
                 <input type="hidden" id="productId" value="{{_id}}">
                 <div class="comments">
-                    <h2 class="h3">What do you think?</h2>
+                    <h2 class="h3">Hỏi đáp</h2>
                     <br>
                     <div class="container-fluid" id="comment-container">
                         <div class="wrapper" >
@@ -187,7 +183,7 @@
                             </div>
                             <div class="right-side">
                                 <button type="button" id="add-new-comment"
-                                class="button-secondary pure-button">Send Comment</button>
+                                class="button-secondary pure-button">Bình luận</button>
                             </div>
                         </div>
                     </form>
@@ -212,7 +208,7 @@
                         <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
                         <a href="/store/{{_id}}"><img src="{{cover}}" alt="{{manufacturer}} {{name}}"/></a>
                         <div class="content align-center">
-                            <p class="price">${{basePrice}}</p>
+                            <p class="price">{{convertPrice basePrice}}</p>
                             <h2 class="h3">{{name}}</h2>
                             <hr class="offset-sm">
 

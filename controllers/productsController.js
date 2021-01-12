@@ -102,7 +102,7 @@ async function getComment(id){
 exports.Show = async (req, res, next) => {
     const productID = req.params._id;
     const product = await productsModel.getProduct(productID);
-    const relatedProducts = await productsModel.getProductByTypeAndNumber(product.type, 4);
+    const relatedProducts = await productsModel.getRelatedProduct(product.manufacturer_id, product._id);
     const imageCount = product.productImages.length + 1;
     const comments = await commentModel.listCmt(productID, 1);
     res.render('store/productDetail', {product, Products: relatedProducts, imageCount,

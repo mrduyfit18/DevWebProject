@@ -20,7 +20,6 @@ $('.cart').on('click', 'a[href="#remove"]', function(){
 
 //reserve
 
-//Remove
 $('.cart').on('click', 'a[href="#reserve"]', function(){
     event.preventDefault();
     const productID =  $(this).parents('.controls').find('.input-group').data('id');
@@ -79,7 +78,11 @@ $('.cart').on('click', '.input-group button[data-action="minus"]', function(){
 
 function addToCart_Click (thisButton) {
     const productID = thisButton.id;
-    $.getJSON('/api/add-to-cart?productID='+ productID, (data) =>{
+    let url = '/api/add-to-cart?productID='+ productID;
+    if(window.location.pathname.includes('users')){
+        url += '&delete=1'
+    }
+    $.getJSON(url, (data) =>{
         renderCart(data);
     })
 }

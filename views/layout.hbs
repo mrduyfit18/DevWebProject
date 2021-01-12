@@ -104,7 +104,7 @@
             currency: 'VND',
             minimumFractionDigits: 0,
         });
-        return moneyFormatter2.format(index).replace(/\s/g, '');
+        return moneyFormatter2.format(index);
     });
     Handlebars.registerHelper('totalProducts', function (cart) {
         if(cart) {

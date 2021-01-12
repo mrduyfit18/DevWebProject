@@ -18,6 +18,9 @@ exports.addToCart = async (req, res, next) => {
     }
     else{
         const productID = req.query.productID;
+        if(req.query.delete){
+            await reserves.findOneAndDelete({'user_id': req.user._id, 'product_id': productID});
+        }
         cart = await orderServices.addToCart(res.locals.cart._id, productID);
     }
     await res.json(cart);
