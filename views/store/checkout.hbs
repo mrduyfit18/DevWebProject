@@ -8,72 +8,82 @@
 
 <div class="container checkout">
 
-        <div class="row">
-            <div class="col-xs-12 white">
-                <div class="row group">
-                    <div class="col-sm-12"><h2 class="h4"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#00a1b4" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                    </svg> Địa chỉ nhận hàng</h2></div>
+    <div class="row">
+        <div class="col-xs-12 white">
+            <div class="row group">
+                <div class="col-sm-12">
+                    <h2 class="h4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#00a1b4"
+                             class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                        </svg>
+                        Địa chỉ nhận hàng
+                    </h2>
                 </div>
-                {{#if user.contacts}}
-                {{#each user.contacts}}
-                {{#if isMain}}
-                <div class="row" data-id="{{_id}}" id="contact-div">
-                    <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
-                        <h5>{{../user.name}}</h5>
-                        <h5 id="phone-number">{{phone}}</h5>
-                    </div>
-                    <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
-                        <p id="summary-address">{{address}}</p>
-                        <button id="ChangeAddress-Button">Sửa</button>
-                    </div>
-                {{/if}}
-                {{/each}}
-                {{else}}
-                <div class="row" data-id="" id="contact-div">
-                    <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
-                        <h5>{{user.name}}</h5>
-                        <h5 id="phone-number"></h5>
-                    </div>
-                    <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
-                        <p id="summary-address"></p>
-                        <button id="ChangeAddress-Button">Sửa</button>
-                    </div>
-                {{/if}}
-
-                </div>
-
-
-                <hr class="offset-lg visible-xs visible-sm">
-                <hr class="offset-lg visible-xs">
             </div>
+            {{#if user.contacts}}
+                {{#each user.contacts}}
+                    {{#if user.isMain}}
+                    <div class="row" data-id="{{_id}}" id="contact-div">
+                        <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
+                            <h5>{{../user.name}}</h5>
+                            <h5 id="phone-number">{{phone}}</h5>
+                        </div>
+                        <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
+                            <p id="summary-address">{{address}}</p>
+                            <button id="ChangeAddress-Button">Sửa</button>
+                        </div>
+                    </div>
+                    {{/if}}
+                {{/each}}
+            {{else}}
+            <div class="row" data-id="" id="contact-div">
+                <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
+                    <h5>{{user.name}}</h5>
+                    <h5 id="phone-number"></h5>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
+                    <p id="summary-address"></p>
+                    <button id="ChangeAddress-Button">Sửa</button>
+                </div>
+            </div>
+            {{/if}}
 
-            <div class="col-xs-12 mt-5 mb-5"><p>               <br></p></div>
+        </div>
+
+
+            <hr class="offset-lg visible-xs visible-sm">
+            <hr class="offset-lg visible-xs">
+        </div>
+
+            <div class="col-xs-12 mt-5 mb-5"><p><br></p></div>
 
             <div class="col-xs-12 white">
                 <hr class="offset-md visible-xs visible-sm">
                 <div class="checkout-cart">
                     <div class="content">
                         {{#with cart}}
-                        {{#each listProducts}}
-                        <div class="media">
-                            {{#with productID}}
-                            <div class="media-left">
-                                <a href="#">
-                                    <img class="media-object" src="{{cover}}" alt="iPad Air"/>
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h2 class="h4 media-heading">{{name}}</h2>
-                                <label>{{type}}</label>
-                                <p class="price">{{convertPrice basePrice}}</p>
-                            </div>
-                            {{/with}}
-                            <div class="controls">
-                                <label style="margin-top:30px;">Số lượng: <input type="text" value="{{number}}" readonly style="width:25px; text-align: center" ></label>
-                            </div>
-                        </div>
-                        {{/each}}
+                            {{#each listProducts}}
+                                <div class="media">
+                                    {{#with productID}}
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img class="media-object" src="{{cover}}" alt="iPad Air"/>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h2 class="h4 media-heading">{{name}}</h2>
+                                            <label>{{type}}</label>
+                                            <p class="price">{{convertPrice basePrice}}</p>
+                                        </div>
+                                    {{/with}}
+                                    <div class="controls">
+                                        <label style="margin-top:30px;">Số lượng: <input type="text" value="{{number}}"
+                                                                                         readonly
+                                                                                         style="width:25px; text-align: center"></label>
+                                    </div>
+                                </div>
+                            {{/each}}
                         {{/with}}
                     </div>
                 </div>
@@ -98,6 +108,7 @@
             </div>
 
         </div>
+    </div>
 </div>
 
 <div class="modal fade" id="Modal-Contact" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
