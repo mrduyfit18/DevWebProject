@@ -197,5 +197,10 @@ hbs.registerHelper('convertDate', function (date) {
     date = new Date((date.toLocaleString("en-US", {timeZone: 'Asia/Ho_Chi_Minh'})));
     return date.getDate()+ '/' + (date.getMonth()+1) + '/' +date.getFullYear();
 });
+hbs.registerHelper("eqOBJ", function(a, b, options) {
+    if (a.toString() === b.toString()) {
+        return options.fn(this);
+    }
+});
 
 module.exports = app;

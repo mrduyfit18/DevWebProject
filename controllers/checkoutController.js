@@ -16,17 +16,17 @@ exports.getAddresses = async (req, res, next) => {
 exports.changeAddress = async  (req, res, next) => {
     const newAddrID = req.body.id;
     const orderID = res.locals.cart._id;
-    const isMain = !(req.user.contacts === true);
-    const user_id = req.user._id;
-    await orderServices.updateAddress(orderID, newAddrID, isMain, user_id);
+    await orderServices.updateAddress(orderID, newAddrID);
     res.send('1');
 }
 
 exports.addAddress = async (req, res, next) => {
     const phoneNumber = req.body.phoneNumber;
     const address = req.body.address;
-    const isMain = !(req.user.contacts);
-    console.log(isMain);
+    let isMain = true;
+    if(req.user.contacts){
+        isMain = false;
+    }
     const newAddr = await contactsModel.create({address: address, user_id: req.user.id, phone: phoneNumber, isMain: isMain});
     if(isMain){
         const orderID = res.locals.cart._id;

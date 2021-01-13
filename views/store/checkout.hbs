@@ -21,33 +21,47 @@
                     </h2>
                 </div>
             </div>
-            {{#if user.contacts}}
-                {{#each user.contacts}}
-                    {{#if isMain}}
-                    <div class="row" data-id="{{_id}}" id="contact-div">
+            {{#if cart.contact_id}}
+                <div class="row" data-id="{{cart.contact_id._id}}" id="contact-div">
+                    <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
+                        <h5>{{user.name}}</h5>
+                        <h5 id="phone-number">{{cart.contact_id.phone}}</h5>
+                    </div>
+                    <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
+                        <p id="summary-address">{{cart.contact_id.address}}</p>
+                        <button id="ChangeAddress-Button">Sửa</button>
+                    </div>
+                </div>
+            {{else}}
+                {{#if user.contacts}}
+                    {{#each user.contacts}}
+                        {{#if isMain}}
+                            <div class="row" data-id="{{_id}}" id="contact-div">
+                                <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
+                                    <h5>{{../user.name}}</h5>
+                                    <h5 id="phone-number">{{phone}}</h5>
+                                </div>
+                                <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
+                                    <p id="summary-address">{{address}}</p>
+                                    <button id="ChangeAddress-Button">Sửa</button>
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/each}}
+                {{else}}
+                    <div class="row" data-id="" id="contact-div">
                         <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
-                            <h5>{{../user.name}}</h5>
-                            <h5 id="phone-number">{{phone}}</h5>
+                            <h5>{{user.name}}</h5>
+                            <h5 id="phone-number"></h5>
                         </div>
                         <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
-                            <p id="summary-address">{{address}}</p>
-                            <button id="ChangeAddress-Button">Sửa</button>
+                            <p id="summary-address"></p>
+                            <button id="ChangeAddress-Button">Thêm địa chỉ</button>
                         </div>
                     </div>
-                    {{/if}}
-                {{/each}}
-            {{else}}
-            <div class="row" data-id="" id="contact-div">
-                <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
-                    <h5>{{user.name}}</h5>
-                    <h5 id="phone-number"></h5>
-                </div>
-                <div class="col-xs-12 col-sm-7 col-md-7 checkout-address">
-                    <p id="summary-address"></p>
-                    <button id="ChangeAddress-Button">Thêm địa chỉ</button>
-                </div>
-            </div>
+                {{/if}}
             {{/if}}
+
 
         </div>
 
@@ -120,7 +134,7 @@
             </div>
             <div class="modal-body" id="Modal-Contact-Body">
                 {{#each user.contacts}}
-                <label class="contact"> <input type="radio" name="contact" value="{{_id}}" {{#if isMain}}checked{{/if}}>
+                <label class="contact"> <input type="radio" name="contact" value="{{_id}}" {{#eqOBJ _id ../cart.contact_id._id}} checked{{/eqOBJ}}>
                     &nbsp;&nbsp; <strong>{{phone}}</strong>&nbsp;&nbsp; <b>{{address}}</b></label><br><br>
                 {{/each}}
             </div>
