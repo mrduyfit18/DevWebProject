@@ -23,7 +23,7 @@ exports.changeAddress = async  (req, res, next) => {
 exports.addAddress = async (req, res, next) => {
     const phoneNumber = req.body.phoneNumber;
     const address = req.body.address;
-    const isMain = !(req.user.contact === true);
+    const isMain = !(req.user.contacts === true);
     const newAddr = await contactsModel.create({address: address, user_id: req.user.id, phone: phoneNumber, isMain: isMain});
     if(isMain){
         const orderID = res.locals.cart._id;

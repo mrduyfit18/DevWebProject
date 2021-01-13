@@ -33,7 +33,7 @@ $('#checkout-button').on("click",function(){
 
 $('#ChangeAddress-Button').on("click", function(){
 	$('#Modal-Contact').modal('show');
-})
+});
 
 $('input[type=radio][name=contact]').change(function() {
 	const selectedContact = $("input[type='radio'][name=contact]:checked").val();
