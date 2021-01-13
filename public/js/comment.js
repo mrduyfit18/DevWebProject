@@ -4,21 +4,29 @@ $('#add-new-comment').on("click", async  function (){
     const content = $('#new_comment_text').val();
     let id = $('#productId').val();
     const date = new Date();
-
-    await $.ajax({
-        url: '/api/addComment',
-        type: 'POST',
-        method: 'POST',
-        data:{
-            productID: id,
-            name: name,
-            content: content
-        },
-        success:function(result) {
-            $('#new_comment_text').val('');
-            $('#comment-container').html(result);
-        }
-    });
+    if(name.length === 0){
+        alert('Bạn cần điền tên để bình luận');
+    }
+    if(content.length === 0){
+        alert('Bạn cần điền bình luận');
+    }
+    if(name.length !== 0 && content.length !== 0)
+    {
+        await $.ajax({
+            url: '/api/addComment',
+            type: 'POST',
+            method: 'POST',
+            data:{
+                productID: id,
+                name: name,
+                content: content
+            },
+            success:function(result) {
+                $('#new_comment_text').val('');
+                $('#comment-container').html(result);
+            }
+        });
+    }
 });
 
 function nextCmts_Click(){
