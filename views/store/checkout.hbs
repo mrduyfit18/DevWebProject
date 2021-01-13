@@ -23,7 +23,7 @@
             </div>
             {{#if user.contacts}}
                 {{#each user.contacts}}
-                    {{#if user.isMain}}
+                    {{#if isMain}}
                     <div class="row" data-id="{{_id}}" id="contact-div">
                         <div class="col-xs-12 col-sm-5 col-md-5 checkout-info">
                             <h5>{{../user.name}}</h5>
