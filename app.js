@@ -14,6 +14,7 @@ const MemoryStore = require('memorystore')(session);
 const url = require('url');
 const cors = require('cors');
 
+
 const db = require('./DAL/loadDatabase');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
