@@ -10,6 +10,7 @@ const hbshelpers = require('handlebars-helpers');
 const helpers = hbshelpers();
 const session = require("express-session"),
     bodyParser = require("body-parser");
+const MemoryStore = require('memorystore')(session)
 const url = require('url');
 const cors = require('cors');
 
@@ -54,7 +55,15 @@ app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 //passport middleware
-app.use(session({ secret: process.env.SESSION_SECRET , cookie: { maxAge: 360000000 }, saveUninitialized: true, resave: true,})); //time live
+app.use(session({
+    secret: process.env.SESSION_SECRET ,
+    cookie: { maxAge: 360000000 },
+    store: new MemoryStore({
+        checkPeriod: 360000000
+    }),
+    saveUninitialized: true,
+    resave: false,
+})); //time live
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('public'))
