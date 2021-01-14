@@ -10,16 +10,16 @@
             <ul class="dropdown-menu">
                 <li class="active"><a href="javascript:;" class="sort-product" data-id="1"> <i class="ion-arrow-down-c"></i> Tên [A-Z]</a></li>
                 <li><a href="javascript:;" class="sort-product" data-id="2"> <i class="ion-arrow-up-c"></i> Tên [Z-A]</a></li>
-                <li><a href="javascript:;" class="sort-product" data-id="3"> <i class="ion-arrow-down-c"></i> Giá [Low-High]</a></li>
-                <li><a href="javascript:;" class="sort-product" data-id="4"> <i class="ion-arrow-up-c"></i> Giá [High-Low]</a></li>
+                <li><a href="javascript:;" class="sort-product" data-id="3"> <i class="ion-arrow-down-c"></i> Giá [Thấp-Cao]</a></li>
+                <li><a href="javascript:;" class="sort-product" data-id="4"> <i class="ion-arrow-up-c"></i> Giá [Cao-Thấp]</a></li>
             </ul>
         </div>
 
-        <p>Search by tags</p>
+        <p>Loại hàng</p>
         <form method="post" id="typeform">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default btn-sm {{#if Allcheck}} active{{/if}}">
-                    <input type="radio" name="Type" onchange="filterChange();" value="" checked > All products
+                    <input type="radio" name="Type" onchange="filterChange();" value="" checked > Tất cả
                 </label>
                 <label class="btn btn-default btn-sm {{#if Desktopscheck}}active{{/if}}">
                     <input type="radio" name="Type" onchange="filterChange();" value="Desktops"> Desktops
@@ -112,6 +112,12 @@
 
                         <div class="checkbox-group" data-status="inactive" >
                             <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label">Ryzen 3</div>
+                            <input type="checkbox" name="Processor" value='Ryzen 3'>
+                        </div>
+
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
                             <div class="label">Ryzen 5</div>
                             <input type="checkbox" name="Processor" value='Ryzen 5'>
                         </div>
@@ -158,6 +164,11 @@
                             <input type="checkbox" name="Memory" value="16GB">
                         </div>
 
+                        <div class="checkbox-group" data-status="inactive" >
+                            <div class="checkbox"><i class="ion-android-done"></i></div>
+                            <div class="label" data-value="11 in">32GB</div>
+                            <input type="checkbox" name="Memory" value="32GB">
+                        </div>
                     </div>
                 </div>
 

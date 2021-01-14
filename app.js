@@ -10,7 +10,7 @@ const hbshelpers = require('handlebars-helpers');
 const helpers = hbshelpers();
 const session = require("express-session"),
     bodyParser = require("body-parser");
-const MemoryStore = require('memorystore')(session)
+const MemoryStore = require('memorystore')(session);
 const url = require('url');
 const cors = require('cors');
 
@@ -161,7 +161,7 @@ hbs.registerHelper('convertPrice', function (index) {
       currency: 'VND',
       minimumFractionDigits: 0,
     });
-    return moneyFormatter2.format(index).replace(/\s/g, '');
+    return moneyFormatter2.format(index);
 });
 
 hbs.registerHelper('totalProducts', function (cart) {

@@ -81,6 +81,7 @@ function addToCart_Click (thisButton) {
     let url = '/api/add-to-cart?productID='+ productID;
     if(window.location.pathname.includes('users')){
         url += '&delete=1'
+        $(thisButton).parents().parents('tr').fadeOut('300');
     }
     $.getJSON(url, (data) =>{
         renderCart(data);
