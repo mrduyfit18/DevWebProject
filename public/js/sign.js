@@ -29,7 +29,7 @@ $('#signin-form').submit(function(event)
                 window.location = window.location.href;
             }
             else if(parseInt(result) === 2){
-                window.location = 'webdevmanage.herokuapp.com'
+                window.location = 'http://webdevmanage.herokuapp.com'
             }
             else
             {
