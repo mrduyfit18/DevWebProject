@@ -2,7 +2,7 @@
     <a href="tel:+80005554465" class="hidden-xs"> <i class="ion-android-call"></i> 8000 555-44-65 </a>
     {{#if user}}
         <div class="nav-item dropdown user">
-            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"><i class="ion-person"></i>  Xin chào {{user.name}}!</a>
+            <a class="nav-link  dropdown-toggle" id="account-info-nav" href="#" data-toggle="dropdown"><i class="ion-person"></i>  Xin chào {{user.name}}!</a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/users/edit"> Tài khoản của tôi</a></li>
                 <li><a class="dropdown-item" href="/signout"> Đăng xuất </a></li>
