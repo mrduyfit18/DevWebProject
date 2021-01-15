@@ -35,6 +35,7 @@ $(document).ready(function(){
 			$('.filter a[data-action="clear-price"]').on('click', function(){
 
 				$( ".filter #slider-price" ).slider({ values: [ 0, 100 ] });
+				filterChange();
 				$( ".filter #amount" ).html( $( ".filter #slider-price" ).slider( "values", 0 )  + " triệu  - " +
 			  	$( ".filter #slider-price" ).slider( "values", 1 ) + " triệu ");
 			});

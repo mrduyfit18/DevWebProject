@@ -62,7 +62,7 @@ exports.getProductByType = async (type) =>{
 
 exports.getProductByTypeAndNumber = async (type, number) =>{
     //const collection = database().collection('Products');
-    return  Products.find({'type': type }).limit(number);
+    return  Products.find({'type': type, 'state': { '$ne': 'hide'} }).limit(number);
 }
 
 exports.Search = async (text) => {
@@ -73,5 +73,5 @@ exports.Search = async (text) => {
 
 exports.getRelatedProduct = async (manufacturer, id) =>{
 
-    return Products.find({'manufacturer_id': manufacturer, '_id': { '$ne': id}}).limit(4);
+    return Products.find({'manufacturer_id': manufacturer, '_id': { '$ne': id} , 'state': { '$ne': 'hide'}}).limit(4);
 }
