@@ -24,7 +24,7 @@ exports.addAddress = async (req, res, next) => {
     const phoneNumber = req.body.phoneNumber;
     const address = req.body.address;
     let isMain = true;
-    if(req.user.contacts){
+    if(req.user.contacts.length !== 0){
         isMain = false;
     }
     const newAddr = await contactsModel.create({address: address, user_id: req.user.id, phone: phoneNumber, isMain: isMain});
