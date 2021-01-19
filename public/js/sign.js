@@ -81,12 +81,12 @@ $('#signin-google').on("click",function(){
     const authenticateWindow = window.open("/signin/google", "", "width=500, height=700, top="+top+", left=" +left);
 })
 
-$(window).on("load",function(){
-    if(window.opener){
-        window.opener.location.reload();
-        window.close();
-    }
-})
+//$(window).on("load",function(){
+    //if(window.opener){
+      //  window.opener.location.reload();
+        //window.close();
+    //}
+//})
 
 $('#emailAuth').on('change', function(){
     $('#forgot-password-notification').html('');
